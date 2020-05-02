@@ -18,8 +18,13 @@
 日々の急ぎではないが伝えておきたい連絡事項、旅行などの思い出を日記として共有したい時
 
 ## 設計書　　
+ワイヤーフレーム　　
+管理者側　https://drive.google.com/file/d/1bs2TLRRCYRh8BKynu9FxKvl5-m52VaJM/view?usp=sharing　　
+ユーザー側　https://drive.google.com/file/d/1QtqbIVMuOkaYr_t0jD2t0uqw_NTB8OBe/view?usp=sharing　　
+　　
+ER図　https://drive.google.com/file/d/1qIn7UVMB6ErQEl2aqSzRtPXmVwWZBb21/view?usp=sharing
 
 ### 機能一覧　　
-<https://docs.google.com/spreadsheets/d/1UgK-6l38k5T81XjcTIn7CHnGRkB_sBXS5xQWAVhWmks/edit#gid=0>
+https://docs.google.com/spreadsheets/d/1hZQYMRX-gK7tf0u2Va29ZOamWvdQL_JKQU96qsnEXPE/edit#gid=0
 
 
