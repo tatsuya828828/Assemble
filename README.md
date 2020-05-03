@@ -15,7 +15,7 @@
 家族、学生、社会人
 
 ### 主な利用シーン
-日々の急ぎではないが伝えておきたい連絡事項、旅行などの思い出を日記として共有したい時
+日々の急ぎではないが伝えておきたい連絡事項、旅行などの思い出を日記として共有したい時。
 
 ## 設計書　　
 * ワイヤーフレーム
@@ -28,8 +28,19 @@
 * ER図
   
 　　https://drive.google.com/file/d/1qIn7UVMB6ErQEl2aqSzRtPXmVwWZBb21/view?usp=sharing
-
-### 機能一覧　　
+  
+  
+* テーブル定義書
+  
+　　https://docs.google.com/spreadsheets/d/1wgdqRpaaIk_NFXclSNIHferk6NOe_Bzi/edit#gid=1278772273
+  
+  
+* アプリケーション詳細設計
+  
+　　https://docs.google.com/spreadsheets/d/1Xs4Hn947ySbepbMICMISg7Lf338FrKpH/edit#gid=111042263
+  
+  
+### 機能一覧
 https://docs.google.com/spreadsheets/d/1hZQYMRX-gK7tf0u2Va29ZOamWvdQL_JKQU96qsnEXPE/edit#gid=0
 
 
