@@ -1,0 +1,2 @@
+class DiaryCommentsController < ApplicationController
+end
