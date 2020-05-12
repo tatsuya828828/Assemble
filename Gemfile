@@ -68,10 +68,10 @@ gem 'jquery-rails'
 gem 'pry-byebug'
 gem 'fullcalendar'
 gem 'rubocop'
-gem 'actioncable'
-gem "refile", require: "refile/rails", github: 'manfe/refile'
-gem "refile-mini_magick"
 gem 'dotenv-rails'
+gem 'enum_help'
+gem 'rails-i18n'
+
 group :production do
   gem 'mysql2'
 end
