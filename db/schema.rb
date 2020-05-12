@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_05_052408) do
+ActiveRecord::Schema.define(version: 2020_05_12_045903) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,22 +26,32 @@ ActiveRecord::Schema.define(version: 2020_05_05_052408) do
 
   create_table "diaries", force: :cascade do |t|
     t.integer "user_id"
+    t.integer "group_id"
     t.string "image_id"
     t.string "title", null: false
     t.text "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_diaries_on_group_id"
     t.index ["user_id"], name: "index_diaries_on_user_id"
   end
 
   create_table "diary_comments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "diary_id"
-    t.string "comment", null: false
+    t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["diary_id"], name: "index_diary_comments_on_diary_id"
     t.index ["user_id"], name: "index_diary_comments_on_user_id"
+  end
+
+  create_table "friends", force: :cascade do |t|
+    t.integer "sender_id"
+    t.integer "receiver_id"
+    t.integer "request_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "group_users", force: :cascade do |t|
@@ -55,6 +65,7 @@ ActiveRecord::Schema.define(version: 2020_05_05_052408) do
 
   create_table "groups", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "leader"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -62,7 +73,7 @@ ActiveRecord::Schema.define(version: 2020_05_05_052408) do
   create_table "memos", force: :cascade do |t|
     t.integer "user_id"
     t.integer "group_id"
-    t.string "body", null: false
+    t.string "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_memos_on_group_id"
@@ -71,9 +82,11 @@ ActiveRecord::Schema.define(version: 2020_05_05_052408) do
 
   create_table "messages", force: :cascade do |t|
     t.integer "user_id"
-    t.string "message", null: false
+    t.integer "group_id"
+    t.string "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_messages_on_group_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -83,6 +96,7 @@ ActiveRecord::Schema.define(version: 2020_05_05_052408) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "self_id", null: false
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
