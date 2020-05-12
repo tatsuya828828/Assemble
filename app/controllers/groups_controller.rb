@@ -11,7 +11,6 @@ class GroupsController < ApplicationController
   	if self_id.present?
   		group.self_id = self_id
   	end
-  	binding.pry
   	group.save
 
   	# グループを作成した後、作成したユーザーをグループに追加
@@ -22,6 +21,8 @@ class GroupsController < ApplicationController
   end
 
   def show
+  	@group = Group.find(params[:id])
+  	@memo = Memo.new
   end
 
   def edit
