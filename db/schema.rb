@@ -66,8 +66,11 @@ ActiveRecord::Schema.define(version: 2020_05_12_045903) do
   create_table "groups", force: :cascade do |t|
     t.string "name", null: false
     t.integer "leader"
+    t.string "self_id"
+    t.integer "private_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["self_id"], name: "index_groups_on_self_id", unique: true
   end
 
   create_table "memos", force: :cascade do |t|
@@ -103,6 +106,7 @@ ActiveRecord::Schema.define(version: 2020_05_12_045903) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["self_id"], name: "index_users_on_self_id", unique: true
   end
 
 end
