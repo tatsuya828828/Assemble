@@ -3,7 +3,7 @@ class CreateMemos < ActiveRecord::Migration[5.2]
     create_table :memos do |t|
       t.references :user,  foreign_key: true
       t.references :group, foreign_key: true
-      t.string :body
+      t.string 	   :body
 
       t.timestamps
     end
