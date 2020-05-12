@@ -22,7 +22,7 @@
   
 　　[管理者側](https://drive.google.com/file/d/1bs2TLRRCYRh8BKynu9FxKvl5-m52VaJM/view?usp=sharing)
   
-　　ユーザー側(https://drive.google.com/file/d/1QtqbIVMuOkaYr_t0jD2t0uqw_NTB8OBe/view?usp=sharing)
+　　[ユーザー側](https://drive.google.com/file/d/1QtqbIVMuOkaYr_t0jD2t0uqw_NTB8OBe/view?usp=sharing)
   
   
 * [ER図](https://drive.google.com/file/d/1qIn7UVMB6ErQEl2aqSzRtPXmVwWZBb21/view?usp=sharing)
