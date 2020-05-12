@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-sm" style="background-color: #FF4F02;">
+  <%= link_to 'Assemble', root_path, class: "navbar-brand theme-color", style: "font-size: 30px; font-family: cursive; font-weight: 900;" %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="ナビゲーションの切替">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <%= link_to 'ホーム', root_path, class: "nav-link theme-color" %>
+        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item active">
+            <%= link_to 'マイページ', user_path(current_user.id), class: "nav-link theme-color" %>
+          </li>
+          <li class="nav-item active">
+            <%= link_to '友達', user_friends_path(current_user.id), class: "nav-link theme-color" %>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle theme-color" href="#" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">グループ一覧</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown">
+              　<%= link_to '一覧ページへ', groups_path, style: "text-decoration: none; color: #FF4F02;" %>
+              <br>
+              <% current_user.groups.each do |group| %>
+              　<%= link_to group.name, group_path(group.id), style: "text-decoration: none; color: #FF4F02;" %>
+              <br>
+              <% end %>
+            </div>
+          </li>
+          <li class="nav-item active">
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link theme-color" %>
+          </li>
+        <% else %>
+          <li class="nav-item active">
+            <%= link_to 'ログイン', new_user_session_path, class: "nav-link theme-color" %>
+          </li>
+          <li class="nav-item active">
+            <%= link_to '新規登録(無料)', new_user_registration_path, class: "nav-link theme-color" %>
+          </li>
+        <% end %>
+      </ul>
+      <form class="form-inline my-2 my-md-0">
+        <input class="form-control" type="search" placeholder="検索..." aria-label="検索...">
+      </form>
+    </div>
+  </nav>
