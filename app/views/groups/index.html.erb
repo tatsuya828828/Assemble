@@ -1,2 +1,53 @@
-<h1>Groups#index</h1>
-<p>Find me in app/views/groups/index.html.erb</p>
+<div class="row">
+	<div class="col-md-9">
+		<table>
+			<tr>
+				<th>グループ名</th>
+				<th>ホスト</th>
+				<th>最新のメモ</th>
+			</tr>
+			<% current_user.groups.each do |group| %>
+				<tr>
+					<td>
+						<%= link_to group.name, group_path(group.id) %>
+					</td>
+					<!-- リーダーのidと一致するグループ内ユーザーを探してnameを表示 -->
+					<td>
+						<% group.users.each do |user| %>
+							<% if group.leader == user.id %>
+								<%= user.name %>
+							<% end %>
+						<% end %>
+					</td>
+					<!-- グループ内にメモが存在すれば最新のものを表示 -->
+					<% if group.memos.present? %>
+						<td>
+							<%= group.memos.last.body %>
+						</td>
+					<% end %>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+	<div class="col-md-3">
+		<h4>グループの追加</h4>
+		<%= form_for @group do |f| %>
+
+			<%= f.label :name, :グループ名 %>
+			<%= f.text_field :name, class: "form-control", placeholder: "グループ名" %>
+
+			<%= f.label :self_id, :グループID %>
+			<%= f.text_field :self_id, class: "form-control", placeholder: "グループID(任意)" %>
+
+			<%= f.radio_button :private_status, "closed", checked: "checked" %>
+			<%= f.label :private_status, :参加者以外公開しない %>
+			<br>
+			<%= f.radio_button :private_status, "open" %>
+			<%= f.label :private_status, :友人に公開する %>
+
+			<%= f.hidden_field :leader, value: current_user.id %>
+
+			<%= f.submit 'グループを作成する', class: "btn theme-color" %>
+		<% end %>
+	</div>
+</div>
