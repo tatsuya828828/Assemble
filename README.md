@@ -20,27 +20,21 @@
 ## 設計書　　
 * ワイヤーフレーム
   
-　　管理者側　https://drive.google.com/file/d/1bs2TLRRCYRh8BKynu9FxKvl5-m52VaJM/view?usp=sharing
+　　[管理者側](https://drive.google.com/file/d/1bs2TLRRCYRh8BKynu9FxKvl5-m52VaJM/view?usp=sharing)
   
-　　ユーザー側　https://drive.google.com/file/d/1QtqbIVMuOkaYr_t0jD2t0uqw_NTB8OBe/view?usp=sharing
-  
-  
-* ER図
-  
-　　https://drive.google.com/file/d/1qIn7UVMB6ErQEl2aqSzRtPXmVwWZBb21/view?usp=sharing
+　　ユーザー側(https://drive.google.com/file/d/1QtqbIVMuOkaYr_t0jD2t0uqw_NTB8OBe/view?usp=sharing)
   
   
-* テーブル定義書
-  
-　　https://docs.google.com/spreadsheets/d/1wgdqRpaaIk_NFXclSNIHferk6NOe_Bzi/edit#gid=1278772273
+* [ER図](https://drive.google.com/file/d/1qIn7UVMB6ErQEl2aqSzRtPXmVwWZBb21/view?usp=sharing)
   
   
-* アプリケーション詳細設計
+* [テーブル定義書](https://docs.google.com/spreadsheets/d/1wgdqRpaaIk_NFXclSNIHferk6NOe_Bzi/edit#gid=1278772273)
   
-　　https://docs.google.com/spreadsheets/d/1Xs4Hn947ySbepbMICMISg7Lf338FrKpH/edit#gid=111042263
+  
+* [アプリケーション詳細設計](https://docs.google.com/spreadsheets/d/1Xs4Hn947ySbepbMICMISg7Lf338FrKpH/edit#gid=111042263)
   
   
 ### 機能一覧
-https://docs.google.com/spreadsheets/d/1hZQYMRX-gK7tf0u2Va29ZOamWvdQL_JKQU96qsnEXPE/edit#gid=0
+[Assembleの機能](https://docs.google.com/spreadsheets/d/1hZQYMRX-gK7tf0u2Va29ZOamWvdQL_JKQU96qsnEXPE/edit#gid=0)
 
 
