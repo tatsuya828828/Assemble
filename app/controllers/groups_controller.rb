@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
 
   def index
-  	@group = Group.new
+  	@new_group = Group.new
   	@back = 'url(/assets/CorkBoard.png)'
 
   end
@@ -27,16 +27,29 @@ class GroupsController < ApplicationController
   	@side = params[:side]
   end
 
+  def edit
+  	@group = Group.find(params[:id])
+  end
+
   def update
   	group = Group.find(params[:id])
   	# グループIDを入力していた場合のみ値を保存
   	group.update(group_params)
   	if group.self_id == ""
   		group.update(self_id: nil)
-  		binding.pry
   	end
-  	
+
   	redirect_to group_path(group.id)
+  end
+
+  def destroy_confirm
+  	@group = Group.find(params[:group_id])
+  end
+
+  def destroy
+  	group = Group.find(params[:id])
+  	group.destroy
+  	redirect_to groups_path
   end
 
   private

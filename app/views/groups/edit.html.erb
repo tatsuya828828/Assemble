@@ -1,0 +1,40 @@
+<div class="row">
+	<div class="offset-md-4" style="margin: 0 auto;">
+		<%= form_for @group do |f| %>
+
+			<div class="form-group">
+				<%= f.label :name, :グループ名 %>
+				<br>
+				<%= f.text_field :name, autofocus: true, placeholder: @group.name, class: "form-control", required: true %>
+			</div>
+
+			<div class="form-group">
+				<%= f.label :leader, :ホスト %>
+				<br>
+				<%= f.select :leader, @group.users.collect{|user| [user.name, user.id]},{}, class: "form-control" %>
+			</div>
+
+			<div class="form-group">
+				<%= f.label :self_id, :グループID %>
+				<br>
+				<% if @group.self_id.nil? %>
+					<%= f.text_field :self_id, placeholder: "グループID(任意)", class: "form-control" %>
+				<% else %>
+					<%= f.text_field :self_id, placeholder: @group.self_id, class: "form-control" %>
+				<% end %>
+			</div>
+
+			<div class="form-group">
+				<%= f.radio_button :private_status, "closed" %>
+				<%= f.label :private_status, :参加者以外後悔しない %>
+			</div>
+
+			<div class="form-group">
+				<%= f.radio_button :private_status, "open" %>
+				<%= f.label :private_status, :友人に公開する %>
+			</div>
+			<%= f.submit '変更する', class: "btn theme-color form-control" %>
+			<%= link_to '削除する', group_destroy_confirm_path(@group), class: "btn btn-danger form-control" %>
+		<% end %>
+	</div>
+</div>

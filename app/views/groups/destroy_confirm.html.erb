@@ -1,0 +1,13 @@
+<div class="row">
+	<div class="offset-md-4" style="margin: 0 auto;">
+		<div class="row" style="height: 200px;">
+		</div>
+		<h2>本当に削除しますか？</h2>
+		<p>削除すると、このグループの情報が全て消えてしまいますが本当によろしいですか？</p>
+		<br>
+		<%= link_to '削除する',group_path(@group),method: :delete, class: "btn btn-danger form-control offset-md-3 col-md-6" %>
+
+		<%= link_to 'やめる', group_path(@group), class: "btn btn-primary form-control offset-md-3 col-md-6" %>
+
+	</div>
+</div>
