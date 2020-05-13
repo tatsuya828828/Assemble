@@ -1,0 +1,43 @@
+<div class="row" style="margin: 0 auto">
+	<div class="offset-md-4">
+	</div>
+	<div class="col-md-4">
+		<div class="row">
+			<h3><%= "'#{@word}'の検索結果" %></h3>
+		</div>
+
+		<% if @range == "グループID" %>
+			<div class="row">
+				<p>グループイメージ</p>
+			</div>
+			<div class="row">
+				グループ名:　<%= @group.name %>
+			</div>
+			<div class="row">
+				グループのホスト:　<%= link_to @leader.name, user_path(@leader.id) %>
+			</div>
+			<div class="row">
+				<%= link_to '参加申請を送る', root_path, class: "btn theme-color form-control" %>
+			</div>
+
+		<% else %>
+			<div class="row">
+				<p>ユーザーイメージ</p>
+			</div>
+			<div class="row">
+				<%= "ユーザー名:　#{@user.name}" %>
+			</div>
+			<div class="row">
+				<%= form_with url: user_friends_path(user_id: current_user.id), local: true do |f| %>
+
+					<%= f.hidden_field :sender_id,      value: current_user.id %>
+					<%= f.hidden_field :receiver_id, 	  value: @user.id %>
+					<%= f.hidden_field :request_status, value: "waiting_for_allow" %>
+
+					<%= f.submit '友達申請を送る',class: "btn theme-color form-control" %>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+</div>
+
