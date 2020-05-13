@@ -2,14 +2,15 @@ class GroupsController < ApplicationController
 
   def index
   	@group = Group.new
+  	@back = 'url(/assets/CorkBoard.png)'
+
   end
 
   def create
-  	self_id = params[:self_id]
   	group = Group.new(group_params)
   	# グループIDを入力していた場合のみ値を保存
-  	if self_id.present?
-  		group.self_id = self_id
+  	if group.self_id == ""
+  		group.self_id = nil
   	end
   	group.save
 
@@ -23,15 +24,25 @@ class GroupsController < ApplicationController
   def show
   	@group = Group.find(params[:id])
   	@memo = Memo.new
+  	@side = params[:side]
   end
 
-  def edit
+  def update
+  	group = Group.find(params[:id])
+  	# グループIDを入力していた場合のみ値を保存
+  	group.update(group_params)
+  	if group.self_id == ""
+  		group.update(self_id: nil)
+  		binding.pry
+  	end
+  	
+  	redirect_to group_path(group.id)
   end
 
   private
 
   def group_params
-  	params.require(:group).permit(:name, :leader, :private_status)
+  	params.require(:group).permit(:name, :leader, :private_status, :self_id)
   end
 
 end

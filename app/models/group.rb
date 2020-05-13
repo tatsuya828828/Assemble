@@ -11,7 +11,7 @@ class Group < ApplicationRecord
 	#================================================
 	enum private_status: { closed: 0, open: 1 }
 
-	validates :name, presence: true
-	validates :leader,presence: true
+	validates :name, 		   presence: true
+	validates :leader, 		   presence: true
 	validates :private_status, presence: true
 end

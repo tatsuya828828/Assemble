@@ -1,38 +1,81 @@
 <div class="row">
-	<div class="col-md-3">
+	<div class="col-md-2">
 	</div>
-	<div class="col-md-9">
-		<div class="row" style="height: 500px; border: 1px solid; overflow:auto; padding:10px;">
-			<% @group.memos.each do |memo| %>
-				<div class="col-md-4 toast" role="alert" aria-live="assertive" aria-atomic="true">
-					<div class="toast-header theme-color">
-						<img class="rounded mr-2" src="..." alt="">
-						<strong class="mr-auto"><%= memo.user.name %></strong>
-    					<span style="float: right; margin-right: 5px;">
-    						<%= link_to 'x', group_memo_path(group_id: memo.group_id, id:memo.id), method: :delete, remote: true, style: "text-decoration: none; color: #fff" %>
-    					</span>
-    				</div>
-    				<div class="toast-body" style="border: 1px solid #FF4F02; height: 88px; padding: 5px; word-wrap: break-word; overflow:auto;">
-						<%= memo.body %>
-					</div>
-				</div>
-			<% end %>
-			
-			<div class="col-md-4 toast" role="alert" aria-live="assertive" aria-atomic="true">
-				<%= form_with(model:[@group,@memo]) do |f| %>
-					<div class="toast-header theme-color">
-						<img class="rounded mr-2" src="..." alt="">
-						<strong class="mr-auto"><%= current_user.name %></strong>
-						<%= f.submit '作成',class: "theme-color", style: "float: right; height: 20px; border: 0;" %>
-    				</div>
-    				<div class="toast-body" style=" border: 1px solid #FF4F02; height: 88px;">
-    					<%= f.hidden_field :group_id, value: @group.id %>
-    					<%= f.hidden_field :user_id, value: current_user.id %>
-    					
-    					<%= f.text_area :body, placeholder: "メモ", class: "form-control", cols: 40, rows: 3 %>
+	<div class="col-md-7">
+		<div style="
+			height: 350px;
+			padding: 40px;
+			border-radius: 5px;
+			background: url(/assets/CorkBoard.png) 0 0 no-repeat;
+			background-size: 100% auto;
+			padding-bottom: calc(100%*1365/2048);
+			background-position: center;">
+
+			<div class="row" style="
+				margin: 0 auto;
+				overflow: auto;
+				width: 100%;
+				height: 300px;
+				border: 1px solid;">
+
+				<% @group.memos.each do |memo| %>
+
+					<div class="col-md-4 toast" role="alert" aria-live="assertive" aria-atomic="true">
+						<div class="toast-header theme-color" style="margin-top: 10px;">
+							<img class="rounded mr-2" src="..." alt="">
+							<strong class="mr-auto"><%= memo.user.name %></strong>
+    						<span style="float: right; margin-right: 5px;">
+    							<%= link_to 'x', group_memo_path(group_id: memo.group_id, id:memo.id), method: :delete, remote: true, style: "text-decoration: none; color: #fff" %>
+    						</span>
+    					</div>
+
+    					<div class="toast-body" style="
+    						border: 1px solid #FF4F02;
+    						height: 88px;
+    						padding: 5px;
+    						word-wrap: break-word;
+    						overflow:auto;
+    						background-color: #fff;">
+
+							<%= memo.body %>
+
+						</div>
 					</div>
 				<% end %>
+
+				<div class="col-md-4 toast" role="alert" aria-live="assertive" aria-atomic="true">
+					<%= form_with(model:[@group,@memo]) do |f| %>
+
+						<div class="toast-header theme-color" style="margin-top: 10px;">
+							<img class="rounded mr-2" src="..." alt="">
+						<%= f.submit '貼る',class: "theme-color", style: "float: right; height: 20px; border: 0;" %>
+    					</div>
+    					<div class="toast-body" style=" border: 1px solid #FF4F02; height: 88px;">
+    						<%= f.hidden_field :group_id, value: @group.id %>
+    						<%= f.hidden_field :user_id, value: current_user.id %>
+
+    						<%= f.text_area :body, autofocus: true, placeholder: "メモ", class: "form-control", rows: 3, required: true %>
+						</div>
+
+					<% end %>
+				</div>
 			</div>
 		</div>
+	</div>
+	<div class="col-md-3" style="
+		padding-left: 43px;
+		overflow: auto;">
+
+		<div class="row" style="
+			height: 300px;
+			padding: 10px;">
+
+			<% @group.users.each do |user| %>
+
+				<%= user.name %>
+
+			<% end %>
+		</div>
+		<%= render "edit" %>
 	</div>
 </div>

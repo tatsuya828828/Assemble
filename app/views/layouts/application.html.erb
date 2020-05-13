@@ -8,13 +8,22 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
+  
   <body>
-    <header style="margin-bottom: 50px;">
+    <header>
       <%= render 'layouts/user_header' %>
     </header>
-    <div class="container">
-      <%= yield %>
-    </div>
+    <% if @back.present? %>
+    <div style="
+      background: <%= @back %>;
+      background-size: 100% auto;
+      padding-bottom: calc(100%*1365/2048);">
+    <% end %>
+      <div class="container" style="padding-top: 50px;">
+        <%= yield %>
+      </div>
+    <% if @back.present? %>
+      </div>
+    <% end %>
   </body>
 </html>

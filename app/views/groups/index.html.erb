@@ -34,7 +34,7 @@
 		<%= form_for @group do |f| %>
 
 			<%= f.label :name, :グループ名 %>
-			<%= f.text_field :name, class: "form-control", placeholder: "グループ名" %>
+			<%= f.text_field :name, class: "form-control", placeholder: "グループ名", required: true %>
 
 			<%= f.label :self_id, :グループID %>
 			<%= f.text_field :self_id, class: "form-control", placeholder: "グループID(任意)" %>

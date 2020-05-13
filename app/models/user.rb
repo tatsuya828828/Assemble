@@ -14,4 +14,8 @@ class User < ApplicationRecord
   has_many :memos, dependent: :destroy
   #========================================================
   
+
+  validates :name,presence: true
+  validates :self_id, presence: true
+
 end
