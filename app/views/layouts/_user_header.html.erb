@@ -27,6 +27,18 @@
               <% end %>
             </div>
           </li>
+          <% if @group.present? %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle theme-color" href="#" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= @group.name %></a>
+              <div class="dropdown-menu" aria-labelledby="dropdown">
+              　<%= link_to '参加ユーザー', group_users_path(@group), style: "text-decoration: none; color: #FF4F02;" %>
+                <br>
+              　<%= link_to 'ユーザーの追加', group_new_user_path(@group), style: "text-decoration: none; color: #FF4F02;" %>
+                <br>
+              　<%= link_to 'グループの編集', edit_group_path(@group), style: "text-decoration: none; color: #FF4F02;" %>
+              </div>
+            </li>
+          <% end %>
           <li class="nav-item active">
             <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link theme-color" %>
           </li>
