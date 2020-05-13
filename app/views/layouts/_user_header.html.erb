@@ -10,12 +10,25 @@
           <%= link_to 'ホーム', root_path, class: "nav-link theme-color" %>
         </li>
         <% if user_signed_in? %>
+
           <li class="nav-item active">
             <%= link_to 'マイページ', user_path(current_user.id), class: "nav-link theme-color" %>
           </li>
-          <li class="nav-item active">
-            <%= link_to '友達', user_friends_path(current_user.id), class: "nav-link theme-color" %>
+
+          <!---------- 友達関連のプルダウン  --------->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle theme-color" href="#" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">友達</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown">
+            　<%= link_to '友達一覧', user_friends_path(user_id: current_user.id, status: "friend"), style: "text-decoration: none; color: #FF4F02;" %>
+              <br>
+            　<%= link_to '受け取った申請', user_friends_path(user_id: current_user.id, status: "waiting_user"), style: "text-decoration: none; color: #FF4F02;" %>
+              <br>
+            　<%= link_to '承認待ち', user_friends_path(user_id: current_user.id, status: "wait_self"), style: "text-decoration: none; color: #FF4F02;" %>
+            </div>
           </li>
+          <!--------------------------------------->
+
+          <!-- 自分が参加しているグループのプルダウン -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle theme-color" href="#" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">グループ一覧</a>
             <div class="dropdown-menu" aria-labelledby="dropdown">
@@ -27,6 +40,10 @@
               <% end %>
             </div>
           </li>
+          <!-------------------------------------->
+
+
+          <!-- グループページのみ表示するプルダウン  -->
           <% if @group.present? %>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle theme-color" href="#" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= @group.name %></a>
@@ -39,6 +56,9 @@
               </div>
             </li>
           <% end %>
+          <!-------------------------------------->
+
+
           <li class="nav-item active">
             <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link theme-color" %>
           </li>
@@ -51,8 +71,14 @@
           </li>
         <% end %>
       </ul>
-      <form class="form-inline my-2 my-md-0">
-        <input class="form-control" type="search" placeholder="検索..." aria-label="検索...">
-      </form>
+
+
+      <%= form_with url: searches_path, method: :get, local: true do |f| %>
+        <div class="row">
+          <%= f.text_field :word, placeholder: "ID検索", required: true, class: "form-control col-md-6" %>
+          <%= select_tag :range, options_for_select([["グループID"],["ユーザーID"]]), class: "form-control col-md-4", style: "color: #FF4F02;" %>
+          <%= f.submit '検索', class: "btn col-md-2", style: "background-color: #fff; color: #FF4F02;" %>
+        </div>
+      <% end %>
     </div>
   </nav>
