@@ -7,7 +7,7 @@ class Friend < ApplicationRecord
 
 
 	#===== 申請する前を0、申請した後を1、承認されて友達になった後を2と設定して状態を分ける =====
-	enum request_status: {unfriend: 0, waiting_for_allow: 1, friend: 2}
+	enum request_status: {waiting_for_allow: 0, friend: 1}
 	#================================================================================
 
 

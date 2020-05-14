@@ -34,9 +34,11 @@
             <div class="dropdown-menu" aria-labelledby="dropdown">
               　<%= link_to '一覧ページへ', groups_path, style: "text-decoration: none; color: #FF4F02;" %>
               <br>
-              <% current_user.groups.each do |group| %>
-              　<%= link_to group.name, group_path(group.id), style: "text-decoration: none; color: #FF4F02;" %>
-              <br>
+              <% current_user.group_users.each do |group_user| %>
+                <% if group_user.join_status == "joined" %>
+                　<%= link_to group_user.group.name, group_path(group_user.group_id), style: "text-decoration: none; color: #FF4F02;" %>
+                <br>
+                <% end %>
               <% end %>
             </div>
           </li>
@@ -48,9 +50,9 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle theme-color" href="#" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= @group.name %></a>
               <div class="dropdown-menu" aria-labelledby="dropdown">
-              　<%= link_to '参加ユーザー', group_users_path(@group), style: "text-decoration: none; color: #FF4F02;" %>
+              　<%= link_to '参加ユーザー', group_users_path(group_id: @group, status: "joined"), style: "text-decoration: none; color: #FF4F02;" %>
                 <br>
-              　<%= link_to 'ユーザーの追加', group_new_user_path(@group), style: "text-decoration: none; color: #FF4F02;" %>
+              　<%= link_to '受け取った申請', group_users_path(group_id: @group, status: "waiting_user"), style: "text-decoration: none; color: #FF4F02;" %>
                 <br>
               　<%= link_to 'グループの編集', edit_group_path(@group), style: "text-decoration: none; color: #FF4F02;" %>
               </div>
@@ -72,7 +74,7 @@
         <% end %>
       </ul>
 
-
+      <div class="side-space">
       <%= form_with url: searches_path, method: :get, local: true do |f| %>
         <div class="row">
           <%= f.text_field :word, placeholder: "ID検索", required: true, class: "form-control col-md-6" %>
@@ -80,5 +82,6 @@
           <%= f.submit '検索', class: "btn col-md-2", style: "background-color: #fff; color: #FF4F02;" %>
         </div>
       <% end %>
+      </div>
     </div>
   </nav>

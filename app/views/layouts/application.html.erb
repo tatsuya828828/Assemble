@@ -16,10 +16,11 @@
     <% if @back.present? %>
     <div style="
       background: <%= @back %>;
-      background-size: 100% auto;
+      background-size: cover;
+      background-position: center;
       padding-bottom: calc(100%*1365/2048);">
     <% end %>
-      <div class="container" style="padding-top: 50px;">
+      <div class="container-fruid table-responsive" style="padding-top: 50px;">
         <%= yield %>
       </div>
     <% if @back.present? %>

@@ -1,4 +1,4 @@
-<div class="row" style="margin: 0 auto">
+<div class="row side-space">
 	<div class="offset-md-4">
 	</div>
 	<div class="col-md-4">
@@ -17,10 +17,15 @@
 				グループのホスト:　<%= link_to @leader.name, user_path(@leader.id) %>
 			</div>
 			<div class="row">
-				<%= link_to '参加申請を送る', root_path, class: "btn theme-color form-control" %>
+				<%= form_with url: group_join_user_path(group_id: @group.id), local: true do |f| %>
+					<%= f.hidden_field :user_id, value: current_user.id %>
+					<%= f.hidden_field :group_id, value: @group.id %>
+					<%= f.hidden_field :join_status, value: "waiting_for_allow" %>
+					<%= f.submit '参加申請を送る', class: "btn theme-color form-control" %>
+				<% end %>
 			</div>
 
-		<% else %>
+		<% elsif @range == "ユーザーID" %>
 			<div class="row">
 				<p>ユーザーイメージ</p>
 			</div>
@@ -37,7 +42,8 @@
 					<%= f.submit '友達申請を送る',class: "btn theme-color form-control" %>
 				<% end %>
 			</div>
+		<% else %>
+			<p>見つかりませんでした</p>
 		<% end %>
 	</div>
 </div>
-

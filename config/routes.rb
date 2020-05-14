@@ -36,10 +36,11 @@ Rails.application.routes.draw do
     get 'destroy_confirm', to: 'groups#destroy_confirm'
 
     #====== グループユーザー ==============================
-    get    '/:group_id/group_users',     to: 'group_users#index',   as: 'users'
-    get    '/:group_id/group_users/new', to: 'group_users#new',     as: 'new_user'
-    post   '/:group_id/group_users',     to: 'group_users#create',  as: 'create_user'
-    delete '/:group_id/group_users/:id', to: 'group_users#destroy', as: 'destroy_user'
+    get    'group_users',     to: 'group_users#index',   as: 'users'
+    post   'group_users',     to: 'group_users#create',  as: 'join_user'
+    put    'group_users/:id', to: 'group_users#update',  as: 'user'
+    patch  'group_users/:id', to: 'group_users#update'
+    delete 'group_users/:id', to: 'group_users#destroy', as: 'destroy_user'
     #====================================================
 
 

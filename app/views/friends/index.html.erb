@@ -1,78 +1,82 @@
 <div class="row">
-	<div class="col-md-8">
-		<div class="row">
-			<h3><%= "#{@title}一覧" %></h3>
+	<div class="col-md-3 side-space">
+		<div>
+			<% if @user.present? %>
+				<div class="row">
+					<p>ユーザーイメージ</p>
+				</div>
+				<div class="row">
+					ユーザー名:　<%= link_to @user.name, user_path(@user) %>
+				</div>
+				<div class="row">
+					<%= link_to '詳細を見る', user_path(@user), class: "btn theme-color form-control" %>
+				</div>
+				<% if @status == "wait_self" %>
+					<div class="row">
+						<%= link_to '取り消す', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-danger form-control" %>
+					</div>
+				<% elsif @status == "waiting_user" %>
+					<div class="row">
+						<%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: @friend, status: "waiting_user"), method: :patch, class: "btn theme-color form-control" %>
+					</div>
+					<div class="row">
+						<%= link_to '拒否する', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-danger form-control" %>
+					</div>
+				<% else %>
+					<div class="row">
+						<%= link_to '削除する', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-danger form-control" %>
+					</div>
+				<% end %>
+			<% end %>
 		</div>
-		<table>
-			<tr>
-				<th>プロフィール画像</th>
-				<th>ユーザー名</th>
-			</tr>
-			<% @users.each do |user| %>
-
-				<tr>
-					<!-- 承認待ち -->
-					<% if @status == "wait_self" %>
-						<td></td>
-						<td>
-							<%= link_to user.receiver.name, user_friends_path(user_id: current_user.id, user: user.receiver_id, id: user.id, status: @status) %>
-						</td>
-						<td>
-							<%= link_to '取り消す', user_friend_path(user_id: current_user.id, id: user.id, status: "wait_self"), method: :delete, remote: true, class: "btn btn-danger form-control" %>
-						</td>
-
-					<!-- 受け取った申請 -->
-					<% elsif @status == "waiting_user" %>
-						<td></td>
-						<td>
-							<%= link_to user.sender.name, user_friends_path(user_id: user.sender_id, user: user.sender_id, id: user.id, status: @status) %>
-						</td>
-						<td>
-							<%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: user.id, status: "waiting_user"), method: :patch, class: "btn theme-color form-control" %>
-						</td>
-						<td>
-							<%= link_to '拒否する', user_friend_path(user_id: current_user.id, id: user.id), method: :delete, remote: true, class: "btn btn-danger form-control" %>
-						</td>
-					<% else %>
-						<td></td>
-						<td>
-							<%= link_to user.receiver.name, user_friends_path(user_id: user.sender_id, user: user.receiver_id, id: user.id, status: @status) %>
-						</td>
-						<td>
-							<%= link_to '削除する', user_friend_path(user_id: current_user.id, id: user.id), method: :delete, remote: true, class: "btn btn-danger form-control" %>
-						</td>
-					<% end %>
-				</tr>
-			<% end %>
-		</table>
 	</div>
-	<div class="col-md-4">
-		<% if @user.present? %>
+	<div class="col-md-6 side-space">
+		<div>
 			<div class="row">
-				<p>ユーザーイメージ</p>
+				<h3><%= "#{@title}一覧" %></h3>
 			</div>
-			<div class="row">
-				ユーザー名:　<%= link_to @user.name, user_path(@user) %>
-			</div>
-			<div class="row">
-				<%= link_to '詳細を見る', user_path(@user), class: "btn theme-color form-control" %>
-			</div>
-			<% if @status == "wait_self" %>
-				<div class="row">
-					<%= link_to '取り消す', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-danger form-control" %>
-				</div>
-			<% elsif @status == "waiting_user" %>
-				<div class="row">
-					<%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: @friend, status: "waiting_user"), method: :patch, class: "btn theme-color form-control" %>
-				</div>
-				<div class="row">
-					<%= link_to '拒否する', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-danger form-control" %>
-				</div>
-			<% else %>
-				<div class="row">
-					<%= link_to '削除する', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-danger form-control" %>
-				</div>
-			<% end %>
-		<% end %>
+			<table>
+				<tr>
+					<th>プロフィール画像</th>
+					<th>ユーザー名</th>
+				</tr>
+				<% @users.each do |user| %>
+
+					<tr>
+						<!-- 承認待ち -->
+						<% if @status == "wait_self" %>
+							<td></td>
+							<td>
+								<%= link_to user.receiver.name, user_friends_path(user_id: current_user.id, user: user.receiver_id, id: user.id, status: @status) %>
+							</td>
+							<td>
+								<%= link_to '取り消す', user_friend_path(user_id: current_user.id, id: user.id, status: "wait_self"), method: :delete, remote: true, class: "btn btn-danger form-control" %>
+							</td>
+
+						<!-- 受け取った申請 -->
+						<% elsif @status == "waiting_user" %>
+							<td></td>
+							<td>
+								<%= link_to user.sender.name, user_friends_path(user_id: user.sender_id, user: user.sender_id, id: user.id, status: @status) %>
+							</td>
+							<td>
+								<%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: user.id, status: "waiting_user"), method: :patch, class: "btn theme-color form-control" %>
+							</td>
+							<td>
+								<%= link_to '拒否する', user_friend_path(user_id: current_user.id, id: user.id), method: :delete, remote: true, class: "btn btn-danger form-control" %>
+							</td>
+						<% else %>
+							<td></td>
+							<td>
+								<%= link_to user.receiver.name, user_friends_path(user_id: user.sender_id, user: user.receiver_id, id: user.id, status: @status) %>
+							</td>
+							<td>
+								<%= link_to '削除する', user_friend_path(user_id: current_user.id, id: user.id), method: :delete, remote: true, class: "btn btn-danger form-control" %>
+							</td>
+						<% end %>
+					</tr>
+				<% end %>
+			</table>
+		</div>
 	</div>
 </div>
