@@ -2,8 +2,7 @@ class GroupsController < ApplicationController
 
   def index
   	@new_group = Group.new
-  	@back = 'url(/assets/CorkBoard.png)'
-
+  	back = 'url(/assets/CorkBoard.png)'
   end
 
   def create
@@ -15,7 +14,7 @@ class GroupsController < ApplicationController
   	group.save
 
   	# グループを作成した後、作成したユーザーをグループに追加
-  	group_user = GroupUser.new(group_id: group.id, user_id: group.leader)
+  	group_user = GroupUser.new(group_id: group.id, user_id: group.leader, join_status: "joined")
   	group_user.save
 
   	redirect_to group_path(group.id)

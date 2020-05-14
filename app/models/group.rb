@@ -9,6 +9,8 @@ class Group < ApplicationRecord
 	#===== グループのメモ==============================
 	has_many :memos, dependent: :destroy
 	#================================================
+
+
 	enum private_status: { closed: 0, open: 1 }
 
 	validates :name, 		   presence: true

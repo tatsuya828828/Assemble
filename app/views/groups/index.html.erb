@@ -1,53 +1,91 @@
 <div class="row">
-	<div class="col-md-9">
-		<table class="table table-borderless table-responsive">
-			<tr>
-				<th style="padding-right: 100px;">グループ名</th>
-				<th style="padding-right: 100px;">ホスト</th>
-				<th>最新のメモ</th>
-			</tr>
-			<% current_user.groups.each do |group| %>
-				<tr class="table-bordered" style="border-left: 0; border-right: 0;">
-					<td>
-						<%= link_to group.name, group_path(group.id) %>
-					</td>
-					<!-- リーダーのidと一致するグループ内ユーザーを探してnameを表示 -->
-					<td>
-						<% group.users.each do |user| %>
-							<% if group.leader == user.id %>
-								<%= user.name %>
-							<% end %>
-						<% end %>
-					</td>
-					<!-- グループ内にメモが存在すれば最新のものを表示 -->
-					<% if group.memos.present? %>
-						<td>
-							<%= group.memos.last.body %>
-						</td>
-					<% end %>
-				</tr>
+	<div class="col-md-3 side-space">
+		<div>
+			<h4>グループの追加</h4>
+			<%= form_for @new_group do |f| %>
+
+				<%= f.label :name, :グループ名 %>
+				<%= f.text_field :name, class: "form-control", placeholder: "グループ名", required: true %>
+
+				<%= f.label :self_id, :グループID %>
+				<%= f.text_field :self_id, class: "form-control", placeholder: "グループID(任意)" %>
+
+				<%= f.radio_button :private_status, "closed", checked: "checked" %>
+				<%= f.label :private_status, :参加者以外公開しない %>
+				<br>
+				<%= f.radio_button :private_status, "open" %>
+				<%= f.label :private_status, :友人に公開する %>
+
+				<%= f.hidden_field :leader, value: current_user.id %>
+				<br>
+				<%= f.submit 'グループを作成', class: "btn theme-color form-control" %>
 			<% end %>
-		</table>
+		</div>
 	</div>
-	<div class="col-md-3">
-		<h4>グループの追加</h4>
-		<%= form_for @new_group do |f| %>
-
-			<%= f.label :name, :グループ名 %>
-			<%= f.text_field :name, class: "form-control", placeholder: "グループ名", required: true %>
-
-			<%= f.label :self_id, :グループID %>
-			<%= f.text_field :self_id, class: "form-control", placeholder: "グループID(任意)" %>
-
-			<%= f.radio_button :private_status, "closed", checked: "checked" %>
-			<%= f.label :private_status, :参加者以外公開しない %>
-			<br>
-			<%= f.radio_button :private_status, "open" %>
-			<%= f.label :private_status, :友人に公開する %>
-
-			<%= f.hidden_field :leader, value: current_user.id %>
-
-			<%= f.submit 'グループを作成する', class: "btn theme-color" %>
-		<% end %>
+	<div class="col-md-6 side-space">
+		<div>
+			<table class="table table-borderless">
+				<tr>
+					<th style="padding-right: 100px;">グループ名</th>
+					<th style="padding-right: 100px;">ホスト</th>
+					<th>最新のメモ</th>
+				</tr>
+				<% current_user.group_users.each do |group_user| %>
+					<% if group_user.join_status == "joined" %>
+						<tr class="table-bordered" style="border-left: 0; border-right: 0;">
+							<td>
+								<%= link_to group_user.group.name, group_path(group_user.group_id) %>
+							</td>
+							<!-- リーダーのidと一致するグループ内ユーザーを探してnameを表示 -->
+							<td>
+								<% group_user.group.users.each do |user| %>
+									<% if user.id == group_user.group.leader %>
+										<%= link_to user.name, user_path(user.id) %>
+									<% end %>
+								<% end %>
+							</td>
+							<!-- グループ内にメモが存在すれば最新のものを表示 -->
+							<% if group_user.group.memos.present? %>
+								<td>
+									<%= group_user.group.memos.last.body %>
+								</td>
+							<% end %>
+						</tr>
+					<% end %>
+				<% end %>
+			</table>
+		</div>
+	</div>
+	<div class="col-md-3 side-space">
+		<h4>参加申請中</h4>
+		<div>
+			<table class="table table-borderless">
+				<tr>
+					<th>グループ名</th>
+					<th>ホスト</th>
+					<th></th>
+				</tr>
+				<% current_user.group_users.each do |group_user| %>
+					<% if group_user.join_status == "waiting_for_allow" %>
+						<tr class="table-bordered" style="border-left: 0; border-right: 0;">
+							<td>
+								<%= group_user.group.name %>
+							</td>
+							<!-- リーダーのidと一致するグループ内ユーザーを探してnameを表示 -->
+							<td>
+								<% group_user.group.users.each do |user| %>
+									<% if user.id == group_user.group.leader %>
+										<%= link_to user.name, user_path(user.id) %>
+									<% end %>
+								<% end %>
+							</td>
+							<td>
+								<%= link_to '取り消す', group_destroy_user_path(group_id: group_user.group_id, id: group_user.id, page: "groups"), class: "btn btn-danger" %>
+							</td>
+						</tr>
+					<% end %>
+				<% end %>
+			</table>
+		</div>
 	</div>
 </div>

@@ -1,0 +1,98 @@
+<div class="row">
+	<div class="col-md-3 side-space">
+		<div>
+			<% if @group_user.present? %>
+				<div class="row">
+					<p>ユーザーイメージ</p>
+				</div>
+				<div class="row">
+					ユーザー名:　<%= link_to @group_user.user.name, user_path(@group_user.user.id) %>
+				</div>
+				<div class="row">
+					<%= link_to '詳細を見る', user_path(@group_user.user.id), class: "btn theme-color form-control" %>
+				</div>
+				<% if @status == "waiting_user" %>
+
+					<div class="row">
+						<%= link_to '参加を許可', group_user_path(
+							group_id: @group_user.group_id,
+							id: @group_user.id),
+							method: :patch, class: "btn theme-color form-control" %>
+					</div>
+					<div class="row">
+						<%= link_to '参加を拒否', group_destroy_user_path(
+							group_id: @group_user.group_id,
+							id: @group.id,
+							status: @status),
+							method: :delete, remote: true, class: "btn btn-danger form-control" %>
+					</div>
+
+				<% else %>
+
+					<div class="row">
+						<%= link_to '削除する', group_destroy_user_path(group_id: @group_user.group_id, id: @group_user.id, status: @status), method: :delete, remote: true, class: "btn btn-danger form-control" %>
+					</div>
+
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+	<div class="col-md-6 side-space">
+		<div>
+			<div class="row">
+				<h3><%= "#{@title}一覧" %></h3>
+			</div>
+			<table>
+				<tr>
+					<th>プロフィール画像</th>
+					<th>ユーザー名</th>
+				</tr>
+				<% @group_users.each do |group_user| %>
+
+					<tr>
+						<!-- 受け取った申請 -->
+						<% if @status == "waiting_user" %>
+
+							<td></td>
+							<td>
+								<%= link_to group_user.user.name, group_users_path(
+									group_id: group_user.group_id,
+									id: group_user.id,
+									status: @status) %>
+							</td>
+							<td>
+								<%= link_to '参加を許可', group_user_path(
+									group_id: group_user.group_id,
+									id: group_user.id),
+									method: :patch, class: "btn theme-color form-control" %>
+							</td>
+							<td>
+								<%= link_to '参加を拒否', group_destroy_user_path(
+									group_id: group_user.group_id,
+									id: group_user.id),
+									method: :delete, remote: true, class: "btn btn-danger form-control" %>
+							</td>
+
+						<% else %>
+
+							<td></td>
+							<td>
+								<%= link_to group_user.user.name, group_users_path(
+									group_id: group_user.group_id,
+									id: group_user.id,
+									status: @status) %>
+							</td>
+							<td>
+								<%= link_to '削除する', group_destroy_user_path(
+									group_id: group_user.group_id,
+									id: group_user.id),
+									method: :delete, remote: true, class: "btn btn-danger form-control" %>
+							</td>
+
+						<% end %>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>
