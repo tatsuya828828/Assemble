@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm theme-color">
+<nav class="navbar navbar-expand-lg theme-color">
   <%= link_to 'Assemble', root_path, class: "navbar-brand theme-color", style: "font-size: 30px; font-family: cursive; font-weight: 900;" %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="ナビゲーションの切替">
       <span class="navbar-toggler-icon" style="color: white;"></span>
@@ -56,6 +56,9 @@
                 <br>
               　<%= link_to 'グループの編集', edit_group_path(@group), style: "text-decoration: none; color: #FF4F02;" %>
               </div>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "#{@group.name}のチャットルーム", group_chats_path(@group), class: "nav-link theme-color" %>
             </li>
           <% end %>
           <!-------------------------------------->
