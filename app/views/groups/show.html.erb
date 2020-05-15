@@ -16,23 +16,24 @@
 				overflow: auto;
 				width: 100%;
 				height: 430px;">
+				<% if @new == "new" %>
+					<div class="col-lg-4 toast" role="alert" aria-live="assertive" aria-atomic="true" style="margin-top: 20px;">
+						<%= form_with(model:[@group,@memo]) do |f| %>
 
-				<div class="col-lg-4 toast" role="alert" aria-live="assertive" aria-atomic="true" style="margin-top: 20px;">
-					<%= form_with(model:[@group,@memo]) do |f| %>
-
-						<div class="toast-header theme-color">
+							<div class="toast-header theme-color">
 							<strong class="mr-auto">　<%= current_user.name %></strong>
-						<%= f.submit '貼る',class: "theme-color", style: "float: right; height: 20px; border: 0;" %>
-    					</div>
-    					<div class="toast-body" style=" border: 1px solid #FF4F02; height: 88px;">
+							<%= f.submit '貼る',class: "theme-color", style: "float: right; height: 20px; border: 0;" %>
+    						</div>
+    						<div class="toast-body" style=" border: 1px solid #FF4F02; height: 88px;">
     						<%= f.hidden_field :group_id, value: @group.id %>
     						<%= f.hidden_field :user_id, value: current_user.id %>
 
-    						<%= f.text_area :body, autofocus: true, placeholder: "メモ", class: "form-control", rows: 3, required: true %>
-						</div>
+    						<%= f.text_area :body, autofocus: true, placeholder: "メモを入力してください", class: "form-control", rows: 3, required: true %>
+							</div>
 
-					<% end %>
-				</div>
+						<% end %>
+					</div>
+				<% end %>
 
 				<% @group.memos.reverse.each do |memo| %>
 
@@ -56,6 +57,17 @@
 
 						</div>
 					</div>
+				<% end %>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="offset-lg-8">
+			</div>
+			<div class="col-lg-4">
+				<% if @new == "new" %>
+					<%= link_to 'やめる', group_path(id: @group.id), class: "btn btn-danger form-control" %>
+				<% else %>
+					<%= link_to '新しく貼る', group_path(id: @group.id, new: "new"), class: "btn theme-color form-control" %>
 				<% end %>
 			</div>
 		</div>

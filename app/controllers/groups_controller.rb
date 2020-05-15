@@ -2,7 +2,8 @@ class GroupsController < ApplicationController
 
   def index
   	@new_group = Group.new
-  	back = 'url(/assets/CorkBoard.png)'
+    @request = params[:request]
+  	back = 'url(/assets/top.png)'
   end
 
   def create
@@ -23,6 +24,7 @@ class GroupsController < ApplicationController
   def show
   	@group = Group.find(params[:id])
   	@memo = Memo.new
+    @new = params[:new]
   	@side = params[:side]
   end
 
@@ -53,7 +55,10 @@ class GroupsController < ApplicationController
 
   def chats
     @group = Group.find(params[:group_id])
-    @user = User.find(params[:user_id])
+    @messages = @group.messages
+    if params[:user_id].present?
+      @user = User.find(params[:user_id])
+    end
   end
 
   private
