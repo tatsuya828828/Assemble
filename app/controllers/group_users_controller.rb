@@ -32,7 +32,7 @@ class GroupUsersController < ApplicationController
 	def update
 		group_user = GroupUser.find(params[:id])
 		group_user.update(join_status: "joined")
-		redirect_to group_users_path(group_id: group_user.group_id, status: "joined")
+		redirect_back(fallback_location: root_path)
 	end
 
 
@@ -40,11 +40,7 @@ class GroupUsersController < ApplicationController
 		group_user = GroupUser.find(params[:id])
 		group = group_user.group_id
 		group_user.destroy
-		if params[:page].present?
-			redirect_to group_users_path
-		else
-			redirect_to group_users_path(group_id: group)
-		end
+		redirect_back(fallback_location: root_path)
 	end
 
 

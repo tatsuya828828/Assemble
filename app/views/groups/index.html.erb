@@ -22,24 +22,52 @@
 			<% end %>
 		</div>
 		<div style="margin-bottom: 50px;">
-			<h4>参加申請中</h4>
+			<div style="text-align: center;">
+				<h5><%= link_to "受け取った申請", groups_path(request: "receive") %>
+				|
+				<%= link_to "参加申請中", groups_path(request: "send") %></h5>
+			</div>
 			<div style="text-align: center; overflow: auto; height: 300px;">
-				<% current_user.group_users.each do |group_user| %>
-					<% if group_user.join_status == "waiting_for_allow" %>
-						<div style="margin-bottom: 15px;">
-							<%= image_tag 'CorkBoard.png', width: '200', height: '150' %>
-							<br>
-							<%= group_user.group.name %>
-							 <br>
-						<!-- リーダーのidと一致するグループ内ユーザーを探してnameを表示 -->
-							<% group_user.group.users.each do |user| %>
-								<% if user.id == group_user.group.leader %>
-									ホスト:<%= link_to user.name, user_path(user.id) %>
+				<% if @request == "send" %>
+
+					<% current_user.group_users.each do |group_user| %>
+						<% if group_user.join_status == "waiting_for_allow" %>
+							<div style="margin-bottom: 15px;">
+								<%= image_tag 'CorkBoard.png', width: '200', height: '150' %>
+								<br>
+								<%= group_user.group.name %>
+								 <br>
+							<!-- リーダーのidと一致するグループ内ユーザーを探してnameを表示 -->
+								<% group_user.group.users.each do |user| %>
+									<% if user.id == group_user.group.leader %>
+										ホスト:<%= link_to user.name, user_path(user.id) %>
+									<% end %>
+								<% end %>
+							
+								<%= link_to '取り消す', group_destroy_user_path(group_id: group_user.group_id, id: group_user.id, page: "groups"), class: "btn btn-danger form-control" %>
+							</div>
+						<% end %>
+					<% end %>
+				<% else %>
+					<% current_user.groups.each do |group| %>
+						<% if group.leader == current_user.id %>
+							<% group.group_users.each do |group_user| %>
+								<% if group_user.join_status == "waiting_for_allow" %>
+									<div style="margin-bottom: 15px;">
+										<%= image_tag 'CorkBoard.png', width: '200', height: '150' %>
+										
+								 		<br>
+										<%= link_to group_user.user.name, user_path(group_user.user.id) %>さんから
+										<br>
+										<%= link_to group.name,group_path(group.id) %>に参加申請が来ています
+
+										<%= link_to '参加を許可', group_user_path(group_id: group.id, id: group_user.id, page: "groups"), method: :put, class: "btn theme-color form-control" %>
+
+										<%= link_to '参加を拒否', group_destroy_user_path(group_id: group.id, id: group_user.id, page: "groups"), class: "btn btn-danger form-control" %>
+									</div>
 								<% end %>
 							<% end %>
-						
-							<%= link_to '取り消す', group_destroy_user_path(group_id: group_user.group_id, id: group_user.id, page: "groups"), class: "btn btn-danger form-control" %>
-						</div>
+						<% end %>
 					<% end %>
 				<% end %>
 			</div>
@@ -50,7 +78,7 @@
 		<div class="row">
 			<% current_user.group_users.each do |group_user| %>
 				<% if group_user.join_status == "joined" %>
-					<div class="col-lg-4" style="text-align: center; margin-bottom: 20px;">
+					<div class="col-md-4" style="text-align: center; margin-bottom: 20px;">
 						
 							<%= image_tag 'CorkBoard.png', width: '250', height: '200' %>
 							<br>
