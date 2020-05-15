@@ -9,13 +9,14 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   
-  <body>
+  <body style="background-color: #C2EEFF;">
     <header>
       <%= render 'layouts/user_header' %>
     </header>
     <% if @back.present? %>
     <div style="
       background: <%= @back %>;
+      height: 300px;
       background-size: cover;
       background-position: center;
       padding-bottom: calc(100%*1365/2048);">
