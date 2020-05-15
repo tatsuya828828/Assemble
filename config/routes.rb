@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
     # グループ削除確認ページ
     get 'destroy_confirm', to: 'groups#destroy_confirm'
+    get 'chats',           to: 'groups#chats', as: 'chats'
 
     #====== グループユーザー ==============================
     get    'group_users',     to: 'group_users#index',   as: 'users'
