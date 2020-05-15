@@ -10,6 +10,9 @@ class Group < ApplicationRecord
 	has_many :memos, dependent: :destroy
 	#================================================
 
+	#===== グループのメッセージ ========================
+	has_many :messages, dependent: :destroy
+	#================================================
 
 	enum private_status: { closed: 0, open: 1 }
 
