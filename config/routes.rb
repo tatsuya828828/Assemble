@@ -51,9 +51,9 @@ Rails.application.routes.draw do
 
 
     #====== 日記と日記のコメント ==========================
-    resources :diarys do
+    resources :diaries do
       post   'diary_comments', to: 'diary_comments#create',  as: 'comments'
-      delete 'diary_comments', to: 'diary_comments#destroy', as: 'destroy_comments'
+      delete 'diary_comments', to: 'diary_comments#destroy', as: 'destroy_comment'
     end
     #===================================================
 

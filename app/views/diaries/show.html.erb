@@ -1,0 +1,48 @@
+<div class="row side-space">
+	<div class="col-lg-3 side-space">
+		<p>ユーザーイメージ</p>
+		<%= @diary.user.name %>
+		<% if @diary.user_id == current_user.id %>
+			<%= link_to '編集する', edit_group_diary_path(group_id: @group.id, id: @diary.id), class: "btn theme-color form-control" %>
+		<% end %>
+		<% if @group.users.find_by(id: current_user).present? %>
+			<%= link_to '日記一覧へ', group_diaries_path(group_id: @diary.group_id), class: "btn theme-color form-control" %>
+		<% end %>
+	</div>
+	<div class="col-lg-9">
+		<div class="container-fluid">
+			<h4><%= @diary.title %></h4>
+				<%== @diary.body %>
+			<table>
+				<% @diary.diary_comments.each do |diary_comment| %>
+					<tr>
+						<td>
+							<%= diary_comment.comment %>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							ユーザーイメージ
+							<%= diary_comment.user.name %>
+							<%= diary_comment.created_at.strftime("%Y年%m月%d日 %H時%M分") %>
+						</td>
+					</tr>
+				<% end %>
+			</table>
+			<% if @diary_comment.present? %>
+				<%= form_with url: group_diary_comments_path(group_id: @diary.group_id, diary_id: @diary.id), local: true do |f| %>
+
+					<%= f.text_area :comment, class: "form-control" %>
+
+					<%= f.hidden_field :user_id, value: current_user.id %>
+
+					<%= f.hidden_field :diary_id, value: @diary.id %>
+
+					<%= f.submit '投稿する', class: "btn theme-color form-control" %>
+				<% end %>
+			<% else %>
+				<%= link_to 'コメントを投稿する', group_diary_path(group_id: @diary.group_id, id: @diary.id, comment: "new"), class: "btn theme-color form-control" %>
+			<% end %>
+		</div>
+	</div>
+</div>

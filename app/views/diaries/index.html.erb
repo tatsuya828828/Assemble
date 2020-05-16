@@ -1,0 +1,21 @@
+<div class="row side-space">
+	<div class="col-lg-3">
+		<%= link_to '新しく投稿する', new_group_diary_path(@group), class: "btn theme-color form-control" %>
+	</div>
+	<div class="col-lg-9">
+		<h4>日記一覧</h4>
+		<div class="row" style="height: 650px; overflow: auto;">
+			<% @diaries.each do |diary| %>
+				<div class="col-md-4" style="text-align: center; margin-bottom: 20px;">
+					<%= image_tag 'CorkBoard.png', width: '250', height: '200' %>
+					<br>
+					<h5><%= link_to diary.title, group_diary_path(group_id: diary.group_id, id: diary.id) %></h5>
+					<br>
+					投稿者:<%= link_to diary.user.name, user_path(id: diary.user.id) %>
+					<br>
+					投稿日時:<%= diary.created_at.strftime("%Y年%m月%d日 %H時%M分") %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>

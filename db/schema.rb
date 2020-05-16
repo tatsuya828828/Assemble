@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2020_05_12_045903) do
     t.string "image_id"
     t.string "title", null: false
     t.text "body", null: false
+    t.integer "private_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_diaries_on_group_id"

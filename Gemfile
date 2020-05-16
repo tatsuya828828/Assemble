@@ -72,6 +72,7 @@ gem 'dotenv-rails'
 gem 'enum_help'
 gem 'rails-i18n'
 gem "font-awesome-sass", "~> 5.4.1"
+gem 'wysiwyg-rails'
 
 group :production do
   gem 'mysql2'

@@ -1,0 +1,36 @@
+<%= form_with(model: @diary, url: group_diary_path(group_id: @group.id), local: true, method: :patch) do |f| %>
+
+	<div class="field">
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+	</div>
+
+	<div>
+		<p>サムネイルの設定</p>
+	</div>
+
+	<div class="field">
+		<%= f.label :body %>
+		<%= f.text_area :body%>
+	</div>
+
+	<div class="field">
+		<%= f.radio_button :private_status, "closed", checked: "checked" %>
+		<%= f.label :private_status, "グループのみ公開" %>
+	</div>
+
+	<div class="field">
+		<%= f.radio_button :private_status, "open" %>
+		<%= f.label :private_status, :全ユーザーに公開 %>
+	</div>
+
+	<%= f.hidden_field :user_id, value: current_user.id %>
+	<%= f.hidden_field :group_id, value: @group.id %>
+
+	<div class="action">
+		<%= f.submit '編集を終わる', class: "btn theme-color" %>
+	</div>
+<% end %>
+<script>
+	new FroalaEditor('#diary_body',{})
+</script>
