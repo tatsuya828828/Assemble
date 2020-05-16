@@ -1,4 +1,5 @@
 class GroupsController < ApplicationController
+  before_action :not_group_user, except: [:index,:chats]
 
   def index
   	@new_group = Group.new
@@ -55,6 +56,9 @@ class GroupsController < ApplicationController
 
   def chats
     @group = Group.find(params[:group_id])
+    if @group.users.find_by(id: current_user.id).nil?
+      redirect_back(fallback_location: root_path)
+    end
     @messages = @group.messages
     if params[:user_id].present?
       @user = User.find(params[:user_id])
@@ -65,6 +69,15 @@ class GroupsController < ApplicationController
 
   def group_params
   	params.require(:group).permit(:name, :leader, :private_status, :self_id)
+  end
+
+  def not_group_user
+    @group = Group.find(params[:id])
+    if @group.present?
+      if (@group.users.find_by(id: current_user.id)).nil?
+        redirect_back(fallback_location: root_path)
+      end
+    end
   end
 
 end

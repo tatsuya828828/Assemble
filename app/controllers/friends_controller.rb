@@ -31,7 +31,7 @@ class FriendsController < ApplicationController
   	sender = Friend.new(friend_params)
   	sender.save
   	# 申請中一覧ページにとぶ
-  	redirect_to user_friends_path(user_id: current_user.id, status: "wait_self")
+  	redirect_back(fallback_location: root_path)
   end
 
 
@@ -43,13 +43,11 @@ class FriendsController < ApplicationController
   	# 申請した側のユーザーもステータスを友達に変更
   	sender.update(request_status: "friend")
   	# 友達一覧ページにとぶ
-  	redirect_to user_friends_path(user_id: current_user.id, status: "friend")
+  	redirect_back(fallback_location: root_path)
   end
 
 
   def destroy
-  	# 削除ボタンを押したページと同じページに遷移するために定義
-  	status = params[:status]
   	# 削除ボタンを押した側
   	sender = Friend.find(params[:id])
   	# 削除を押された側
@@ -61,7 +59,7 @@ class FriendsController < ApplicationController
   		receiver.destroy
   	end
 
-  	redirect_to user_friends_path(user_id: current_user.id, status: status)
+  	redirect_back(fallback_location: root_path)
   end
 
 
