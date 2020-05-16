@@ -14,6 +14,10 @@ class Group < ApplicationRecord
 	has_many :messages, dependent: :destroy
 	#================================================
 
+	#===== グループの日記 =============================
+	has_many :diarys, dependent: :destroy
+	#================================================
+
 	enum private_status: { closed: 0, open: 1 }
 
 	validates :name, 		   presence: true
