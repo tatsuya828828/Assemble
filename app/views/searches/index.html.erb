@@ -1,47 +1,96 @@
 <div class="row side-space">
-	<div class="offset-md-4">
+	<div class="offset-lg-4">
 	</div>
-	<div class="col-md-4">
-		<div class="row">
-			<h3><%= "'#{@word}'の検索結果" %></h3>
-		</div>
-
+	<div class="col-lg-4">
+		<h3><%= "'#{@word}'の検索結果" %></h3>
+		<br>
 		<% if @range == "グループID" %>
-			<div class="row">
-				<p>グループイメージ</p>
-			</div>
-			<div class="row">
-				グループ名:　<%= @group.name %>
-			</div>
-			<div class="row">
-				グループのホスト:　<%= link_to @leader.name, user_path(@leader.id) %>
-			</div>
-			<div class="row">
+			<table>
+				<tr>
+					<th>
+						<p>グループイメージ</p>
+					</th>
+				</tr>
+				<tr>
+					<th>グループ名</th>
+				　	<td><%= @group.name %></td>
+				</tr>
+				<tr>
+					<th>グループのホスト</th>
+					<td><%= link_to @leader.name, user_path(@leader.id) %></td>
+				</tr>
+			</table>
+			<br>
+			<% if @group.users.find_by(id: current_user) %>
+				<p>すでに参加しています</p>
+			<% else %>
 				<%= form_with url: group_join_user_path(group_id: @group.id), local: true do |f| %>
 					<%= f.hidden_field :user_id, value: current_user.id %>
 					<%= f.hidden_field :group_id, value: @group.id %>
 					<%= f.hidden_field :join_status, value: "waiting_for_allow" %>
 					<%= f.submit '参加申請を送る', class: "btn theme-color form-control" %>
 				<% end %>
-			</div>
+			<% end %>
+
+
 
 		<% elsif @range == "ユーザーID" %>
-			<div class="row">
-				<p>ユーザーイメージ</p>
-			</div>
-			<div class="row">
-				<%= "ユーザー名:　#{@user.name}" %>
-			</div>
-			<div class="row">
+			<table>
+				<tr>
+					<th>ユーザーイメージ</th>
+				</tr>
+				<tr>
+					<th>ユーザー名</th>
+					<td><%= @user.name %></td>
+				</tr>
+			</table>
+			<br>
+			<% if @user.id == current_user.id %>
+				<div class="row">
+					<p>あなたです</p>
+				</div>
+
+			<% elsif current_user.senders.find_by(id: @user.id) && current_user.receivers.find_by(id: @user.id) %>
+				<div class="row">
+					<p>すでに友達です</p>
+				</div>
+				<br>
+				<div class="row">
+					<%= link_to '削除する', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-danger form-control" %>
+				</div>
+
+			<% elsif current_user.senders.find_by(id: @user.id) && (@user.senders.find_by(id: current_user.id)).nil? %>
+				<div class="row">
+					<p>承認待ちです</p>
+				</div>
+				<br>
+				<div class="row">
+					<%= link_to '取り消す', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-danger form-control" %>
+				</div>
+
+			<% elsif (current_user.senders.find_by(id: @user.id,)).nil? && @user.senders.find_by(id: current_user.id) %>
+				<div class="row">
+					<p>申請が来ています</p>
+				</div>
+				<br>
+				<div class="row">
+					<%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: @friend), method: :patch, class: "btn theme-color form-control" %>
+				</div>
+				<br>
+				<div class="row">
+					<%= link_to '拒否する', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-danger form-control" %>
+				</div>
+			
+			<% else %>
 				<%= form_with url: user_friends_path(user_id: current_user.id), local: true do |f| %>
-
-					<%= f.hidden_field :sender_id,      value: current_user.id %>
-					<%= f.hidden_field :receiver_id, 	  value: @user.id %>
+					<%= f.hidden_field :sender_id, value: current_user.id %>
+					<%= f.hidden_field :receiver_id, value: @user.id %>
 					<%= f.hidden_field :request_status, value: "waiting_for_allow" %>
-
-					<%= f.submit '友達申請を送る',class: "btn theme-color form-control" %>
+						<%= f.submit '友達申請を送る',class: "btn theme-color form-control" %>
 				<% end %>
-			</div>
+			<% end %>
+
+
 		<% else %>
 			<p>見つかりませんでした</p>
 		<% end %>
