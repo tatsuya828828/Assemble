@@ -75,7 +75,7 @@
 	</div>
 	<div class="col-lg-9">
 		<h4>参加グループ</h4>
-		<div class="row">
+		<div class="row" style="height: 650px; overflow: auto;">
 			<% current_user.group_users.each do |group_user| %>
 				<% if group_user.join_status == "joined" %>
 					<div class="col-md-4" style="text-align: center; margin-bottom: 20px;">

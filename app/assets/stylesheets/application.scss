@@ -15,7 +15,21 @@
  *= require_self
  */
 
-@import "bootstrap";
+ @import "bootstrap";
+ @import "froala_editor.min";
+ @import "froala_style.min";
+ @import 'plugins/char_counter.min.css';
+ @import 'plugins/code_view.min.css';
+ @import 'plugins/colors.min.css';
+ @import 'plugins/emoticons.min.css';
+ @import 'plugins/file.min.css';
+ @import 'plugins/fullscreen.min.css';
+ @import 'plugins/image_manager.min.css';
+ @import 'plugins/image.min.css';
+ @import 'plugins/line_breaker.min.css';
+ @import 'plugins/quick_insert.min.css';
+ @import 'plugins/table.min.css';
+ @import 'plugins/video.min.css';
 
 .theme-color{
 	background-color: #FF4F02;
@@ -88,4 +102,13 @@
   outline-color: transparent;
   outline-offset: 12px;
   text-shadow: 2px 2px 3px #000;
+}
+
+#submit:focus {
+  background-color: #FF4F02;
+  color: #fff;
+  box-shadow: none;
+  outline-color: none;
+  outline-offset: none;
+  text-shadow: none;
 }

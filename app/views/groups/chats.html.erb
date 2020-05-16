@@ -21,17 +21,18 @@
 	<div class="col-lg-6 side-space">
 		<h4><%= "#{@group.name}のチャットルーム" %></h4>
 		<div style="height:500px; overflow: auto; padding:10px;">
+
 				<%= render "message", collection: @messages %>
-			<div id="messages">
+			<div class="row" id="messages">
 			</div>
 		</div>
 		<div class="offset-lg-6 col-lg-6">
 			<div class="row">
 				<div class="col-lg-9" style="padding: 1px;">
-					<input class="form-control" type="text" data-behavior="group_speaker" data-user="<%= current_user.id %>" data-group="<%= @group.id %>">
+					<input class="form-control" id="chat" type="text" data-behavior="group_speaker" data-user="<%= current_user.id %>" data-group="<%= @group.id %>" required="required">
 				</div>
 				<div class="col-lg-3" style="padding: 1px;">
-					<button id="submit" class="theme-color form-control" type="button" style="border-radius: 3px; border: 0px;">投稿</button>
+					<button id="submit" class="btn theme-color form-control" type="button" style="border-radius: 3px; border: 0px;">投稿</button>
 				</div>
 			</div>
 		</div>

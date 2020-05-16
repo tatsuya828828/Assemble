@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="offset-md-4" style="margin: 0 auto;">
+	<div class="offset-lg-4" style="margin: 0 auto;">
 		<%= form_for @group do |f| %>
 
 			<div class="form-group">
@@ -26,12 +26,12 @@
 
 			<div class="form-group">
 				<%= f.radio_button :private_status, "closed" %>
-				<%= f.label :private_status, :参加者以外後悔しない %>
+				<%= f.label :private_status, :招待者以外参加不可に設定 %>
 			</div>
 
 			<div class="form-group">
 				<%= f.radio_button :private_status, "open" %>
-				<%= f.label :private_status, :友人に公開する %>
+				<%= f.label :private_status, :誰でも参加申請可に設定 %>
 			</div>
 			<%= f.submit '変更する', class: "btn theme-color form-control" %>
 			<%= link_to '削除する', group_destroy_confirm_path(@group), class: "btn btn-danger form-control" %>
