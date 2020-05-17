@@ -39,6 +39,14 @@ class User < ApplicationRecord
   #================================================================
 
 
+  # deviseがログイン時に呼び出しているメソッドをオーバーライドして、バリデーションを追加して、valid_statusがactiveなuserのみログイン可能にする。
+  def active_for_authentication?
+    super && valid_status == "active"
+  end
+
+  enum valid_status: {active: 0, is_deleted: 1}
+
+
   validates :name,    presence: true
   validates :self_id, presence: true
 

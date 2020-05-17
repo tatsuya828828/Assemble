@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(version: 2020_05_12_045903) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "self_id", null: false
+    t.integer "valid_status", default: 0, null: false
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

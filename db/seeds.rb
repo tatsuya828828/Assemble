@@ -11,31 +11,36 @@ User.create!(
 			email: 'taro1@gmail.com',
 			name: '太郎',
 			self_id: 'taro1',
-			password: 'aaaaaa'
+			password: 'aaaaaa',
+			valid_status: "active"
 		},
 		{
 			email: 'jiro@gmail.com',
 			name: '次郎',
 			self_id: 'taro2',
-			password: 'aaaaaa'
+			password: 'aaaaaa',
+			valid_status: "active"
 		},
 		{
 			email: 'saburo@gmail.com',
 			name: '三郎',
 			self_id: 'taro3',
-			password: 'aaaaaa'
+			password: 'aaaaaa',
+			valid_status: "active"
 		},
 		{
 			email: 'siro@gmail.com',
 			name: '四郎',
 			self_id: 'taro4',
-			password: 'aaaaaa'
+			password: 'aaaaaa',
+			valid_status: "active"
 		},
 		{
 			email: 'goro@gmail.com',
 			name: '五郎',
 			self_id: 'taro5',
-			password: 'aaaaaa'
+			password: 'aaaaaa',
+			valid_status: "active"
 		}
 	]
 )
