@@ -103,3 +103,10 @@ GroupUser.create!(
 		}
 	]
 )
+Admin.create!(
+	{
+		self_id: ENV['ADMIN_ID'],
+		email: ENV['ADMIN_MAIL'],
+		password: ENV['ADMIN_PASSWORD']
+	}
+)
