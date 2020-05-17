@@ -1,4 +1,5 @@
 class DiariesController < ApplicationController
+	before_action :authenticate_user!
 	before_action :not_group_user, except: [:show]
 
 	def index

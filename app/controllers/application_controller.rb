@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-	before_action :authenticate_user!, except: [:top, :sign_in, :sidn_up]
 	before_action :configure_permitted_parameters, if: :devise_controller?
 
 	# deviseのコントローラーをオーバーライドしてログイン後の遷移先を設定
