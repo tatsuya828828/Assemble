@@ -11,6 +11,10 @@
         <li class="nav-item active">
           <%= link_to 'ホーム', root_path, class: "nav-link theme-color text-shadow" %>
         </li>
+
+        <li class="nav-item active">
+          <%= link_to 'このサイトについて', about_path, class: "nav-link theme-color text-shadow" %>
+        </li>
         <% if user_signed_in? %>
 
           <li class="nav-item active">
@@ -80,15 +84,16 @@
           </li>
         <% end %>
       </ul>
-
-      <div class="side-space">
-      <%= form_with url: searches_path, method: :get, local: true do |f| %>
-        <div class="row">
-          <%= f.text_field :word, placeholder: "ID検索", required: true, class: "form-control col-md-6" %>
-          <%= select_tag :range, options_for_select([["グループID"],["ユーザーID"]]), class: "form-control col-md-4 text-shadow2", style: "color: #FF4F02;" %>
-          <%= f.submit '検索', id: "white-btn", class: "btn col-md-2 text-shadow2", style: "background-color: #fff; color: #FF4F02;" %>
+      <% if user_signed_in? %>
+        <div class="side-space">
+          <%= form_with url: searches_path, method: :get, local: true do |f| %>
+            <div class="row">
+              <%= f.text_field :word, placeholder: "ID検索", required: true, class: "form-control col-md-6" %>
+              <%= select_tag :range, options_for_select([["グループID"],["ユーザーID"]]), class: "form-control col-md-4 text-shadow2", style: "color: #FF4F02;" %>
+              <%= f.submit '検索', id: "white-btn", class: "btn col-md-2 text-shadow2", style: "background-color: #fff; color: #FF4F02;" %>
+            </div>
+          <% end %>
         </div>
       <% end %>
-      </div>
     </div>
   </nav>
