@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
+
 #===== 管理者 ========================================================================
   devise_for :admins, controllers: {
-    sessions:      'admins/sessions',
-    passwords:     'admins/passwords',
-    registrations: 'admins/registrations'
+    sessions: 'admins/sessions',
   }
   namespace :admin do
-    resources :users, only: [:index, :show]
+    root 'home#top'
+    resources :users, only: [:index, :show, :update]
+    resources :searches, only: [:index]
   end
 #====================================================================================
 
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
   }
 
   root 'home#top'
+
+  get '/about', to: 'home#about', as: 'about'
 
   #===== ユーザーとその友達 ===============================
   resources :users, only: [:show, :edit, :update] do
