@@ -1,0 +1,22 @@
+<div class="row side-space">
+	<div class="offset-lg-2">
+	</div>
+	<div class="col-lg-8" style="margin: 0 auto;">
+		<table class="table-responsive">
+			<tr>
+				<th style="padding-right: 30px;">ID</th>
+				<th style="padding-right: 30px;"></th>
+				<th style="padding-right: 30px;">ユーザー名</th>
+				<th style="padding-right: 30px;">登録日</th>
+			</tr>
+			<% @users.each do |user| %>
+				<tr>
+					<td style="padding-right: 30px;"><%= user.id %></td>
+					<td style="padding-right: 30px;">ユーザーイメージ</td>
+					<td style="padding-right: 30px;"><%= link_to user.name, admin_user_path(user) %></td>
+					<td style="padding-right: 30px;"><%= user.created_at.strftime("%Y年%m月%d日 %H時%M分") %></td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
