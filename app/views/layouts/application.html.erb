@@ -11,15 +11,19 @@
   
   <body style="background-color: #C2EEFF;">
     <header>
-      <%= render 'layouts/user_header' %>
+      <% if admin_signed_in? %>
+        <%= render 'layouts/admin_header' %>
+      <% else %>
+        <%= render 'layouts/user_header' %>
+      <% end %>
     </header>
     <% if @back.present? %>
     <div style="
       background: <%= @back %>;
-      height: 300px;
-      background-size: cover;
-      background-position: center;
-      padding-bottom: calc(100%*1365/2048);">
+      height: 800px;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: 50% 25%;" >
     <% end %>
       <div class="container-fruid table-responsive" style="padding-top: 50px;">
         <%= yield %>
