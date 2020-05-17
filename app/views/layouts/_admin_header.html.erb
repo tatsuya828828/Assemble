@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg theme-color">
+
+  <%= link_to 'Assemble', root_path, class: "navbar-brand theme-color text-shadow", style: "font-size: 30px; font-family: cursive; font-weight: 900;" %>
+
+    <button class="navbar-toggler nav-shadow" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="ナビゲーションの切替">
+      <span class="navbar-toggler-icon" style="color: white;"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="navbar-nav mr-auto">
+        
+        <% if admin_signed_in? %>
+          <li class="nav-item active">
+            <%= link_to 'ホーム', admin_root_path, class: "nav-link theme-color text-shadow" %>
+          </li>
+
+          <li class="nav-item active">
+            <%= link_to 'ユーザー一覧', admin_users_path, class: "nav-link theme-color text-shadow" %>
+          </li>
+        
+          <li class="nav-item active">
+            <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link theme-color text-shadow" %>
+          </li>
+          <div class="side-space">
+            <%= form_with url: admin_searches_path, method: :get, local: true do |f| %>
+              <div class="row">
+                <%= f.text_field :word, placeholder: "ID検索", required: true, class: "form-control col-md-6" %>
+                <%= select_tag :range, options_for_select([["ユーザー名"],["ユーザーID"]]), class: "form-control col-md-4 text-shadow2", style: "color: #FF4F02;" %>
+                <%= f.submit '検索', id: "white-btn", class: "btn col-md-2 text-shadow2", style: "background-color: #fff; color: #FF4F02;" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+    </div>
+  </nav>
