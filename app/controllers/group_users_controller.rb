@@ -7,9 +7,16 @@ class GroupUsersController < ApplicationController
 		@group = Group.find(params[:group_id])
 		@leader = User.find_by(id: @group.leader)
 
-		# サイドバーもどきのための情報、承認などでgroup_userモデルの情報が必要なため、userモデルではなく、group_userモデルから取ってくる。
-		if params[:id].present?
-			@group_user = GroupUser.find(params[:id])
+		# サイドバーもどきのための情報
+		if params[:user_id].present?
+			# 承認などでgroup_userモデルの情報が必要なため、userモデルではなく、group_userモデルから取ってくる。
+			group_user = GroupUser.find_by(id: params[:user_id])
+			# 削除した後にredirect_backを使っているため情報が見つからなかった場合に、エラーが起きないよう、変数をnilにする。
+			if group_user.present?
+				@group_user = group_user
+			else
+				@group_user = nil
+			end
 		end
 
 		# 受け取ったステータスによってページの表示内容を変える
@@ -43,7 +50,6 @@ class GroupUsersController < ApplicationController
 
 	def destroy
 		group_user = GroupUser.find(params[:id])
-		group = group_user.group_id
 		group_user.destroy
 		redirect_back(fallback_location: root_path)
 	end
@@ -56,11 +62,9 @@ class GroupUsersController < ApplicationController
 	end
 
 	def not_group_user
-    	@group = Group.find(params[:group_id])
-    	if @group.present?
-      		if (@group.users.find_by(id: current_user.id)).nil?
-        		redirect_back(fallback_location: root_path)
-	      	end
+		group_id = params[:group_id]
+    	if (group_user = GroupUser.find_by(group_id: group_id, user_id: current_user.id, join_status: "joined")).nil?
+        	redirect_back(fallback_location: root_path)
 	    end
   	end
 end

@@ -11,6 +11,7 @@
 				<div class="row">
 					<%= link_to '詳細を見る', user_path(@group_user.user.id), class: "btn theme-color form-control" %>
 				</div>
+				
 				<% if @leader == current_user %>
 					<% if @status == "waiting_user" %>
 
@@ -31,9 +32,10 @@
 					<% else %>
 
 						<div class="row">
-							<%= link_to '削除する', group_destroy_user_path(group_id: @group_user.group_id, id: @group_user.id, status: @status), method: :delete, remote: true, class: "btn btn-danger form-control" %>
+							<% if @group_user.user != @leader %>
+								<%= link_to '削除する', group_destroy_user_path(group_id: @group_user.group_id, id: @group_user.id, status: @status), method: :delete, remote: true, class: "btn btn-danger form-control" %>
+							<% end %>
 						</div>
-
 					<% end %>
 				<% end %>
 			<% end %>
@@ -58,20 +60,22 @@
 							<td>
 								<%= link_to group_user.user.name, group_users_path(
 									group_id: group_user.group_id,
-									id: group_user.user_id,
+									user_id: group_user.id,
 									status: @status) %>
 							</td>
 							<td>
 								<%= link_to '参加を許可', group_user_path(
 									group_id: group_user.group_id,
 									id: group_user.id),
-									method: :patch, class: "btn theme-color form-control" %>
+									method: :patch,
+									class: "btn theme-color form-control" %>
 							</td>
 							<td>
 								<%= link_to '参加を拒否', group_destroy_user_path(
 									group_id: group_user.group_id,
 									id: group_user.id),
-									method: :delete, remote: true, class: "btn btn-danger form-control" %>
+									method: :delete, remote: true,
+									class: "btn btn-danger form-control" %>
 							</td>
 
 						<% else %>
@@ -80,16 +84,20 @@
 							<td>
 								<%= link_to group_user.user.name, group_users_path(
 									group_id: group_user.group_id,
-									id: group_user.user_id,
+									user_id: group_user.id,
 									status: @status) %>
 							</td>
 
 							<% if @leader == current_user %>
 								<td>
-									<%= link_to '削除する', group_destroy_user_path(
-										group_id: group_user.group_id,
-										id: group_user.id),
-										method: :delete, remote: true, class: "btn btn-danger form-control" %>
+									<% if group_user.user != @leader %>
+										
+										<%= link_to '削除する', group_destroy_user_path(
+											group_id: group_user.group_id,
+											id: group_user.id),
+											method: :delete, remote: true,
+											class: "btn btn-danger form-control" %>
+									<% end %>
 								</td>
 							<% end %>
 							<!------------------------------------->

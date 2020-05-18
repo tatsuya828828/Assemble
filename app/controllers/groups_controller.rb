@@ -73,9 +73,9 @@ class GroupsController < ApplicationController
   end
 
   def not_group_user
-    @group = Group.find(params[:id])
-    if @group.present?
-      if (@group.users.find_by(id: current_user.id)).nil?
+    group = Group.find(params[:id])
+    if group.present?
+      if (group.users.find_by(id: current_user.id)).nil?
         redirect_back(fallback_location: root_path)
       end
     end
