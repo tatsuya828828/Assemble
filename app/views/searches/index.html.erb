@@ -21,8 +21,12 @@
 				</tr>
 			</table>
 			<br>
-			<% if @group.users.find_by(id: current_user) %>
+			<% if @group.group_users.find_by(user_id: current_user, join_status: "joined") %>
 				<p>すでに参加しています</p>
+
+			<% elsif @group_user = @group.group_users.find_by(user_id: current_user.id) %>
+				<p>申請中です</p>
+				<%= link_to '取り消す', group_destroy_user_path(group_id: @group.id,id: @group_user.id ), method: :delete, class: "btn btn-danger form-control" %>
 			<% else %>
 				<%= form_with url: group_join_user_path(group_id: @group.id), local: true do |f| %>
 					<%= f.hidden_field :user_id, value: current_user.id %>
