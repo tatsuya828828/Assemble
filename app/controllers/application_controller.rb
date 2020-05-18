@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 		case resource
 			# 管理者がログインしたとき
 		when Admin
-			admin_users_path
+			admin_root_path
 			# ユーザーがログインしたとき
 		when User
 			groups_path
@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 	# ユーザー登録時にname,self_idのカラムを持ってくるように設定
 
 	def configure_permitted_parameters
-		devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :self_id])
+		devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :name, :self_id])
 	end
 	# configureは設定する
 	# permittedは許可
