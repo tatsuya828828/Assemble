@@ -5,7 +5,6 @@ class DiaryCommentsController < ApplicationController
 		group = params[:group_id]
 		comment = DiaryComment.new(diary_comment_params)
 		comment.save
-		binding.pry
 		redirect_to group_diary_path(group_id: group, id: comment.diary_id)
 	end
 

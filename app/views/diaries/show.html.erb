@@ -16,8 +16,8 @@
 			<table>
 				<% @diary.diary_comments.each do |diary_comment| %>
 					<tr>
-						<td>
-							<%= diary_comment.comment %>
+						<td style="background-color: #fff; border-radius: 10px; padding: 10px;">		
+							<%= diary_comment.comment %>	
 						</td>
 					</tr>
 					<tr>
@@ -25,6 +25,7 @@
 							ユーザーイメージ
 							<%= diary_comment.user.name %>
 							<%= diary_comment.created_at.strftime("%Y年%m月%d日 %H時%M分") %>
+							<br><br>
 						</td>
 					</tr>
 				<% end %>
@@ -38,7 +39,7 @@
 
 					<%= f.hidden_field :diary_id, value: @diary.id %>
 
-					<%= f.submit '投稿する', class: "btn theme-color form-control" %>
+					<%= f.submit '投稿する(500文字以内)', class: "btn theme-color form-control" %>
 				<% end %>
 			<% else %>
 				<%= link_to 'コメントを投稿する', group_diary_path(group_id: @diary.group_id, id: @diary.id, comment: "new"), class: "btn theme-color form-control" %>
