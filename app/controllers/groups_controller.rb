@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!
-  before_action :not_group_user, except: [:index, :create, :chats]
+  before_action :not_group_user, except: [:index, :create, :chats, :destroy_confirm]
 
   def index
   	@new_group = Group.new
@@ -46,6 +46,10 @@ class GroupsController < ApplicationController
   end
 
   def destroy_confirm
+    @group = Group.find(params[:group_id])
+    if @group.users.find_by(id: current_user.id).nil?
+      redirect_back(fallback_location: root_path)
+    end
   	@group = Group.find(params[:group_id])
   end
 
@@ -69,7 +73,7 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-  	params.require(:group).permit(:name, :leader, :private_status, :self_id)
+  	params.require(:group).permit(:name, :leader, :private_status, :self_id, :image, :image_cache, :remove_image)
   end
 
   def not_group_user

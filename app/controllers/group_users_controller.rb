@@ -24,7 +24,7 @@ class GroupUsersController < ApplicationController
 			@title = "受け取った申請"
 			@group_users = GroupUser.where(group_id: @group, join_status: "waiting_for_allow")
 		else
-			@title = "グループに参加しているユーザー"
+			@title = "参加しているユーザー"
 			@group_users = GroupUser.where(group_id: @group, join_status: "joined")
 		end
 	end

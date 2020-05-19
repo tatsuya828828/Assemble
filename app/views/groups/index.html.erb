@@ -1,14 +1,18 @@
-<div class="row side-space">
+<div class="row side-space font-white">
 	<div class="col-lg-3">
-		<div style="margin-bottom: 50px;">
+		<div>
 			<h4>グループ追加</h4>
 			<%= form_for @new_group do |f| %>
 
+				<%= f.label :image, "グループのサムネイル" %>
+				<%= f.file_field :image %>
+				<%= f.hidden_field :image_cache %>
+
 				<%= f.label :name, :グループ名 %>
-				<%= f.text_field :name, class: "form-control", placeholder: "グループ名", required: true %>
+				<%= f.text_field :name, class: "form form-control", placeholder: "グループ名", required: true %>
 
 				<%= f.label :self_id, :グループID %>
-				<%= f.text_field :self_id, class: "form-control", placeholder: "グループID(任意)" %>
+				<%= f.text_field :self_id, class: "form form-control", placeholder: "グループID(任意)" %>
 
 				<%= f.radio_button :private_status, "closed", checked: "checked" %>
 				<%= f.label :private_status, :公開しない %>
@@ -23,9 +27,9 @@
 		</div>
 		<div style="margin-bottom: 50px;">
 			<div style="text-align: center;">
-				<h5><%= link_to "受け取った申請", groups_path(request: "receive") %>
+				<h5><%= link_to "受け取った申請", groups_path(request: "receive"), class: " btn theme-color" %>
 				|
-				<%= link_to "参加申請中", groups_path(request: "send") %></h5>
+				<%= link_to "参加申請中", groups_path(request: "send"), class: " btn theme-color" %></h5>
 			</div>
 			<div style="text-align: center; overflow: auto; height: 300px;">
 				<% if @request == "send" %>
@@ -33,18 +37,22 @@
 					<% current_user.group_users.each do |group_user| %>
 						<% if group_user.join_status == "waiting_for_allow" %>
 							<div style="margin-bottom: 15px;">
-								<%= image_tag 'CorkBoard.png', width: '200', height: '150' %>
+								<% if group_user.user.image? %>
+									<%= image_tag group_user.user.image.url, width: 150, height: 150, class: "circle" %>
+								<% else %>
+									<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+								<% end %>
 								<br>
 								<%= group_user.group.name %>
 								 <br>
 							<!-- リーダーのidと一致するグループ内ユーザーを探してnameを表示 -->
 								<% group_user.group.users.each do |user| %>
 									<% if user.id == group_user.group.leader %>
-										ホスト:<%= link_to user.name, user_path(user.id) %>
+										ホスト:<%= link_to user.name, user_path(user.id), class: "theme-color" %>
 									<% end %>
 								<% end %>
 							
-								<%= link_to '取り消す', group_destroy_user_path(group_id: group_user.group_id, id: group_user.id, page: "groups"), class: "btn btn-danger form-control" %>
+								<%= link_to '取り消す', group_destroy_user_path(group_id: group_user.group_id, id: group_user.id, page: "groups"), class: "btn font-red form-control" %>
 							</div>
 						<% end %>
 					<% end %>
@@ -54,16 +62,19 @@
 							<% group.group_users.each do |group_user| %>
 								<% if group_user.join_status == "waiting_for_allow" %>
 									<div style="margin-bottom: 15px;">
-										<%= image_tag 'CorkBoard.png', width: '200', height: '150' %>
-										
+										<% if group_user.user.image? %>
+											<%= image_tag group_user.user.image.url, width: 150, height: 150, class: "circle" %>
+										<% else %>
+											<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+										<% end %>
 								 		<br>
-										<%= link_to group_user.user.name, user_path(group_user.user.id) %>さんから
+										<%= link_to group_user.user.name, user_path(group_user.user.id), class: "theme-color" %>さんから
 										<br>
-										<%= link_to group.name,group_path(group.id) %>に参加申請が来ています
+										<%= link_to group.name,group_path(group.id), class: "theme-color" %>に参加申請が来ています
 
 										<%= link_to '参加を許可', group_user_path(group_id: group.id, id: group_user.id, page: "groups"), method: :put, class: "btn theme-color form-control" %>
 
-										<%= link_to '参加を拒否', group_destroy_user_path(group_id: group.id, id: group_user.id, page: "groups"), class: "btn btn-danger form-control" %>
+										<%= link_to '参加を拒否', group_destroy_user_path(group_id: group.id, id: group_user.id, page: "groups"), class: "btn font-red form-control" %>
 									</div>
 								<% end %>
 							<% end %>
@@ -80,14 +91,18 @@
 				<% if group_user.join_status == "joined" %>
 					<div class="col-md-4" style="text-align: center; margin-bottom: 20px;">
 						
-							<%= image_tag 'CorkBoard.png', width: '250', height: '200' %>
+							<% if group_user.group.image? %>
+								<%= image_tag group_user.group.image.url, width: 200, height: 200, class: "circle" %>
+							<% else %>
+								<%= image_tag "NO_IMAGE.png", width: 200, height: 200, class: "circle" %>
+							<% end %>
 							<br>
-							<%= link_to group_user.group.name, group_path(group_user.group_id) %>
+							<%= link_to group_user.group.name, group_path(group_user.group_id), class: "theme-color" %>
 							<br>
 							<!-- リーダーのidと一致するグループ内ユーザーを探してnameを表示 -->
 							<% group_user.group.users.each do |user| %>
 								<% if user.id == group_user.group.leader %>
-									ホスト:<%= link_to user.name, user_path(user.id) %>
+									ホスト:<%= link_to user.name, user_path(user.id), class: "theme-color" %>
 									<br>
 								<% end %>
 							<% end %>

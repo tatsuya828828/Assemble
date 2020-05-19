@@ -1,26 +1,46 @@
 <div class="row">
-	<div class="offset-lg-4" style="margin: 0 auto;">
+	<div class="offset-lg-4 font-white" style="margin: 0 auto;">
 		<%= form_for @group do |f| %>
 
 			<div class="form-group">
+				<% if @group.image? %>
+					<div class="thmbnail">
+						<%= image_tag @group.image.url, width: 150, height: 150, class: "circle" %>
+					</div>
+				<% end %>
+				<%= f.label :image , :グループのサムネイル%>
+				<br>
+				<%= f.file_field :image %>
+				<%= f.hidden_field :image_cache %>
+			</div>
+			<div class="field">
+				<% if @group.persisted? && @group.image? %>
+					<label>
+						<%= f.check_box :remove_image %>
+						画像を削除
+					</label>
+				<% end %>
+			</div>
+				</label>
+			<div class="form-group">
 				<%= f.label :name, :グループ名 %>
 				<br>
-				<%= f.text_field :name, autofocus: true, placeholder: @group.name, class: "form-control", required: true %>
+				<%= f.text_field :name, autofocus: true, placeholder: @group.name, class: "form form-control", required: true %>
 			</div>
 
 			<div class="form-group">
 				<%= f.label :leader, :ホスト %>
 				<br>
-				<%= f.select :leader, @group.users.collect{|user| [user.name, user.id]},{}, class: "form-control" %>
+				<%= f.select :leader, @group.users.collect{|user| [user.name, user.id]},{}, class: "form form-control" %>
 			</div>
 
 			<div class="form-group">
 				<%= f.label :self_id, :グループID %>
 				<br>
 				<% if @group.self_id.nil? %>
-					<%= f.text_field :self_id, placeholder: "グループID(任意)", class: "form-control" %>
+					<%= f.text_field :self_id, placeholder: "グループID(任意)", class: "form form-control" %>
 				<% else %>
-					<%= f.text_field :self_id, placeholder: @group.self_id, class: "form-control" %>
+					<%= f.text_field :self_id, placeholder: @group.self_id, class: "form form-control" %>
 				<% end %>
 			</div>
 
@@ -34,7 +54,7 @@
 				<%= f.label :private_status, :誰でも参加申請可に設定 %>
 			</div>
 			<%= f.submit '変更する', class: "btn theme-color form-control" %>
-			<%= link_to '削除する', group_destroy_confirm_path(@group), class: "btn btn-danger form-control" %>
+			<%= link_to '削除する', group_destroy_confirm_path(@group), class: "btn font-red form-control" %>
 		<% end %>
 	</div>
 </div>
