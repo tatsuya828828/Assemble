@@ -1,6 +1,6 @@
 class GroupUsersController < ApplicationController
 	before_action :authenticate_user!
-	before_action :not_group_user, except: [:create]
+	before_action :not_group_user, except: [:create, :destroy]
 
 	def index
 		@status = params[:status]
@@ -50,8 +50,12 @@ class GroupUsersController < ApplicationController
 
 	def destroy
 		group_user = GroupUser.find(params[:id])
-		group_user.destroy
-		redirect_back(fallback_location: root_path)
+		if group_user.user_id == current_user.id || group_user.group.leader == current_user.id
+			group_user.destroy
+			redirect_back(fallback_location: root_path)
+		else
+			redirect_back(fallback_location: root_path)
+		end
 	end
 
 
