@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2020_05_12_045903) do
   create_table "diaries", force: :cascade do |t|
     t.integer "user_id"
     t.integer "group_id"
-    t.string "image_id"
+    t.string "image"
     t.string "title", null: false
     t.text "body", null: false
     t.integer "private_status"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 2020_05_12_045903) do
     t.string "name", null: false
     t.integer "leader"
     t.string "self_id"
+    t.string "image"
     t.integer "private_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -103,6 +104,7 @@ ActiveRecord::Schema.define(version: 2020_05_12_045903) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "self_id", null: false
+    t.string "image"
     t.integer "valid_status", default: 0, null: false
     t.string "name", null: false
     t.datetime "created_at", null: false

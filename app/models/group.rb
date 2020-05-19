@@ -15,11 +15,15 @@ class Group < ApplicationRecord
 	#================================================
 
 	#===== グループの日記 =============================
-	has_many :diarys, dependent: :destroy
+	has_many :diaries, dependent: :destroy
 	#================================================
 
 	enum private_status: { closed: 0, open: 1 }
 
+
+	mount_uploader :image, ImageUploader
+
+	
 	validates :name, 		   presence: true
 	validates :leader, 		   presence: true
 	validates :private_status, presence: true

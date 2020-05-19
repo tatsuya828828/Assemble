@@ -39,6 +39,8 @@ class User < ApplicationRecord
   #================================================================
 
 
+  mount_uploader :image, ImageUploader
+
   # deviseがログイン時に呼び出しているメソッドをオーバーライドして、バリデーションを追加して、valid_statusがactiveなuserのみログイン可能にする。
   def active_for_authentication?
     super && valid_status == "active"
