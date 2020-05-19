@@ -71,7 +71,7 @@
               <div class="dropdown-menu" aria-labelledby="dropdown">
               　<%= link_to 'グループページへ', group_path(@group), class: "theme-color", style: "text-decoration: none;" %>
                 <br>
-              　<%= link_to '日記一覧', group_diaries_path(@group), class: "text-shadow2", style: "text-decoration: none; color: #FF4F02;" %>
+              　<%= link_to '日記一覧', group_diaries_path(@group), class: "theme-color", style: "text-decoration: none;" %>
                 <br>
               　<%= link_to '参加ユーザー', group_users_path(group_id: @group, status: "joined"), class: "theme-color", style: "text-decoration: none;" %>
                 <br>
@@ -112,7 +112,7 @@
 
               <%= f.text_field :word, required: true, class: "form-control font-white col-md-6", id: "search" %>
 
-              <%= select_tag :range, options_for_select([["グループID"],["ユーザーID"]]), class: "form-control col-md-4 theme-color", id: "search"%>
+              <%= select_tag :range, options_for_select([["グループID"],["ユーザーID"]]), class: "form-control col-md-4 theme-color", id: "search-tag"%>
 
               <%= f.submit '検索', class: "btn col-md-2 theme-color text-shadow" %>
             </div>
