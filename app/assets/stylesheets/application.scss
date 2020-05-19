@@ -31,6 +31,21 @@
  @import 'plugins/table.min.css';
  @import 'plugins/video.min.css';
 
+
+*{
+  font-family: serif;
+  color: #fff;
+}
+
+a{
+  color: #FF4F02;
+}
+
+a:hover{
+  color: #fff;
+  text-decoration: none;
+}
+
 .theme-color{
 	background-color: #FF4F02;
 	color: #fff;
@@ -111,4 +126,11 @@
   outline-color: none;
   outline-offset: none;
   text-shadow: none;
+}
+
+.top{
+  background-image: url(/assets/top.png);
+  height: 800px;
+  background-size: cover;
+  background-position: 50% 25%;
 }

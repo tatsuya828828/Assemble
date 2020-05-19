@@ -9,7 +9,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   
-  <body style="background-color: #C2EEFF;">
+  <body class="top" style="background-color: #C2EEFF;">
     <header>
       <% if admin_signed_in? %>
         <%= render 'layouts/admin_header' %>
@@ -17,19 +17,11 @@
         <%= render 'layouts/user_header' %>
       <% end %>
     </header>
-    <% if @back.present? %>
-    <div style="
-      background: <%= @back %>;
-      height: 800px;
-      background-size: 100%;
-      background-repeat: no-repeat;
-      background-position: 50% 25%;" >
-    <% end %>
       <div class="container-fruid table-responsive" style="padding-top: 50px;">
         <%= yield %>
       </div>
-    <% if @back.present? %>
-      </div>
-    <% end %>
+    <!-- <footer style="background-color: #fff; height: 100px;">
+      <% render 'layouts/user_footer' %>
+    </footer>    -->
   </body>
 </html>
