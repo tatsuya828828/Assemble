@@ -50,7 +50,7 @@ class DiariesController < ApplicationController
 	private
 
 	def diary_params
-		params.require(:diary).permit(:title, :body, :user_id, :group_id, :private_status)
+		params.require(:diary).permit(:title, :body, :user_id, :group_id, :private_status, :image, :image_cache, :remove_image)
 	end
 
 	def not_group_user

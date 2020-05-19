@@ -1,36 +1,50 @@
-<%= form_with(model: @diary, url: group_diary_path(group_id: @group.id), local: true, method: :patch) do |f| %>
+<div class="side-space">	
+	<%= form_with(model: @diary, url: group_diary_path(group_id: @group.id), local: true, method: :patch) do |f| %>
 
-	<div class="field">
-		<%= f.label :title %>
-		<%= f.text_field :title %>
-	</div>
+		<div class="field">
+			<%= f.label :title, "タイトル", class: "font-white" %>
+			　<%= f.text_field :title, class: " form form-control" %>
+		</div>
+		<br>
+		<div>
+			<%= f.label :image, "サムネイル", class: "font-white" %>
+			　<%= f.file_field :image, class: "font-white" %>
+			<%= f.hidden_field :image_cache %>
+		</div>
+		<% if @diary.image? %>
+			<div class="thmbnail">
+				<%= image_tag @diary.image.url %>
+			</div>
+		<% end %>
+		<div>
+			<% if @diary.persisted? && @diary.image? %>
+				<label, class="font-white">
+					<%= f.check_box :remove_image %>
+					画像を削除
+				</label>
+			<% end %>
+		<br>
+		<div class="field">
+			<%= f.text_area :body%>
+		</div>
+		<br>
+		<div class="field">
+			<%= f.radio_button :private_status, "closed", checked: "checked" %>
+			<%= f.label :private_status, "グループのみ公開", class: "font-white" %>
+			　　
+			<%= f.radio_button :private_status, "open" %>
+			<%= f.label :private_status, "全ユーザーに公開", class: "font-white" %>
+		</div>
 
-	<div>
-		<p>サムネイルの設定</p>
-	</div>
+		<%= f.hidden_field :user_id, value: current_user.id %>
+		<%= f.hidden_field :group_id, value: @group.id %>
 
-	<div class="field">
-		<%= f.label :body %>
-		<%= f.text_area :body%>
-	</div>
-
-	<div class="field">
-		<%= f.radio_button :private_status, "closed", checked: "checked" %>
-		<%= f.label :private_status, "グループのみ公開" %>
-	</div>
-
-	<div class="field">
-		<%= f.radio_button :private_status, "open" %>
-		<%= f.label :private_status, :全ユーザーに公開 %>
-	</div>
-
-	<%= f.hidden_field :user_id, value: current_user.id %>
-	<%= f.hidden_field :group_id, value: @group.id %>
-
-	<div class="action">
-		<%= f.submit '編集を終わる', class: "btn theme-color" %>
-	</div>
-<% end %>
-<script>
-	new FroalaEditor('#diary_body',{})
-</script>
+		<div class="action">
+			<%= f.submit '編集完了', class: "btn theme-color form-control theme-color" %>
+		</div>
+	<% end %>
+	<script>
+		new FroalaEditor('#diary_body',{})
+	</script>
+	<%= link_to '戻る', group_diary_path(group_id: @group.id, id: @diary.id), class: "btn form-control font-red" %>
+</div>

@@ -1,36 +1,46 @@
 <div class="row side-space">
 	<div class="col-lg-3 side-space">
-		<p>ユーザーイメージ</p>
-		<%= @diary.user.name %>
-		<% if @diary.user_id == current_user.id %>
-			<%= link_to '編集する', edit_group_diary_path(group_id: @group.id, id: @diary.id), class: "btn theme-color form-control" %>
-		<% end %>
-		<% if @group.users.find_by(id: current_user).present? %>
-			<%= link_to '日記一覧へ', group_diaries_path(group_id: @diary.group_id), class: "btn theme-color form-control" %>
-		<% end %>
-	</div>
-	<div class="col-lg-9">
-		<div class="container-fluid">
-			<h4><%= @diary.title %></h4>
-				<%== @diary.body %>
+		<div class="text-center">
+			<% if @diary.user.image? %>
+				<%= image_tag @user.image.url, width: 150, height: 150, class: "circle" %>
+			<% else %>
+				<%= image_tag 'NO_IMAGE.png', width: 150, height: 150, class: "circle" %>
+			<% end %>
+			<br>
+			<h5 class="font-white mt-2"><%= @diary.user.name %></h5>
+			<% if @diary.user_id == current_user.id %>
+				<%= link_to '編集する', edit_group_diary_path(group_id: @group.id, id: @diary.id), class: "btn theme-color form-control" %>
+			<% end %>
+			<% if @group.users.find_by(id: current_user).present? %>
+				<%= link_to '日記一覧へ', group_diaries_path(group_id: @diary.group_id), class: "btn theme-color form-control" %>
+			<% end %>
+		</div>
+		<h5 class="font-white mt-3">コメント一覧</h5>
+		<div style="overflow: auto; height: 300px;">
 			<table>
 				<% @diary.diary_comments.each do |diary_comment| %>
 					<tr>
-						<td style="background-color: #fff; border-radius: 10px; padding: 10px;">		
+						<td style="background-color: #fff; border-radius: 5px; padding: 10px; color: black;">		
 							<%= diary_comment.comment %>	
 						</td>
 					</tr>
 					<tr>
-						<td>
-							ユーザーイメージ
+						<td class="font-white">
+							<% if @diary.user.image? %>
+								<%= image_tag @user.image.url, width: 50, height: 50, class: "circle" %>
+							<% else %>
+								<%= image_tag 'NO_IMAGE.png', width: 50, height: 50, class: "circle" %>
+							<% end %>
 							<%= diary_comment.user.name %>
+							<br>
 							<%= diary_comment.created_at.strftime("%Y年%m月%d日 %H時%M分") %>
 							<br><br>
 						</td>
 					</tr>
 				<% end %>
 			</table>
-			<% if @diary_comment.present? %>
+		</div>
+		<% if @diary_comment.present? %>
 				<%= form_with url: group_diary_comments_path(group_id: @diary.group_id, diary_id: @diary.id), local: true do |f| %>
 
 					<%= f.text_area :comment, class: "form-control" %>
@@ -39,11 +49,26 @@
 
 					<%= f.hidden_field :diary_id, value: @diary.id %>
 
-					<%= f.submit '投稿する(500文字以内)', class: "btn theme-color form-control" %>
+					<%= f.submit '投稿する', class: "btn theme-color form-control" %>
+					<%= link_to 'やめる', group_diary_path(group_id: @group, id: @diary), class: "btn font-red form-control" %>
 				<% end %>
 			<% else %>
-				<%= link_to 'コメントを投稿する', group_diary_path(group_id: @diary.group_id, id: @diary.id, comment: "new"), class: "btn theme-color form-control" %>
+				<%= link_to 'コメントを投稿する(500文字以内)', group_diary_path(group_id: @diary.group_id, id: @diary.id, comment: "new"), class: "btn theme-color form-control pl-0" %>
 			<% end %>
+	</div>
+	<div class="col-lg-9">
+		<div class="container-fluid" style="overflow: auto; height: 800px;">
+			<div class="text-center">
+				<% if @diary.image? %>
+					<%= image_tag @diary.image_url, width: 250, height: 250, class: "square" %>
+				<% else %>
+					<%= image_tag "NO_IMAGE", width: 250, height: 250, class: "square" %>
+				<% end %>
+				<h4 class="font-white"><%= @diary.title %></h4>
+			</div>
+			<div style="background-color: #fff; border-radius: 5px; padding: 10px;">
+				<%== @diary.body %>
+			</div>
 		</div>
 	</div>
 </div>

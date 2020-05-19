@@ -1,36 +1,40 @@
-<%= form_with(model: @diary, url: group_diaries_path(group_id: @group.id), local: true) do |f| %>
+<div class="row side-space" style="color: black;">
+	<div class="offset-sm-3 col-sm-6">	
+		<%= form_with(model: @diary, url: group_diaries_path(group_id: @group.id), local: true) do |f| %>
 
-	<div class="field">
-		<%= f.label :title %>
-		<%= f.text_field :title %>
+			<div class="field">
+				<%= f.label :title, "タイトル" %>
+				　<%= f.text_field :title, class: "form-control", style: "color: black;" %>
+			</div>
+			<br>
+			<div>
+				<%= f.label :image, "サムネイル" %>
+				　<%= f.file_field :image %>
+				<%= f.hidden_field :image_cache %>
+			</div>
+			<br>
+			<div class="field">
+				<%= f.text_area :body%>
+			</div>
+			<br>
+			<div class="field">
+				<%= f.radio_button :private_status, "closed", checked: "checked" %>
+				<%= f.label :private_status, "グループのみ公開" %>
+				　　
+				<%= f.radio_button :private_status, "open" %>
+				<%= f.label :private_status, :全ユーザーに公開 %>
+			</div>
+
+			<%= f.hidden_field :user_id, value: current_user.id %>
+			<%= f.hidden_field :group_id, value: @group.id %>
+
+			<div class="action">
+				<%= f.submit '投稿する', class: "btn theme-color form-control" %>
+			</div>
+		<% end %>
+		<script>
+			new FroalaEditor('#diary_body',{})
+		</script>
+		<%= link_to '戻る', group_diaries_path(group_id: @group.id), class: "btn theme-color form-control" %>
 	</div>
-
-	<div>
-		<p>サムネイルの設定</p>
-	</div>
-
-	<div class="field">
-		<%= f.label :body %>
-		<%= f.text_area :body%>
-	</div>
-
-	<div class="field">
-		<%= f.radio_button :private_status, "closed", checked: "checked" %>
-		<%= f.label :private_status, "グループのみ公開" %>
-	</div>
-
-	<div class="field">
-		<%= f.radio_button :private_status, "open" %>
-		<%= f.label :private_status, :全ユーザーに公開 %>
-	</div>
-
-	<%= f.hidden_field :user_id, value: current_user.id %>
-	<%= f.hidden_field :group_id, value: @group.id %>
-
-	<div class="action">
-		<%= f.submit '投稿する', class: "btn theme-color" %>
-	</div>
-<% end %>
-<script>
-	new FroalaEditor('#diary_body',{})
-</script>
+</div>

@@ -1,20 +1,31 @@
 <div class="row side-space">
-	<div class="col-lg-3">
+	<div class="col-lg-3 mb-5">
 		<%= link_to '新しく投稿する', new_group_diary_path(@group), class: "btn theme-color form-control" %>
 	</div>
-	<div class="col-lg-9">
-		<h4>日記一覧</h4>
-		<div class="row" style="height: 650px; overflow: auto;">
+	<div class="col-lg-9 font-white text-center">
+		<h2 class="mb-5">日記一覧</h2>
+		<div style="height: 650px; overflow: auto; ">
 			<% @diaries.each do |diary| %>
-				<div class="col-md-4" style="text-align: center; margin-bottom: 20px;">
-					<%= image_tag 'CorkBoard.png', width: '250', height: '200' %>
-					<br>
-					<h5><%= link_to diary.title, group_diary_path(group_id: diary.group_id, id: diary.id) %></h5>
-					<br>
-					投稿者:<%= link_to diary.user.name, user_path(id: diary.user.id) %>
-					<br>
-					投稿日時:<%= diary.created_at.strftime("%Y年%m月%d日 %H時%M分") %>
-				</div>
+					<div class="row mb-5">
+						<div class="col-lg-3">
+							<%= link_to group_diary_path(group_id: @group, id: diary) do %>
+								<% if diary.image? %>
+									<%= image_tag diary.image.url, width: 200, height: 200, class: "square" %>
+								<% else %>
+									<%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
+								<% end %>
+							<% end %>
+						</div>
+						<div class="col-lg-6" style="text-align: left;">
+							<h3 class="theme-color pt-5" style="padding-bottom: 65px;">
+								<%= link_to diary.title, group_diary_path(group_id: diary.group_id, id: diary.id), class: "theme-color" %>
+							</h3>
+							
+							投稿者:<%= link_to diary.user.name, user_path(id: diary.user.id), class: "theme-color" %>
+								<br>
+							投稿日時:<%= diary.created_at.strftime("%Y年%m月%d日 %H時%M分") %>
+						</div>
+					</div>
 			<% end %>
 		</div>
 	</div>
