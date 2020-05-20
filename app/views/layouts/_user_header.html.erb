@@ -4,12 +4,13 @@
   side-space
   theme-color
   font-white
+  text-center
   pt-3 pb-3">
 
 
   <%= link_to 'Assemble', root_path,
-    class: "navbar-brand theme-color",
-    style: "font-size: 30px; font-family: cursive; font-weight: 1000;"%>
+    class: "navbar-brand theme-color mr-auto ml-auto",
+    style: "font-size: 30px; font-family: cursive;"%>
 
     <button
       class="navbar-toggler"
@@ -24,20 +25,20 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbar">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+      <ul class="navbar-nav mr-auto ml-auto">
+        <li class="nav-item active mr-3 ml-3">
           <%= link_to 'ホーム', root_path, class: "nav-link theme-color" %>
         </li>
 
         <% if user_signed_in? %>
 
           <li class="nav-item active">
-            <%= link_to 'マイページ', user_path(current_user.id), class: "nav-link text-shadow" %>
+            <%= link_to 'マイページ', user_path(current_user.id), class: "nav-link theme-color mr-3 ml-3" %>
           </li>
 
           <!-- 参加しているグループのプルダウン -->
-           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-shadow"
+           <li class="nav-item dropdown mr-3 ml-3">
+            <a class="nav-link dropdown-toggle theme-color"
                href="#" id="dropdown"
                data-toggle="dropdown"
                aria-haspopup="true"
@@ -45,11 +46,11 @@
                グループ
             </a>
 
-            <div class="dropdown-menu" aria-labelledby="dropdown">
-              　<%= link_to '一覧ページへ', groups_path, class: "theme-color", style: "text-decoration: none;" %>
+            <div class="dropdown-menu" aria-labelledby="dropdown" style="background-color:rgba(250,100,50,0.5);">
+              　<%= link_to '一覧ページへ', groups_path, class: "theme-color link", style: "text-decoration: none;" %>
                 <br>
                 <% (current_user.group_users.where(join_status: "joined")).each do |join_group| %>
-                  　<%= link_to join_group.group.name, group_path(join_group.group.id), class: "theme-color", style: "text-decoration: none;" %>
+                  　<%= link_to join_group.group.name, group_path(join_group.group.id), class: "theme-color link", style: "text-decoration: none;" %>
                   <br>
                 <% end %>
             </div>
@@ -59,8 +60,8 @@
 
           <!-- グループページのみ表示するプルダウン  -->
           <% if @group.present? %>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-shadow"
+            <li class="nav-item dropdown mr-3 ml-3">
+              <a class="nav-link dropdown-toggle theme-color"
                  href="#" id="dropdown"
                  data-toggle="dropdown"
                  aria-haspopup="true"
@@ -68,20 +69,22 @@
                  <%= @group.name %>
               </a>
 
-              <div class="dropdown-menu" aria-labelledby="dropdown">
-              　<%= link_to 'グループページへ', group_path(@group), class: "theme-color", style: "text-decoration: none;" %>
+              <div class="dropdown-menu" aria-labelledby="dropdown" style="background-color:rgba(250,100,50,0.5);">
+               　<%= link_to 'ホーム', group_path(@group), class: "theme-color link", style: "text-decoration: none;" %>
                 <br>
-              　<%= link_to '日記一覧', group_diaries_path(@group), class: "theme-color", style: "text-decoration: none;" %>
+                　<%= link_to '日記一覧', group_diaries_path(@group), class: "theme-color link", style: "text-decoration: none;" %>
                 <br>
-              　<%= link_to '参加ユーザー', group_users_path(group_id: @group, status: "joined"), class: "theme-color", style: "text-decoration: none;" %>
+                　<%= link_to '参加ユーザー', group_users_path(group_id: @group, status: "joined"), class: "theme-color link", style: "text-decoration: none;" %>
+                <br>
+                　<%= link_to 'チャットルーム', group_chats_path(group_id: @group), class: "theme-color link", style: "text-decoration: none;" %>
                 <br>
 
                 <!-- グループのリーダーにのみ表示 -->
                 <% @leader = @group.users.find_by(id: @group.leader) %>
                 <% if current_user == @leader %>
-                　<%= link_to '受け取った申請', group_users_path(group_id: @group, status: "waiting_user"), class: "theme-color", style: "text-decoration: none;" %>
+                　<%= link_to '受け取った申請', group_users_path(group_id: @group, status: "waiting_user"), class: "theme-color link", style: "text-decoration: none;" %>
                   <br>
-                　<%= link_to 'グループの編集', edit_group_path(@group), class: "theme-color", style: "text-decoration: none;" %>
+                　<%= link_to 'グループの編集', edit_group_path(@group), class: "theme-color link", style: "text-decoration: none;" %>
                 <% end %>
                 <!------------------------------->
               </div>
@@ -90,17 +93,17 @@
           <!-------------------------------------->
 
 
-          <li class="nav-item active">
-            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link theme-color" %>
+          <li class="nav-item active mr-3 ml-3">
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link font-red" %>
           </li>
         <% else %>
-          <li class="nav-item active">
+          <li class="nav-item active mr-3 ml-3">
             <%= link_to 'このサイトについて', about_path, class: "nav-link theme-color" %>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item active mr-3 ml-3">
             <%= link_to 'ログイン', new_user_session_path, class: "nav-link theme-color" %>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item active mr-3 ml-3">
             <%= link_to '新規登録(無料)', new_user_registration_path, class: "nav-link theme-color" %>
           </li>
         <% end %>
@@ -114,7 +117,7 @@
 
               <%= select_tag :range, options_for_select([["グループID"],["ユーザーID"]]), class: "form-control col-md-4 theme-color", id: "search-tag"%>
 
-              <%= f.submit '検索', class: "btn col-md-2 theme-color text-shadow" %>
+              <%= f.submit '検索', class: "btn col-md-2 theme-color" %>
             </div>
           <% end %>
         </div>
