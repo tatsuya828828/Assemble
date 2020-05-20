@@ -25,13 +25,13 @@
 				<%= f.submit 'グループを作成', class: "btn theme-color form-control" %>
 			<% end %>
 		</div>
-		<div style="margin-bottom: 50px;">
-			<div style="text-align: center;">
-				<h5><%= link_to "受け取った申請", groups_path(request: "receive"), class: " btn theme-color" %>
+		<div class="text-center mb-3">
+			<div>
+				<h6><%= link_to "受け取った申請", groups_path(request: "receive"), class: "link theme-color" %>
 				|
-				<%= link_to "参加申請中", groups_path(request: "send"), class: " btn theme-color" %></h5>
+				<%= link_to "参加申請中", groups_path(request: "send"), class: "link theme-color pr-5" %></h6>
 			</div>
-			<div style="text-align: center; overflow: auto; height: 300px;">
+			<div style="overflow: auto; height: 300px;">
 				<% if @request == "send" %>
 
 					<% current_user.group_users.each do |group_user| %>
