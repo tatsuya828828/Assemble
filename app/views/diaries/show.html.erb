@@ -15,8 +15,8 @@
 				<%= link_to '日記一覧へ', group_diaries_path(group_id: @diary.group_id), class: "btn theme-color form-control" %>
 			<% end %>
 		</div>
-		<h5 class="font-white mt-3">コメント一覧</h5>
-		<div style="overflow: auto; height: 300px;">
+		<h5 class="font-white mt-3 text-center">コメント一覧</h5>
+		<div style="overflow: auto; height: 250px;">
 			<table>
 				<% @diary.diary_comments.each do |diary_comment| %>
 					<tr>
@@ -27,9 +27,9 @@
 					<tr>
 						<td class="font-white">
 							<% if @diary.user.image? %>
-								<%= image_tag @user.image.url, width: 50, height: 50, class: "circle" %>
+								<%= image_tag @user.image.url, width: 30, height: 30, class: "circle" %>
 							<% else %>
-								<%= image_tag 'NO_IMAGE.png', width: 50, height: 50, class: "circle" %>
+								<%= image_tag 'NO_IMAGE.png', width: 30, height: 30, class: "circle" %>
 							<% end %>
 							<%= diary_comment.user.name %>
 							<br>

@@ -1,4 +1,4 @@
-<div class="row side-space" style="color: black;">
+<div class="row side-space font-white">
 	<div class="offset-sm-3 col-sm-6">	
 		<%= form_with(model: @diary, url: group_diaries_path(group_id: @group.id), local: true) do |f| %>
 
@@ -35,6 +35,6 @@
 		<script>
 			new FroalaEditor('#diary_body',{})
 		</script>
-		<%= link_to '戻る', group_diaries_path(group_id: @group.id), class: "btn theme-color form-control" %>
+		<%= link_to '戻る', group_diaries_path(group_id: @group.id), class: "btn font-red form-control" %>
 	</div>
 </div>
