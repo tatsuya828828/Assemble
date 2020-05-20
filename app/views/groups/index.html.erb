@@ -22,14 +22,14 @@
 
 				<%= f.hidden_field :leader, value: current_user.id %>
 				<br>
-				<%= f.submit 'グループを作成', class: "btn theme-color form-control" %>
+				<%= f.submit 'グループを作成', class: "btn theme-color form-controlう" %>
 			<% end %>
 		</div>
 		<div class="text-center mb-3">
 			<div>
-				<h6><%= link_to "受け取った申請", groups_path(request: "receive"), class: "link theme-color" %>
+				<h6><%= link_to "保留中", groups_path(request: "receive"), class: "link theme-color" %>
 				|
-				<%= link_to "参加申請中", groups_path(request: "send"), class: "link theme-color pr-5" %></h6>
+				<%= link_to "申請中", groups_path(request: "send"), class: "link theme-color" %></h6>
 			</div>
 			<div style="overflow: auto; height: 300px;">
 				<% if @request == "send" %>
