@@ -49,7 +49,7 @@
 					<% end %>
 				<% end %>
 				<br>
-				ユーザー名　<%= @user.name %>
+				ユーザー名　<%= link_to @user.name, user_path(@user), class: "link theme-color" %>
 				<br>
 			</div>
 			<% if @user.id == current_user.id %>
