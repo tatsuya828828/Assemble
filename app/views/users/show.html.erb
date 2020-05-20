@@ -1,2 +1,108 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="row font-white">
+  <div class="col-lg-3 text-center" style="background-color: rgba(0,0,0,0.5);">
+    <div class="pt-5" style="padding-bottom: 100px;">
+      <% if @user.image? %>
+        <%= image_tag @user.image.url, width: 150, height: 150, class: "circle" %>
+      <% else %>
+        <%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+      <% end %>
+    </div>
+    <br>
+    <%= @user.name %>
+    <div class="mt-3">
+      <% if @user == current_user %>
+        <%= link_to '編集する', edit_user_path(@user), class: "btn theme-color form-control" %>
+        <%= link_to '友人一覧へ', user_friends_path(current_user.id), class: "btn theme-color form-control" %>
+      <% else %>
+        <% if current_user.friend?(@user) %>
+          <%= link_to '削除', user_friend_path(user_id: current_user.id, id: @user_info.id), method: :delete, class: "btn theme-color form-control" %>
+          <p>グループにさそう</p>
+        <% elsif current_user.wait_self?(@user) %>
+          申請中です
+          <%= link_to '取り消す', user_friend_path(user_id: current_user.id, id: @user_info.id), method: :delete, class: "btn theme-color form-control" %>
+        <% elsif current_user.waiting_other_user?(@user) %>
+          申請が来ています
+          <%= link_to '承認する', user_friend_path(user_id: current_user.id, id: @user_info.id), method: :put, class: "btn theme-color form-control" %>
+          <%= link_to '拒否する', user_friend_path(user_id: current_user.id, id: @user_info.id), method: :delete, class: "btn theme-color form-control" %>
+        <% else %>
+          <%= form_with(url: user_friends_path(user_id: current_user.id), local: true) do |f| %>
+            <%= f.hidden_field :sender_id, value: current_user.id %>
+            <%= f.hidden_field :receiver_id, value: @user.id %>
+            <%= f.hidden_field :request_status, value: "waiting_for_allow" %>
+            <%= f.submit '友達になる', class: "btn theme-color form-control" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <% if @user == current_user %>
+      <div>
+        <div class="text-center mt-3 mb-5">
+          <h6>
+            <%= link_to "保留中", user_path, class: "link theme-color" %>
+            |
+            <%= link_to "申請中", user_path(request: "send"), class: "link theme-color" %>
+          </h6>
+        </div>
+        
+        <div style="overflow: auto; height: 300px;">
+          <% @friend_requests.each do |request| %>
+            <% if request.receiver_id == current_user.id %>
+              <div class="mb-3">
+                <% if request.sender.image? %>
+                  <%= image_tag request.sender.user.image.url, width: 150, height: 150, class: "circle" %>
+                <% else %>
+                  <%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+                <% end %>
+              </div>
+              <br>
+              <%= request.sender.name %>
+            
+              <%= link_to '承認する', user_friend_path(user_id: current_user.id, id: request.id),method: :put, class: "btn theme-color form-control" %>
+              <%= link_to '拒否する', user_friend_path(user_id: current_user.id, id: request.id), method: :delete, class: "btn font-red form-control" %>
+            <% else %>
+              <div class="mb-3">
+                <% if request.receiver.image? %>
+                  <%= image_tag request.receiver.user.image.url, width: 150, height: 150, class: "circle" %>
+                <% else %>
+                  <%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+                <% end %>
+              </div>
+              <br>
+              <%= request.receiver.name %>
+              <%= link_to '取り消す', user_friend_path(user_id: current_user.id, id: request.id), method: :delete, class: "btn font-red form-control" %>
+            <% end %>
+          <% end %>
+        </div>    
+      </div>
+    <% end %>
+  </div>
+  <div class="col-lg-9 pt-5">
+    <div>
+      <% current_user.diaries.each do |diary|  %>
+        <% if diary.private_status == "open" %>
+          <div class="row mb-5">
+            <div class="col-lg-3 text-center">
+              <%= link_to group_diary_path(group_id: diary.group_id, id: diary) do %>
+                <% if diary.image? %>
+                  <%= image_tag diary.image.url, width: 200, height: 200, class: "square" %>
+                <% else %>
+                   <%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="col-lg-6 text-center">
+              <h3 class="theme-color pt-5" style="padding-bottom: 65px;">
+                <%= link_to diary.title, group_diary_path(group_id: diary.group_id, id: diary.id), class: "theme-color" %>
+              </h3>
+                
+            
+              <br>
+              投稿日時:<%= diary.created_at.strftime("%Y年%m月%d日 %H時%M分") %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+    </div>

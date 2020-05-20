@@ -1,0 +1,15 @@
+<div class="row font-white text-center">
+	<div class="col-lg-4">
+	</div>
+	<div class="col-lg-4 side-space">
+		<div class="row" style="height: 200px;">
+		</div>
+		<h2>本当に退会しますか？</h2>
+		<p class="font-white">退会すると、<br>このサイトのあなたの情報は全て消えてしまいます。<br>本当によろしいですか？</p>
+		<br>
+		<%= link_to '削除する',user_path(id: current_user.id),method: :delete, class: "btn font-red form-control" %>
+
+		<%= link_to 'やめる', user_path(id: current_user.id),method: :delete, class: "btn theme-color form-control" %>
+
+	</div>
+</div>

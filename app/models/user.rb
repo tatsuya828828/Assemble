@@ -15,7 +15,7 @@ class User < ApplicationRecord
   #========================================================
 
   #===== ユーザーの日記 =====================================
-  has_many :diarys, dependent: :destroy
+  has_many :diaries, dependent: :destroy
   #========================================================
 
   #===== ユーザーが投稿した日記へのコメント ====================
@@ -28,6 +28,7 @@ class User < ApplicationRecord
   has_many :sender_friends, foreign_key: :sender_id, class_name: "Friend", dependent: :destroy
   # 中間テーブルを介してreceiverモデルのユーザー(申請したユーザー)を集めることをsendersと定義
   has_many :senders, through: :sender_friends, source: :receiver
+  # 自分が申請を送った人たち
   #========================================================
 
 
@@ -36,6 +37,7 @@ class User < ApplicationRecord
   has_many :receiver_friends, foreign_key: :receiver_id, class_name: "Friend", dependent: :destroy
   # 中間テーブルを介してsenderモデルのユーザー(承認する側)を集めることをreceiversと定義
   has_many :receivers, through: :receiver_friends, source: :sender
+  # 自分が申請受け取った人(自分に申請を送った人)たち
   #================================================================
 
 
@@ -44,6 +46,21 @@ class User < ApplicationRecord
   # deviseがログイン時に呼び出しているメソッドをオーバーライドして、バリデーションを追加して、valid_statusがactiveなuserのみログイン可能にする。
   def active_for_authentication?
     super && valid_status == "active"
+  end
+
+  # すでに友達になっているユーザー
+  def friend?(other_user)
+    senders.find_by(id: other_user.id) && receivers.find_by(id: other_user.id)
+  end
+
+  # こちらの反応を待っているユーザー
+  def waiting_other_user?(other_user)
+    receivers.find_by(id: other_user.id) && (senders.find_by(id: other_user.id)).nil?
+  end
+
+  #　こちらが申請を送ったユーザー
+  def wait_self?(other_user)
+    senders.find_by(id: other_user.id) && (receivers.find_by(id: other_user.id)).nil?
   end
 
   enum valid_status: {active: 0, is_deleted: 1}
