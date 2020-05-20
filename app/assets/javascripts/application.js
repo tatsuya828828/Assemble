@@ -45,3 +45,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require_tree .
+
+$(document).on('turbolinks:load',function () {
+	$('.title').slideDown(2000);
+});
