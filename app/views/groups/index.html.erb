@@ -22,11 +22,11 @@
 
 				<%= f.hidden_field :leader, value: current_user.id %>
 				<br>
-				<%= f.submit 'グループを作成', class: "btn theme-color form-controlう" %>
+				<%= f.submit 'グループを作成', class: "btn theme-color form-control" %>
 			<% end %>
 		</div>
 		<div class="text-center mb-3">
-			<div>
+			<div class="mb-3">
 				<h6><%= link_to "保留中", groups_path(request: "receive"), class: "link theme-color" %>
 				|
 				<%= link_to "申請中", groups_path(request: "send"), class: "link theme-color" %></h6>
@@ -89,7 +89,7 @@
 		<div class="row" style="height: 650px; overflow: auto;">
 			<% current_user.group_users.each do |group_user| %>
 				<% if group_user.join_status == "joined" %>
-					<div class="col-md-4" style="text-align: center; margin-bottom: 20px;">
+					<div class="col-lg-4" style="text-align: center; margin-bottom: 20px;">
 						
 							<% if group_user.group.image? %>
 								<%= image_tag group_user.group.image.url, width: 200, height: 200, class: "circle" %>
