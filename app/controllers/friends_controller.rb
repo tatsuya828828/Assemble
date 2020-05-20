@@ -1,5 +1,6 @@
 class FriendsController < ApplicationController
   before_action :authenticate_user!
+  before_action :current_login_user
 
   def index
     # サイドバーもどきに必要な情報
@@ -69,5 +70,13 @@ class FriendsController < ApplicationController
   def friend_params
   	params.permit(:sender_id, :receiver_id, :request_status)
   end
+
+  def current_login_user
+    user = User.find(params[:user_id])
+    if user != current_user
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
 end
 
