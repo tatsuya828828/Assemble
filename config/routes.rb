@@ -24,7 +24,8 @@ Rails.application.routes.draw do
   get '/about', to: 'home#about', as: 'about'
 
   #===== ユーザーとその友達 ===============================
-  resources :users, only: [:show, :edit, :update] do
+  resources :users, only: [:show, :edit, :update, :destroy] do
+    get 'destroy_confirm', to: 'users#destroy_confirm'
     resources :friends, only: [:index, :create, :update, :destroy]
   end
   #======================================================
