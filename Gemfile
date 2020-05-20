@@ -71,7 +71,6 @@ gem 'rubocop'
 gem 'dotenv-rails'
 gem 'enum_help'
 gem 'rails-i18n'
-gem "font-awesome-sass"
 gem 'wysiwyg-rails'
 gem 'carrierwave'
 gem 'mini_magick'
