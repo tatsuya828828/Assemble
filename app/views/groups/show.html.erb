@@ -1,28 +1,12 @@
 <div class="row">
-	<div class="col-lg-3 text-center mb-5 side-space">
-		<div>
-			<% if @group.image? %>
-		        <%= image_tag @group.image.url, width: 200, height: 200, class: "circle" %>
-		    <% else %>
-		    	<%= image_tag "NO_IMAGE.png", width: 200, height: 200, style: "border-radius: 50%;" %>
-		    <% end %>
+	<div class="col-lg-3 text-center mb-3 side-space">
+		<% if @group.image? %>
+	        <%= image_tag @group.image.url, width: 150, height: 150, class: "circle" %>
+	    <% else %>
+	    	<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+	    <% end %>
     	<br>
-	    <h4 class="font-white mt-3"><%= @group.name %></h4>
-	    <div class="font-white" style="height:232px; overflow: auto; padding:10px;">
-	    			<% @messages = @group.messages %>
-					<%= render "message", collection: @messages %>
-				<div class="row" id="messages">
-				</div>
-			</div>
-			<div class="row pl-4" style="margin-top: 34px;">
-				<div class="col-lg-8" style="padding: 1px;">
-					<input class="form form-control" id="chat" type="text" data-behavior="group_speaker" data-user="<%= current_user.id %>" data-group="<%= @group.id %>">
-				</div>
-				<div class="col-lg-4" style="padding: 1px; ">
-					<button id="submit" class="btn theme-color form-control" type="button">投稿</button>
-				</div>
-			</div>
-		</div>
+	    <h4 class="font-white mt-5"><%= @group.name %></h4>
 	</div>
 	<div class="col-lg-6 mb-5 mt-5 ml-0">
 		<div class="container" style="
@@ -52,7 +36,7 @@
     						<%= f.hidden_field :group_id, value: @group.id %>
     						<%= f.hidden_field :user_id, value: current_user.id %>
 
-    						<%= f.text_area :body, autofocus: true, placeholder: "メモを入力してください", class: "form-control pl-3 pr-3", rows: 2, required: true, style: "background-color: #99FFFF;" %>
+    						<%= f.text_area :body, autofocus: true, placeholder: "メモを入力してください", class: "form-control pl-3 pr-3", rows: 2, required: true, style: "background-color: #99FFFF; border-radius: 0;" %>
 							</div>
 
 						<% end %>
@@ -86,24 +70,24 @@
 			</div>
 		</div>
 		
-		<div class="row" style="margin-top: 120px;">
+		<div class="row text-center" style="margin-top: 120px;">
 			<div class="col-lg-1">
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-4 side-space">
 				<% if @new == "new" %>
-					<%= link_to 'やめる', group_path(id: @group.id), class: "btn font-red form-control" %>
+					<%= link_to 'やめる', group_path(id: @group.id), class: "link-danger font-red form-control" %>
 				<% else %>
-					<%= link_to '新しく貼る', group_path(id: @group.id, new: "new"), class: "btn theme-color form-control", style: "text-decoration: none;" %>
+					<%= link_to '新しくメモを貼る', group_path(id: @group.id, new: "new"), class: "link theme-color form-control", style: "text-decoration: none;" %>
 				<% end %>
 			</div>
 			<div class="col-lg-1">
 			</div>
-			<div class="col-lg-4">
-              <%= link_to "チャットルームへ", group_chats_path(@group), class: "btn text-shadow form-control", style: "padding-right: 140px;" %>
+			<div class="col-lg-4 side-space">
+              <%= link_to "チャットルームへ", group_chats_path(@group), class: "link theme-color form-control" %>
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-3" style="text-align: center;">
+	<div class="col-lg-3 side-space" style="text-align: center;">
 		<h4 class="font-white mb-5">最新の日記</h4>
 		<div style="overflow: auto; height: 435px;">
 			<% @group.diaries.last(10).reverse_each do |diary| %>
@@ -123,6 +107,6 @@
 				</div>
 			<% end %>
 		</div>
-		<%= link_to '日記一覧へ',group_diaries_path(@group), class: "btn theme-color form-control", style: "margin-top: 8px;" %>
+		<%= link_to '日記一覧へ',group_diaries_path(@group), class: "link theme-color form-control", style: "margin-top: 8px;" %>
 	</div>
 </div>

@@ -15,8 +15,10 @@ App.group = App.cable.subscriptions.create "GroupChannel",
           text-align: right;
           margin-bottom: 3px;'>"+"<div
           style='border-radius:5px;
-          border: 1px solid #fff;
-          color: #00FF3B;
+          border: 1px solid black;
+          color: black;
+          background-color: #fff;
+          word-break:break-all;
           padding: 3px 10px;
           display: inline-block;
           margin-bottom: 3px;'>"+data["content"]+"</div>"+"<br>");
@@ -27,8 +29,10 @@ App.group = App.cable.subscriptions.create "GroupChannel",
           text-align: left;
           margin-bottom: 3px;'>"+data["user_name"]+"<br>"+"<div
           style='border-radius:5px;
-          border: 1px solid #fff;
-          color: #00FF3B;
+          border: 1px solid black;
+          color: black;
+          background-color: #fff;
+          word-break:break-all;
           padding: 3px 10px;
           display: inline-block;
           margin-bottom: 3px;'>"+data["content"]+"</div>"+"<br>");
