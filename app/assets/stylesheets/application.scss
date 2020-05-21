@@ -41,14 +41,25 @@
   display: none;
 }
 
-
+.board{
+  padding: 10px;
+  border-radius: 10px;
+  background-image: image-url("CorkBoard.png"); 
+  background-size: auto, auto;
+  background-position: center;
+  border: #F4A460 10px ridge;
+  margin: 0 auto;
+  overflow: auto;
+  width: 80%;
+  height: 320px;
+}
 
 .side-space {
   padding: 0 30px;
 }
 
 .top{
-  background-image: image-url("/assets/top.png");
+  background-image: image-url("top.png");
   height: 800px;
   background-size: cover;
   background-position: 50% 25%;
@@ -163,6 +174,10 @@
   background-color:rgba(250,100,50,0.5);
 }
 
+.container-fruid{
+  background-color: rgba(194, 238, 255, 0.5);
+  height: auto;
+}
 
 
 // ===== リンク ============================
@@ -212,3 +227,13 @@ a:hover,a:focus,a:active{
   stroke-width='3' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 // =========================================
+
+
+// ===== 日記の画像 =========================
+.diary img{
+  max-width: 100%;
+}
+// =========================================
+
+@media screen and (max-width: 768px) {
+}

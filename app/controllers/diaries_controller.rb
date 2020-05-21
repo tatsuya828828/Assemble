@@ -24,9 +24,6 @@ class DiariesController < ApplicationController
 			not_group_user
 		end
 		@group = Group.find_by(id: @diary.group_id)
-		if params[:comment] == "new"
-			@diary_comment = DiaryComment.new
-		end
 	end
 
 	def edit

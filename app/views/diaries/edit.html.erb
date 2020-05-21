@@ -1,50 +1,57 @@
-<div class="side-space">	
-	<%= form_with(model: @diary, url: group_diary_path(group_id: @group.id), local: true, method: :patch) do |f| %>
+<div class="row no-gutters font-white">
+	<div class="offset-sm-3 col-sm-6">	
+		<%= form_with(model: @diary, url: group_diaries_path(group_id: @group.id, id: @diary.id), local: true, method: :put) do |f| %>
 
-		<div class="field">
-			<%= f.label :title, "タイトル", class: "font-white" %>
-			　<%= f.text_field :title, class: " form form-control" %>
-		</div>
-		<br>
-		<div>
-			<%= f.label :image, "サムネイル", class: "font-white" %>
-			　<%= f.file_field :image, class: "font-white" %>
-			<%= f.hidden_field :image_cache %>
-		</div>
-		<% if @diary.image? %>
-			<div class="thmbnail">
-				<%= image_tag @diary.image.url %>
+			<div class="field side-space">
+				<%= f.label :title, "タイトル" %>
+				<%= f.text_field :title, class: "form-control", style: "color: black;", required: true %>
+			</div>
+			<br>
+			<div class="field side-space">
+				<%= f.label :image, "サムネイル" %>
+				<br>
+				<%= f.file_field :image %>
+				<%= f.hidden_field :image_cache %>
+			</div>
+			<% if @diary.image? %>
+				<div class="thmbnail text-center mt-5">
+					<%= image_tag @diary.image.url, width: 150, height: 150, class: "square" %>
+				</div>
+			<% end %>
+
+			<div class="text-center">
+				<% if @diary.persisted? && @diary.image? %>
+					<label class="font-white">
+						<%= f.check_box :remove_image %>
+						画像を削除
+					</label>
+				<% end %>
+			</div>
+			<br>
+			<div class="field side-space">
+				<%= f.text_area :body, required: true%>
+			</div>
+			<br>
+			<div class="field side-space">
+				<%= f.radio_button :private_status, "closed", checked: "checked" %>
+				<%= f.label :private_status, "グループのみ表示する" %>
+			</div>
+
+			<div class="field side-space">
+				<%= f.radio_button :private_status, "open" %>
+				<%= f.label :private_status, "マイページにも表示する" %>
+			</div>
+
+			<%= f.hidden_field :user_id, value: @diary.user_id %>
+			<%= f.hidden_field :group_id, value: @diary.group_id %>
+
+			<div class="action">
+				<%= f.submit '編集完了', class: "btn theme-color form-control" %>
 			</div>
 		<% end %>
-		<div>
-			<% if @diary.persisted? && @diary.image? %>
-				<label, class="font-white">
-					<%= f.check_box :remove_image %>
-					画像を削除
-				</label>
-			<% end %>
-		<br>
-		<div class="field">
-			<%= f.text_area :body%>
-		</div>
-		<br>
-		<div class="field">
-			<%= f.radio_button :private_status, "closed", checked: "checked" %>
-			<%= f.label :private_status, "グループのみ公開", class: "font-white" %>
-			　　
-			<%= f.radio_button :private_status, "open" %>
-			<%= f.label :private_status, "全ユーザーに公開", class: "font-white" %>
-		</div>
-
-		<%= f.hidden_field :user_id, value: current_user.id %>
-		<%= f.hidden_field :group_id, value: @group.id %>
-
-		<div class="action">
-			<%= f.submit '編集完了', class: "btn theme-color form-control theme-color" %>
-		</div>
-	<% end %>
-	<script>
-		new FroalaEditor('#diary_body',{})
-	</script>
-	<%= link_to '戻る', group_diary_path(group_id: @group.id, id: @diary.id), class: "btn form-control font-red" %>
+		<script>
+			new FroalaEditor('#diary_body',{})
+		</script>
+		<%= link_to '戻る', group_diary_path(group_id: @group.id, id: @diary.id), class: "btn form-control font-red" %>
+	</div>
 </div>
