@@ -33,7 +33,7 @@
 
 
 *{
-  font-family: serif;
+  font-family: "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体";
 }
 
 
@@ -202,7 +202,6 @@ a:hover,a:focus,a:active{
 
 .link:hover,.link:active,.link:focus{
   background-color: rgba(0,0,0,0);
-  border-bottom: 1px solid #00FF3B;
   text-shadow: 2px 2px 3px #000;
 }
 
