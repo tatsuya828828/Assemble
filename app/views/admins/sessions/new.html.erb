@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row font-white">
   <div class="offset-md-4">
   </div>
   <div class="col-md-4 side-space">
@@ -8,16 +8,16 @@
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="field">
           <%= f.label :self_id, :管理者ID %><br />
-          <%= f.text_field :self_id, autofocus: true, autocomplete: "self_id", required: true, class: "form-control" %>
+          <%= f.text_field :self_id, autofocus: true, autocomplete: "self_id", required: true, class: "form form-control" %>
         </div>
 
         <div class="field">
          <%= f.label :password, :パスワード %><br />
-         <%= f.password_field :password, autocomplete: "current-password", required: true, class: "form-control" %>
+         <%= f.password_field :password, autocomplete: "current-password", required: true, class: "form form-control" %>
         </div>
 
         <div class="actions">
-         <%= f.submit "ログイン", class: "btn theme-color form-control" %>
+         <%= f.submit "ログイン", class: "btn btn-outline-success form-control" %>
         </div>
       <% end %>
     </div>
