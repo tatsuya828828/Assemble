@@ -41,6 +41,41 @@ User.create!(
 			self_id: 'taro5',
 			password: 'aaaaaa',
 			valid_status: "active"
+		},
+		{
+			email: 'rokuro@gmail.com',
+			name: '六郎',
+			self_id: 'taro6',
+			password: 'aaaaaa',
+			valid_status: "active"
+		},
+		{
+			email: 'sichiro@gmail.com',
+			name: '七郎',
+			self_id: 'taro7',
+			password: 'aaaaaa',
+			valid_status: "active"
+		},
+		{
+			email: 'hachiro@gmail.com',
+			name: '八郎',
+			self_id: 'taro8',
+			password: 'aaaaaa',
+			valid_status: "active"
+		},
+		{
+			email: 'kuro@gmail.com',
+			name: '九郎',
+			self_id: 'taro9',
+			password: 'aaaaaa',
+			valid_status: "active"
+		},
+		{
+			email: 'toro@gmail.com',
+			name: '十郎',
+			self_id: 'taro10',
+			password: 'aaaaaa',
+			valid_status: "active"
 		}
 	]
 )
@@ -104,6 +139,56 @@ GroupUser.create!(
 		{
 			group_id: '5',
 			user_id: '5',
+			join_status: 'joined'
+		},
+		{
+			group_id: '1',
+			user_id: '6',
+			join_status: 'joined'
+		},
+		{
+			group_id: '1',
+			user_id: '2',
+			join_status: 'joined'
+		},
+		{
+			group_id: '1',
+			user_id: '3',
+			join_status: 'joined'
+		},
+		{
+			group_id: '1',
+			user_id: '4',
+			join_status: 'joined'
+		},
+		{
+			group_id: '1',
+			user_id: '5',
+			join_status: 'joined'
+		},
+		{
+			group_id: '2',
+			user_id: '7',
+			join_status: 'joined'
+		},
+		{
+			group_id: '2',
+			user_id: '8',
+			join_status: 'joined'
+		},
+		{
+			group_id: '3',
+			user_id: '9',
+			join_status: 'joined'
+		},
+		{
+			group_id: '4',
+			user_id: '10',
+			join_status: 'joined'
+		},
+		{
+			group_id: '5',
+			user_id: '10',
 			join_status: 'joined'
 		}
 	]
