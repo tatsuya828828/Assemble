@@ -1,35 +1,48 @@
-<div class="row font-white">
-	<div class="col-lg-3 side-space">
-		<div class="side-space mb-5 text-center" style="overflow: auto; height: 600px;">
-			<% @group.users.each do |user| %>
-				<% if user.image? %>
-					<%= image_tag user.image.url, width: 150, height: 150, class: "circle mt-5 mb-3" %>
-				<% else %>
-					<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle mt-5 mb-3" %>
-				<% end %>
-				<br>
-				<%= link_to user.name, group_chats_path(group_id: @group.id, user_id: user.id), class: "theme-color" %>
-				<br>
-			<% end %>
-		</div>
+<div class="row no-gutters font-white">
+	<div class="col-lg-3">
 	</div>
-	<div class="col-lg-6 side-space">
-		<h4><%= "#{@group.name}のチャットルーム" %></h4>
-		<div style="height:500px; overflow: auto; padding:10px;">
+	<div class="col-lg-6">
+		<h4><%= "グループチャット" %></h4>
+		<div style="height:410px; overflow: auto; padding:10px;">
 
 				<%= render "message", collection: @messages %>
-			<div class="row" id="messages">
+			<div id="messages">
 			</div>
 		</div>
-		<div class="offset-lg-6 col-lg-6">
-			<div class="row">
-				<div class="col-lg-9" style="padding: 1px;">
-					<input class="form form-control" id="chat" type="text" data-behavior="group_speaker" data-user="<%= current_user.id %>" data-group="<%= @group.id %>" required="required">
-				</div>
-				<div class="col-lg-3" style="padding: 1px; ">
-					<button id="submit" class="btn theme-color form-control" type="button">投稿</button>
-				</div>
+	</div>
+</div>
+<div class="row no-gutters side-space">
+	<div class="offset-lg-3 col-lg-6">
+		<div class="row no-gutters">
+			<div class="col-lg-9" style="padding: 1px;">
+				<input class="form form-control" id="chat" type="text" data-behavior="group_speaker" data-user="<%= current_user.id %>" data-group="<%= @group.id %>" required="required">
+			</div>
+			<div class="col-lg-3" style="padding: 1px; ">
+				<button id="submit" class="btn btn-outline-success form-control" type="button">投稿</button>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="row no-gutters">
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-6">
+		<table class="text-center table table-borderless table-responsive">
+			<tr>
+				<% @group.users.each do |user| %>
+					<td>
+						<%= link_to user_path(user) do %>
+							<% if user.image? %>
+								<%= image_tag user.image.url, width: 150, height: 150, class: "circle mt-5 mb-3" %>
+							<% else %>
+								<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle mt-5 mb-3" %>
+							<% end %>
+						<% end %>
+						<br>
+						<%= link_to user.name, user_path(user), class: "theme-color" %>
+					</td>
+				<% end %>
+			</tr>
+		</table>
 	</div>
 </div>

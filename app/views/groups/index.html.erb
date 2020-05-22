@@ -1,11 +1,40 @@
-<div class="row side-space font-white">
+<div class="row no-gutters font-white">
+	<div class="col-lg-9 pr-5 pl-5">
+		<h4 class="text-center border-bottom">参加グループ</h4>
+		<div class="row no-gutters" style="height: 690px; overflow: auto;">
+			<% current_user.group_users.each do |group_user| %>
+				<% if group_user.join_status == "joined" %>
+					<div class="col-lg-4" style="text-align: center; margin-bottom: 20px;">
+						<%= link_to group_path(group_user.group_id) do %>
+							<% if group_user.group.image? %>
+								<%= image_tag group_user.group.image.url, width: 200, height: 200, class: "circle" %>
+							<% else %>
+								<%= image_tag "NO_IMAGE.png", width: 200, height: 200, class: "circle" %>
+							<% end %>
+						<% end %>
+						<br>
+						<%= link_to group_user.group.name, group_path(group_user.group_id), class: "theme-color" %>
+						<br>
+						<!-- リーダーのidと一致するグループ内ユーザーを探してnameを表示 -->
+						<% leader = group_user.group.users.find_by(id: group_user.group.leader) %>
+						<%= link_to leader.name, user_path(leader.id), class: "link theme-color" %>
+
+						<!-- グループ内にメモが存在すれば最新のものを表示 -->
+						<% if group_user.group.memos.present? %>
+							最新のメモ:<%= group_user.group.memos.last.body %>
+						<% end %>
+					</div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
 	<div class="col-lg-3">
 		<div>
-			<h4>グループ追加</h4>
+			<h4 class="text-center border-bottom">グループ追加</h4>
 			<%= form_for @new_group do |f| %>
 
 				<%= f.label :image, "グループのサムネイル" %>
-				<%= f.file_field :image %>
+				<%= f.file_field :image, class: "form-control file" %>
 				<%= f.hidden_field :image_cache %>
 
 				<%= f.label :name, :グループ名 %>
@@ -22,96 +51,71 @@
 
 				<%= f.hidden_field :leader, value: current_user.id %>
 				<br>
-				<%= f.submit 'グループを作成', class: "btn theme-color form-control" %>
+				<%= f.submit 'グループを作成', class: "btn btn-outline-success form-control" %>
 			<% end %>
 		</div>
 		<div class="text-center mb-3">
-			<div class="mb-3">
-				<h6><%= link_to "保留中", groups_path(request: "receive"), class: "link theme-color" %>
-				|
-				<%= link_to "申請中", groups_path(request: "send"), class: "link theme-color" %></h6>
+			<div class="row no-gutters mt-3">
+				<div class="col-lg-12 text-center">
+					<h6>
+						<%= link_to "保留中", groups_path(request: "receive"), class: "link" %>
+						|
+						<%= link_to "申請中", groups_path(request: "send"), class: "link" %>
+					</h6>
+				</div>
 			</div>
-			<div style="overflow: auto; height: 300px;">
-				<% if @request == "send" %>
+			<% if @request.present? %>
+				<div style="overflow: auto; height: 300px;">
+					<% if @request == "send" %>
 
-					<% current_user.group_users.each do |group_user| %>
-						<% if group_user.join_status == "waiting_for_allow" %>
-							<div style="margin-bottom: 15px;">
-								<% if group_user.user.image? %>
-									<%= image_tag group_user.user.image.url, width: 150, height: 150, class: "circle" %>
-								<% else %>
-									<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
-								<% end %>
-								<br>
-								<%= group_user.group.name %>
-								 <br>
-							<!-- リーダーのidと一致するグループ内ユーザーを探してnameを表示 -->
-								<% group_user.group.users.each do |user| %>
-									<% if user.id == group_user.group.leader %>
-										ホスト:<%= link_to user.name, user_path(user.id), class: "theme-color" %>
+						<% current_user.group_users.each do |group_user| %>
+							<% if group_user.join_status == "waiting_for_allow" %>
+								<div style="margin-bottom: 15px;">
+									<% if group_user.user.image? %>
+										<%= image_tag group_user.user.image.url, width: 150, height: 150, class: "circle" %>
+									<% else %>
+										<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+									<% end %>
+									<br>
+									<%= group_user.group.name %>
+									 <br>
+								<!-- リーダーのidと一致するグループ内ユーザーを探してnameを表示 -->
+									<% group_user.group.users.each do |user| %>
+										<% if user.id == group_user.group.leader %>
+											ホスト:<%= link_to user.name, user_path(user.id), class: "theme-color" %>
+										<% end %>
+									<% end %>
+								
+									<%= link_to '取り消す', group_destroy_user_path(group_id: group_user.group_id, id: group_user.id, page: "groups"), class: "btn btn-outline-danger form-control" %>
+								</div>
+							<% end %>
+						<% end %>
+					<% else %>
+						<% current_user.groups.each do |group| %>
+							<% if group.leader == current_user.id %>
+								<% group.group_users.each do |group_user| %>
+									<% if group_user.join_status == "waiting_for_allow" %>
+										<div style="margin-bottom: 15px;">
+											<% if group_user.user.image? %>
+												<%= image_tag group_user.user.image.url, width: 150, height: 150, class: "circle" %>
+											<% else %>
+												<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+											<% end %>
+									 		<br>
+											<%= link_to group_user.user.name, user_path(group_user.user.id), class: "theme-color" %>さんから
+											<br>
+											<%= link_to group.name,group_path(group.id), class: "theme-color" %>に参加申請が来ています
+
+											<%= link_to '参加を許可', group_user_path(group_id: group.id, id: group_user.id, page: "groups"), method: :put, class: "btn btn-outline-success form-control" %>
+
+											<%= link_to '参加を拒否', group_destroy_user_path(group_id: group.id, id: group_user.id, page: "groups"), class: "btn btn-outline-danger form-control" %>
+										</div>
 									<% end %>
 								<% end %>
-							
-								<%= link_to '取り消す', group_destroy_user_path(group_id: group_user.group_id, id: group_user.id, page: "groups"), class: "btn font-red form-control" %>
-							</div>
-						<% end %>
-					<% end %>
-				<% else %>
-					<% current_user.groups.each do |group| %>
-						<% if group.leader == current_user.id %>
-							<% group.group_users.each do |group_user| %>
-								<% if group_user.join_status == "waiting_for_allow" %>
-									<div style="margin-bottom: 15px;">
-										<% if group_user.user.image? %>
-											<%= image_tag group_user.user.image.url, width: 150, height: 150, class: "circle" %>
-										<% else %>
-											<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
-										<% end %>
-								 		<br>
-										<%= link_to group_user.user.name, user_path(group_user.user.id), class: "theme-color" %>さんから
-										<br>
-										<%= link_to group.name,group_path(group.id), class: "theme-color" %>に参加申請が来ています
-
-										<%= link_to '参加を許可', group_user_path(group_id: group.id, id: group_user.id, page: "groups"), method: :put, class: "btn theme-color form-control" %>
-
-										<%= link_to '参加を拒否', group_destroy_user_path(group_id: group.id, id: group_user.id, page: "groups"), class: "btn font-red form-control" %>
-									</div>
-								<% end %>
 							<% end %>
 						<% end %>
 					<% end %>
-				<% end %>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-9">
-		<h4>参加グループ</h4>
-		<div class="row" style="height: 650px; overflow: auto;">
-			<% current_user.group_users.each do |group_user| %>
-				<% if group_user.join_status == "joined" %>
-					<div class="col-lg-4" style="text-align: center; margin-bottom: 20px;">
-						
-							<% if group_user.group.image? %>
-								<%= image_tag group_user.group.image.url, width: 200, height: 200, class: "circle" %>
-							<% else %>
-								<%= image_tag "NO_IMAGE.png", width: 200, height: 200, class: "circle" %>
-							<% end %>
-							<br>
-							<%= link_to group_user.group.name, group_path(group_user.group_id), class: "theme-color" %>
-							<br>
-							<!-- リーダーのidと一致するグループ内ユーザーを探してnameを表示 -->
-							<% group_user.group.users.each do |user| %>
-								<% if user.id == group_user.group.leader %>
-									ホスト:<%= link_to user.name, user_path(user.id), class: "theme-color" %>
-									<br>
-								<% end %>
-							<% end %>
-						<!-- グループ内にメモが存在すれば最新のものを表示 -->
-						<% if group_user.group.memos.present? %>
-							最新のメモ:<%= group_user.group.memos.last.body %>
-						<% end %>
-					</div>
-				<% end %>
+				</div>
 			<% end %>
 		</div>
 	</div>
