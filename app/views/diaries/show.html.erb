@@ -21,11 +21,15 @@
 			<br>
 			<h5 class="mt-2"><%= link_to @diary.user.name, user_path(@diary.user_id), class: "link theme-color" %></h5>
 			
-			<% if @diary.user_id == current_user.id %>
-				<%= link_to '編集する', edit_group_diary_path(group_id: @group.id, id: @diary.id), class: "btn btn-outline-primary form-control" %>
-			<% end %>
-			<% if @group.users.find_by(id: current_user).present? %>
-				<%= link_to '日記一覧へ', group_diaries_path(group_id: @diary.group_id), class: "link form-control mt-5" %>
+			<!-- 日記はログインしていないユーザーでも場合によっては閲覧可能なため確認を入れる -->
+			<% if user_signed_in? %>
+				<% if @diary.user_id == current_user.id %>
+					<% if @group.present? %>
+						<%= link_to '編集する', edit_diary_path(group_id: @group.id, id: @diary.id), class: "btn btn-outline-primary form-control" %>
+					<% else %>
+						<%= link_to '編集する', edit_diary_path(id: @diary), class: "btn btn-outline-primary form-control" %>
+					<% end %>
+				<% end %>
 			<% end %>
 		</div>
 	</div>
@@ -53,9 +57,21 @@
 					<% else %>
 						<%= image_tag 'NO_IMAGE.png', width: 25, height: 30, class: "circle" %>
 					<% end %>
-					<%= diary_comment.user.name %>
+
+					<!-- 登録していないユーザーのコメントは匿名表示にする -->
+					<% if diary_comment.user_id.present? %>
+						<%= diary_comment.user.name %>
+					<% else %>
+						<p>匿名さん</p>
+					<% end %>
+
 					<%= diary_comment.created_at.strftime("%Y年%m月%d日 %H時%M分") %>
 					<br><br>
+					<% if user_signed_in? %>
+						<% if diary_comment.user_id == current_user.id || diary_comment.user_id == nil %>
+							<%= link_to '削除する', diary_comment_destroy_path(diary_id: @diary.id, id: diary_comment.id), method: :delete, remote: true, class: "btn btn-outline-danger", style: "height: 35px;" %>
+						<% end %>
+					<% end %>
 				</div>
 
 			<% end %>
@@ -63,11 +79,15 @@
 	</div>
 	<div class="offset-lg-1 col-lg-3">
 		<div>
-			<%= form_with url: group_diary_comments_path(group_id: @diary.group_id, diary_id: @diary.id), local: true do |f| %>
+			<%= form_with url: diary_comments_path(@diary), local: true do |f| %>
 
 				<%= f.text_area :comment, class: "form-control", rows: 5, placeholder: "(500文字以内)" %>
 
-				<%= f.hidden_field :user_id, value: current_user.id %>
+				<% if user_signed_in? %>
+					<%= f.hidden_field :user_id, value: current_user.id %>
+				<% else  %>
+					<%= f.hidden_field :user_id, value: nil %>
+				<% end %>
 
 				<%= f.hidden_field :diary_id, value: @diary.id %>
 

@@ -1,6 +1,6 @@
 <div class="row no-gutters font-white pb-3">
 	<div class="offset-sm-3 col-sm-6">	
-		<%= form_with(model: @diary, url: group_diaries_path(group_id: @group.id), local: true) do |f| %>
+		<%= form_with(model: @diary, url: diaries_path, local: true) do |f| %>
 
 			<div class="field">
 				<%= f.label :title, "タイトル" %>
@@ -18,17 +18,17 @@
 			</div>
 			<br>
 			<div class="field">
-				<%= f.radio_button :private_status, "closed", checked: "checked" %>
-				<%= f.label :private_status, "グループのみ表示する" %>
-			</div>
-
-			<div class="field">
-				<%= f.radio_button :private_status, "open" %>
-				<%= f.label :private_status, "マイページにも表示する" %>
+				<%= f.label :private_status, "公開範囲" %>
+				<br>
+				<% if @group.present? %>
+					<%= f.select :private_status, [['非公開', "closed"],['友人のみ', "friend_only"],['グループのみ', "group_only"],['友達とグループのみ', "open"],['全体に公開', "full_open"]],{}, class: "form form-control" %>
+					<%= f.hidden_field :group_id, value: @group.id %>
+				<% else %>
+					<%= f.select :private_status, [['非公開', "closed"],['友人のみ', "friend_only"],['全体に公開', "full_open"]],{}, class: "form form-control" %>
+				<% end %>
 			</div>
 
 			<%= f.hidden_field :user_id, value: current_user.id %>
-			<%= f.hidden_field :group_id, value: @group.id %>
 
 			<div class="action">
 				<%= f.submit '投稿する', class: "btn btn-outline-success form-control" %>
@@ -37,6 +37,7 @@
 		<script>
 			new FroalaEditor('#diary_body',{})
 		</script>
-		<%= link_to '戻る', group_diaries_path(group_id: @group.id), class: "btn btn-outline-danger form-control" %>
+
+		<%= link_to '戻る', user_path(current_user), class: "btn btn-outline-danger form-control" %>
 	</div>
 </div>

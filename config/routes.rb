@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'user_diaries/show'
+  get 'user_diaries/new'
+  get 'user_diaries/edit'
 #===== 管理者 ========================================================================
   devise_for :admins, controllers: {
     sessions: 'admins/sessions',
@@ -33,6 +36,14 @@ Rails.application.routes.draw do
 #=====================================================================================
 
 
+#====== 日記と日記のコメント ==========================
+  resources :diaries do
+    post   'diary_comments', to: 'diary_comments#create',  as: 'comments'
+    delete 'diary_comments/:id', to: 'diary_comments#destroy', as: 'comment_destroy'
+  end
+#===================================================
+
+
 #==== グループ ========================================================================
   resources :groups do
 
@@ -51,14 +62,6 @@ Rails.application.routes.draw do
 
     #====== メモ ========================================
     resources :memos, only: [:create, :destroy]
-    #===================================================
-
-
-    #====== 日記と日記のコメント ==========================
-    resources :diaries do
-      post   'diary_comments', to: 'diary_comments#create',  as: 'comments'
-      delete 'diary_comments', to: 'diary_comments#destroy', as: 'destroy_comment'
-    end
     #===================================================
 
   end

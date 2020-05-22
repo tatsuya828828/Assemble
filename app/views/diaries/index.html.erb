@@ -1,7 +1,7 @@
 <div class="row no-gutters">
 	<div class="col-lg-3 mb-3 text-center">
 		<h5 class="mb-3">
-			<%= link_to '新しく投稿する', new_group_diary_path(@group), class: "link theme-color" %>
+			<%= link_to '新しく投稿する', new_diary_path(group_id: @group.id), class: "link theme-color" %>
 		</h5>
 		<h5>
 			<%= link_to 'ホームに戻る', group_path(@group), class: "link theme-color" %>
@@ -11,33 +11,33 @@
 		<h2 class="mb-5 border-bottom">日記一覧</h2>
 		<div style="height: 650px; overflow: auto; ">
 			<% @diaries.each do |diary| %>
-					<div class="row no-gutters mb-5">
-						<div class="col-lg-3" style="height: 200px;">
-							<%= link_to group_diary_path(group_id: @group, id: diary) do %>
-								<% if diary.image? %>
-									<%= image_tag diary.image.url, width: 200, height: 200, class: "square" %>
-								<% else %>
-									<%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
-								<% end %>
+				<div class="row no-gutters mb-5">
+					<div class="col-lg-3" style="height: 200px;">
+						<%= link_to diary_path(group_id: @group, id: diary) do %>
+							<% if diary.image? %>
+								<%= image_tag diary.image.url, width: 200, height: 200, class: "square" %>
+							<% else %>
+								<%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
 							<% end %>
-						</div>
-						<div class="col-lg-6 mt-3 mb-3" style="text-align: left; height: 100px;">
-							<div style="width: 65%; margin: 0 auto; height: 200px; line-height: 40px;">
-								<h3 class="theme-color" style="">
-									<%= link_to diary.title, group_diary_path(group_id: diary.group_id, id: diary.id), class: "theme-color" %>
-								</h3>
-								<h8>
-									投稿者:<%= link_to diary.user.name, user_path(id: diary.user.id), class: "theme-color" %>
-								</h8>
-								<br>
-								<h8>
-									投稿日時<br><%= diary.created_at.strftime("%Y年%m月%d日 %H時%M分") %>
-								</h8>
-							</div>
-						</div>
-						<div class="col-lg-3">
+						<% end %>
+					</div>
+					<div class="col-lg-6 mt-3 mb-3" style="text-align: left; height: 100px;">
+						<div style="width: 65%; margin: 0 auto; height: 200px; line-height: 40px;">
+							<h3 class="theme-color" style="">
+								<%= link_to diary.title, diary_path(group_id: diary.group_id, id: diary.id), class: "theme-color" %>
+							</h3>
+							<h8>
+								投稿者:<%= link_to diary.user.name, user_path(id: diary.user.id), class: "theme-color" %>
+							</h8>
+							<br>
+							<h8>
+								投稿日時<br><%= diary.created_at.strftime("%Y年%m月%d日 %H時%M分") %>
+							</h8>
 						</div>
 					</div>
+					<div class="col-lg-3">
+					</div>
+				</div>
 			<% end %>
 		</div>
 	</div>

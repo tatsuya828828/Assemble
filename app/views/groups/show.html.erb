@@ -1,112 +1,88 @@
-<div class="row">
-	<div class="col-lg-3 text-center mb-3 side-space">
-		<% if @group.image? %>
-	        <%= image_tag @group.image.url, width: 150, height: 150, class: "circle" %>
-	    <% else %>
-	    	<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
-	    <% end %>
-    	<br>
-	    <h4 class="font-white mt-5"><%= @group.name %></h4>
+<div class="row no-gutters">
+	<div class="col-lg-3 text-center mb-3">
+		<h5><%= link_to "チャットルームへ", group_chats_path(@group), class: "link theme-color border-bottom" %></h5>
 	</div>
-	<div class="col-lg-6 mb-5 mt-5 ml-0">
-		<div class="container" style="
-			height: 350px;
-			width: 500px;
-			padding: 10px;
-			border-radius: 10px;
-			background: url(/assets/CorkBoard.png) 0 0 no-repeat;
-			background-size: auto, auto;
-			background-position: center;
-			border: #F4A460 10px ridge ">
-
-			<div class="row mt-2" style="
-				margin: 0 auto;
-				overflow: auto;
-				width: 100%;
-				height: 270px;">
+	<div class="col-lg-6 mb-5">
+		<div class="text-center mb-5">
+			<h5>
 				<% if @new == "new" %>
-					<div class="col-lg-6 toast mt-3" role="alert" aria-live="assertive" aria-atomic="true" style="height: 100px;">
-						<%= form_with(model:[@group,@memo]) do |f| %>
+					<%= link_to 'やめる', group_path(id: @group.id), class: "link-danger font-red" %>
+				<% else %>
+					<%= link_to '新しくメモを貼る', group_path(id: @group.id, new: "new"), class: "link theme-color" %>
+				<% end %>
+			</h5>
+		</div>
+		<div class="row no-gutters mt-2 board">
+			<% if @new == "new" %>
+				<div class="col-lg-6 toast pr-1 pl-1" role="alert" aria-live="assertive" aria-atomic="true" style="height: 100px;">
+					<%= form_with(model:[@group,@memo]) do |f| %>
 
-							<div class="toast-header" style="background-color: #99FFFF;">
+						<div class="toast-header" style="background-color: #99FFFF;">
 							<strong class="pl-3"><%= current_user.name %></strong>
-							<%= f.submit '貼る',class: "font-red", style: "float: right; height: 20px; background-color: rgba(0,0,0,0); border: none;" %>
-    						</div>
-    						<div class="toast-body" style="height: 65px; font-family: sans-serif;">
+							<%= f.submit '貼る',class: "link", style: "float: right; height: 21px; background-color: rgba(0,0,0,0); border: none;" %>
+    					</div>
+    		
+    					<div class="toast-body" style="height: 55px;">
     						<%= f.hidden_field :group_id, value: @group.id %>
     						<%= f.hidden_field :user_id, value: current_user.id %>
 
     						<%= f.text_area :body, autofocus: true, placeholder: "メモを入力してください", class: "form-control pl-3 pr-3", rows: 2, required: true, style: "background-color: #99FFFF; border-radius: 0;" %>
-							</div>
-
-						<% end %>
-					</div>
-				<% end %>
-
-				<% @group.memos.reverse.each do |memo| %>
-
-					<div class="col-lg-6 toast" role="alert" aria-live="assertive" aria-atomic="true" style="height: 100px; margin: 20px 0;">
-						<div class="toast-header" style="background-color: #99FFFF;">
-							<strong class="pl-3"><%= memo.user.name %></strong>
-    						<span style="float: right; margin-right: 5px;">
-    							<%= link_to '×', group_memo_path(group_id: memo.group_id, id:memo.id), method: :delete, remote: true, style: "text-decoration: none; color: black;" %>
-    						</span>
-    					</div>
-
-    					<div class="toast-body pl-3 pr-3" style="
-    						height: 65px;
-    						padding: 5px;
-    						word-wrap: break-word;
-    						overflow: auto;
-    						color: black;
-    						font-family: sans-serif;
-    						background-color: #99FFFF;">
-
-							<%= memo.body %>
-
 						</div>
-					</div>
-				<% end %>
-			</div>
-		</div>
-		
-		<div class="row text-center" style="margin-top: 120px;">
-			<div class="col-lg-1">
-			</div>
-			<div class="col-lg-4 side-space">
-				<% if @new == "new" %>
-					<%= link_to 'やめる', group_path(id: @group.id), class: "link-danger font-red form-control" %>
-				<% else %>
-					<%= link_to '新しくメモを貼る', group_path(id: @group.id, new: "new"), class: "link theme-color form-control", style: "text-decoration: none;" %>
-				<% end %>
-			</div>
-			<div class="col-lg-1">
-			</div>
-			<div class="col-lg-4 side-space">
-              <%= link_to "チャットルームへ", group_chats_path(@group), class: "link theme-color form-control" %>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-3 side-space" style="text-align: center;">
-		<h4 class="font-white mb-5">最新の日記</h4>
-		<div style="overflow: auto; height: 435px;">
-			<% @group.diaries.last(10).reverse_each do |diary| %>
-				<div class="mb-4">	
-					<%= link_to group_diary_path(diary), class: "theme-color" do %>
-						<% if diary.image? %>
-							<%= image_tag diary.image.url, width: 150, height: 150, class: "square" %>
-						<% else %>
-							<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "square" %>
-						<% end %>
-						<br>
-						<%= diary.title %>
+
 					<% end %>
-						<br>
-					<%= link_to diary.user.name, user_path(diary.user), class: "theme-color" %>
-					<br>
+				</div>
+			<% end %>
+
+			<% @group.memos.reverse.each do |memo| %>
+
+				<div class="col-lg-6 toast pr-1 pl-1" role="alert" aria-live="assertive" aria-atomic="true" style="height: 100px;">
+					<div class="toast-header" style="background-color: #99FFFF; padding: 3px;">
+						<strong><%= memo.user.name %></strong>
+    					<span style="float: right;">
+    						<%= link_to '×', group_memo_path(group_id: memo.group_id, id:memo.id), method: :delete, remote: true, class: "link-danger", style: "border: none;" %>
+    					</span>
+    				</div>
+
+    				<div class="toast-body" style="
+    					height: 55px;
+    					padding: 3px;
+    					word-wrap: break-word;
+    					overflow: auto;
+    					background-color: #99FFFF;">
+
+						<%= memo.body %>
+
+					</div>
 				</div>
 			<% end %>
 		</div>
-		<%= link_to '日記一覧へ',group_diaries_path(@group), class: "link theme-color form-control", style: "margin-top: 8px;" %>
+	</div>
+	<div class="col-lg-3" style="text-align: center;">
+		<div class="mb-5">
+			<h5><%= link_to '日記一覧へ',diaries_path(group_id:@group), class: "link theme-color border-bottom" %></h5>
+		</div>
+		<h5 class="font-white mb-5">新着日記</h5>
+		<% if @diaries.present? %>
+			<div style="overflow: auto; height: 435px;">
+				<% @diaries.last(10).reverse_each do |diary| %>
+					<div class="mb-4">	
+						<%= link_to diary_path(diary), class: "theme-color" do %>
+							<% if diary.image? %>
+								<%= image_tag diary.image.url, width: 150, height: 150, class: "square" %>
+							<% else %>
+								<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "square" %>
+							<% end %>
+							<br>
+							<%= diary.title %>
+						<% end %>
+							<br>
+						<%= link_to diary.user.name, user_path(diary.user), class: "theme-color" %>
+						<br>
+					</div>
+				<% end %>
+			<% else %>
+				<p class="font-white">まだ投稿はありません</p>
+			</div>
+		<% end %>
 	</div>
 </div>
