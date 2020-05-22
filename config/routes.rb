@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
 
-  get 'user_diaries/show'
-  get 'user_diaries/new'
-  get 'user_diaries/edit'
 #===== 管理者 ========================================================================
-  devise_for :admins, controllers: {
-    sessions: 'admins/sessions',
-  }
+  devise_for :admins, skip: :all
+  devise_scope :admin do 
+    get 'admins/sign_in', to: 'admins/sessions#new', as: 'new_admin_session'
+    post 'admins/sign_in', to: 'admins/sessions#create', as: 'admin_session'
+    delete 'admins/sign_out', to: 'admins/sessions#destroy', as: 'destroy_admin_session'
+  end
+  
   namespace :admin do
     root 'home#top'
     resources :users, only: [:index, :show, :update]
