@@ -1,42 +1,20 @@
 <div class="row font-white side-space">
-	<div class="col-lg-3 side-space text-center">
-			<% if @user.present? %>
-				<%= link_to user_path(@user) do %>
-					<% if @user.image? %>
-						<%= image_tag @user.image.url, width: 150, height: 150, class: "circle" %>
-					<% else %>
-						<%= image_tag 'NO_IMAGE.png', width: 150, height: 150,class: "circle" %>
-					<% end %>
-				<% end %>
-				<br>
-				ユーザー名:　<%= link_to @user.name, user_path(@user), class: "link theme-color" %>
-
-				<%= link_to '詳細を見る', user_path(@user), class: "btn theme-color form-control" %>
-
-				<% if @status == "wait_self" %>
-
-						<%= link_to '取り消す', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn font-red form-control" %>
-				<% elsif @status == "waiting_user" %>
-						<%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: @friend, status: "waiting_user"), method: :patch, class: "btn theme-color form-control" %>
-
-						<%= link_to '拒否する', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn font-red form-control" %>
-				<% else %>
-						<%= link_to '削除する', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn font-red form-control" %>
-				<% end %>
-			<% end %>
-
+	<div class="col-lg-3">
 	</div>
-	<div class="col-lg-6 side-space text-center" style="margin: 0 auto;">
-		<div class="text-center">
-			<%= link_to '友達',user_friends_path(user_id:current_user.id), class: "link theme-color" %>
-			|
-			<%= link_to '受け取った申請',user_friends_path(user_id: current_user.id,status: "waiting_user"), class: "link theme-color" %>
-			|
-			<%= link_to '承認待ち',user_friends_path(user_id: current_user.id,status: "wait_self"), class: "link theme-color" %>
+	<div class="col-lg-6 text-center" style="margin: 0 auto;">
+		<div class="row text-center">
+			<div class="col-lg-12">
+				<%= link_to '友達',user_friends_path(user_id:current_user.id), class: "link theme-color" %>
+				|
+				<%= link_to '受け取った申請',user_friends_path(user_id: current_user.id,status: "waiting_user"), class: "link theme-color" %>
+				|
+				<%= link_to '承認待ち',user_friends_path(user_id: current_user.id,status: "wait_self"), class: "link theme-color" %>
+			</div>
 		</div>
 		<br>
 		<h3><%= @title %></h3>
 		<br>
+		<div style="height: 620px; overflow: auto;">
 		<% @users.each do |user| %>
 			<!-- 承認待ち -->
 			<% if @status == "wait_self" %>
@@ -53,9 +31,9 @@
 					<div class="col-lg-1">
 					</div>
 					<div class="col-lg-7 mt-5">
-						<%= link_to user.receiver.name, user_friends_path(user_id: current_user.id, user: user.receiver_id, id: user.id, status: @status), class: "link theme-color" %>
+						<%= link_to user.receiver.name, user_friends_path(user_id: current_user.id, user: user.receiver_id, id: user.id, status: @status), class: "link" %>
 
-						<%= link_to '取り消す', user_friend_path(user_id: current_user.id, id: user.id, status: "wait_self"), method: :delete, remote: true, class: "btn font-red form-control" %>
+						<%= link_to '取り消す', user_friend_path(user_id: current_user.id, id: user.id, status: "wait_self"), method: :delete, remote: true, class: "btn btn-outline-danger form-control" %>
 					</div>
 				</div>
 
@@ -75,11 +53,11 @@
 					</div>
 					<div class="col-lg-7 mt-5">
 
-						<%= link_to user.sender.name, user_friends_path(user_id: current_user.id, user: user.sender_id, id: user.id, status: @status), class: "link theme-color" %>
+						<%= link_to user.sender.name, user_friends_path(user_id: current_user.id, user: user.sender_id, id: user.id, status: @status), class: "link" %>
 
-						<%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: user.id, status: "waiting_user"), method: :patch, class: "btn theme-color form-control" %>
+						<%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: user.id, status: "waiting_user"), method: :patch, class: "btn btn-outline-success form-control" %>
 
-						<%= link_to '拒否する', user_friend_path(user_id: current_user.id, id: user.id), method: :delete, remote: true, class: "btn font-red form-control" %>
+						<%= link_to '拒否する', user_friend_path(user_id: current_user.id, id: user.id), method: :delete, remote: true, class: "btn btn-outline-danger form-control" %>
 					</div>
 				</div>
 			<% else %>
@@ -97,13 +75,14 @@
 					</div>
 					<div class="col-lg-7 mt-5">
 				
-						<%= link_to user.receiver.name, user_friends_path(user_id: user.sender_id, user: user.receiver_id, id: user.id, status: @status), class: "link theme-color" %>
+						<%= link_to user.receiver.name, user_friends_path(user_id: user.sender_id, user: user.receiver_id, id: user.id, status: @status), class: "link" %>
 
-						<%= link_to '削除する', user_friend_path(user_id: current_user.id, id: user.id), method: :delete, remote: true, class: "btn font-red form-control" %>
+						<%= link_to '削除する', user_friend_path(user_id: current_user.id, id: user.id), method: :delete, remote: true, class: "btn btn-outline-danger form-control" %>
 					</div>
 				</div>
 			<% end %>
 		<% end %>
+	</div>
 	</div>
 	<div class="col-lg-3">
 	</div>
