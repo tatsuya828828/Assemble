@@ -91,6 +91,9 @@
 
 
 // ===== 文字 ============================
+p{
+   word-wrap:break-word;
+}
 .theme-color{
   color: #fff;
 }
@@ -180,7 +183,6 @@
 
 .container-fruid{
   background-color: rgba(194, 238, 255, 0.5);
-  height: auto;
 }
 
 
@@ -207,12 +209,15 @@
 .link-danger{
   background-color: rgba(0,0,0,0);
   color: #fff;
+  border: none;
 }
 
 .link-danger:hover,.link-danger:active,.link-danger:focus{
   background-color: rgba(0,0,0,0);
   border-bottom: 1px solid #FF69A3;
   text-shadow: 2px 2px 3px #000;
+  color: #FF69A3;
+  text-decoration: none;
 }
 // ========================================
 

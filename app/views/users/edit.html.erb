@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row no-gutters">
 	<div class="offset-lg-4 font-white" style="margin: 0 auto;">
 		<%= form_for @user do |f| %>
 
@@ -10,7 +10,7 @@
 				<% end %>
 				<%= f.label :image , :サムネイル%>
 				<br>
-				<%= f.file_field :image %>
+				<%= f.file_field :image, class: "form-control file" %>
 				<%= f.hidden_field :image_cache %>
 			</div>
 			<div class="field">
@@ -38,8 +38,8 @@
 				<% end %>
 			</div>
 
-			<%= f.submit '変更する', class: "btn theme-color form-control" %>
-			<%= link_to '退会する', user_destroy_confirm_path(@user), class: "btn font-red form-control" %>
+			<%= f.submit '変更する', class: "btn btn-outline-success form-control" %>
+			<%= link_to '退会する', user_destroy_confirm_path(@user), class: "btn btn-outline-danger form-control" %>
 		<% end %>
 	</div>
 </div>
