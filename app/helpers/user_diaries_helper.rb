@@ -1,0 +1,2 @@
+module UserDiariesHelper
+end
