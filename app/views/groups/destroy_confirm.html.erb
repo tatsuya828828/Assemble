@@ -1,15 +1,29 @@
-<div class="row font-white">
+<div class="row font-white text-center">
 	<div class="col-lg-4">
 	</div>
-	<div class="col-lg-4 side-space">
-		<div class="row" style="height: 200px;">
+	<% if @group_user.present? %>
+
+		<div class="col-lg-4" style="margin: 10% 0;">
+			<h4>本当に削除しますか？</h4>
+			<p class="font-white">削除すると、このグループ内のあなたの情報が、全て消えてしまいます。本当によろしいですか？<br>
+			(日記はマイページでご確認いただけます)</p>
+			<br>
+			<%= link_to '削除する',group_destroy_user_path(group_id: @group.id, id: @group_user, destroy: "user"),method: :delete, class: "btn btn-outline-danger form-control" %>
+
+			<%= link_to 'やめる', :back, class: "btn btn-outline-primary form-control" %>
+
 		</div>
-		<h2>本当に削除しますか？</h2>
-		<p class="font-white">削除すると、<br>このグループの情報が全て消えてしまいます。<br>本当によろしいですか？</p>
-		<br>
-		<%= link_to '削除する',group_path(@group),method: :delete, class: "btn font-red form-control" %>
+		
+	<% else %>
 
-		<%= link_to 'やめる', group_path(@group), class: "btn theme-color form-control" %>
+		<div class="col-lg-4" style="margin: 10% 0;">
+			<h4>本当に削除しますか？</h4>
+			<p class="font-white">削除すると、このグループの情報が全て消えてしまいます。本当によろしいですか？</p>
+			<br>
+			<%= link_to '削除する',group_path(@group),method: :delete, class: "btn btn-outline-danger form-control" %>
 
-	</div>
+			<%= link_to 'やめる', group_path(@group), class: "btn btn-outline-primary form-control" %>
+
+		</div>
+	<% end %>
 </div>

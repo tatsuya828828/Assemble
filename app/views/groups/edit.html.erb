@@ -1,19 +1,23 @@
-<div class="row">
+<div class="row no-gutters">
 	<div class="offset-lg-4 font-white" style="margin: 0 auto;">
 		<%= form_for @group do |f| %>
 
-			<div class="form-group">
+			<div class="form-group text-center">
 				<% if @group.image? %>
 					<div class="thmbnail">
 						<%= image_tag @group.image.url, width: 150, height: 150, class: "circle" %>
 					</div>
 				<% end %>
-				<%= f.label :image , :グループのサムネイル%>
+			</div>
+
+			<div class="form-group">
+				<%= f.label :image , "サムネイル" %>
 				<br>
-				<%= f.file_field :image %>
+				<%= f.file_field :image, class: "form-control file" %>
 				<%= f.hidden_field :image_cache %>
 			</div>
-			<div class="field">
+
+			<div class="form-group">
 				<% if @group.persisted? && @group.image? %>
 					<label>
 						<%= f.check_box :remove_image %>
@@ -53,8 +57,8 @@
 				<%= f.radio_button :private_status, "open" %>
 				<%= f.label :private_status, :誰でも参加申請可に設定 %>
 			</div>
-			<%= f.submit '変更する', class: "btn theme-color form-control" %>
-			<%= link_to '削除する', group_destroy_confirm_path(@group), class: "btn font-red form-control" %>
+			<%= f.submit '変更する', class: "btn btn-outline-success form-control" %>
+			<%= link_to '削除する', group_destroy_confirm_path(group_id: @group, destroy: "group"), class: "btn btn-outline-danger form-control" %>
 		<% end %>
 	</div>
 </div>

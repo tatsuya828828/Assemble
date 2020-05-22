@@ -50,7 +50,9 @@ class GroupsController < ApplicationController
     if @group.users.find_by(id: current_user.id).nil?
       redirect_back(fallback_location: root_path)
     end
-  	@group = Group.find(params[:group_id])
+    if params[:destroy] == "user"
+       @group_user = GroupUser.find_by(user_id: current_user, group_id: @group.id)
+    end
   end
 
   def destroy

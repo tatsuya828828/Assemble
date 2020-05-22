@@ -7,10 +7,19 @@
   text-center
   pt-3 pb-3">
 
-
-  <%= link_to 'Assemble', root_path,
+  <% if @group.present? %>
+    <%= link_to group_path(@group) do %>
+      <% if @group.image? %>
+        <%= image_tag @group.image.url, width: 55, height:55, class: "circle navbar-brand" %>
+      <% else %>
+        <%= image_tag "NO_IMAGE.png", width: 55, height:55, class: "circle navbar-brand" %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= link_to 'OurSpace', root_path,
     class: "navbar-brand theme-color",
-    style: "font-size: 30px; font-family: cursive;"%>
+    style: "font-size: 30px; font-family: cursive; text-shadow: 2px 2px 3px #000;"%>
+  <% end %>
 
     <button
       class="navbar-toggler"
@@ -70,21 +79,23 @@
               </a>
 
               <div class="dropdown-menu" aria-labelledby="dropdown" style="background-color:rgba(250,100,50,0.5);">
-               　<%= link_to 'ホーム', group_path(@group), class: "theme-color link", style: "text-decoration: none;" %>
+               　<%= link_to 'グループホーム', group_path(@group), class: "theme-color link", style: "text-decoration: none;" %>
                 <br>
-                　<%= link_to '日記一覧', group_diaries_path(@group), class: "theme-color link", style: "text-decoration: none;" %>
+                　<%= link_to '日記一覧', group_diaries_path(@group), class: "theme-color link" %>
                 <br>
-                　<%= link_to '参加ユーザー', group_users_path(group_id: @group, status: "joined"), class: "theme-color link", style: "text-decoration: none;" %>
+                　<%= link_to '参加ユーザー', group_users_path(group_id: @group, status: "joined"), class: "theme-color link" %>
                 <br>
-                　<%= link_to 'チャットルーム', group_chats_path(group_id: @group), class: "theme-color link", style: "text-decoration: none;" %>
+                　<%= link_to 'チャットルーム', group_chats_path(group_id: @group), class: "theme-color link" %>
                 <br>
 
                 <!-- グループのリーダーにのみ表示 -->
                 <% @leader = @group.users.find_by(id: @group.leader) %>
                 <% if current_user == @leader %>
-                　<%= link_to '受け取った申請', group_users_path(group_id: @group, status: "waiting_user"), class: "theme-color link", style: "text-decoration: none;" %>
+                　<%= link_to '受け取った申請', group_users_path(group_id: @group, status: "waiting_user"), class: "theme-color link" %>
                   <br>
-                　<%= link_to 'グループの編集', edit_group_path(@group), class: "theme-color link", style: "text-decoration: none;" %>
+                　<%= link_to 'グループの編集', edit_group_path(@group), class: "theme-color link" %>
+                <% else %>
+                　<%= link_to 'グループを抜ける', group_destroy_confirm_path(group_id: @group, destroy: "user"), class: "link-danger" %>
                 <% end %>
                 <!------------------------------->
               </div>

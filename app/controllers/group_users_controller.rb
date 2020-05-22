@@ -49,12 +49,22 @@ class GroupUsersController < ApplicationController
 
 
 	def destroy
-		group_user = GroupUser.find(params[:id])
-		if group_user.user_id == current_user.id || group_user.group.leader == current_user.id
-			group_user.destroy
-			redirect_back(fallback_location: root_path)
+		if params[:destroy].present?
+			user = GroupUser.find(params[:id])
+			user_memos = Memo.where(group_id: user.group_id, user_id: user.user_id)
+			user_diaries = Diary.where(group_id: user.group_id, user_id: user.user_id)
+			user_memos.destroy_all
+			user_diaries.update(group_id: nil)
+			user.destroy
+			redirect_to groups_path
 		else
-			redirect_back(fallback_location: root_path)
+			group_user = GroupUser.find(params[:id])
+			if group_user.user_id == current_user.id || group_user.group.leader == current_user.id
+				group_user.destroy
+				redirect_back(fallback_location: root_path)
+			else
+				redirect_back(fallback_location: root_path)
+			end
 		end
 	end
 
