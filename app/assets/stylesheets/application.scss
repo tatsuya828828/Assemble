@@ -39,6 +39,10 @@
 
 .title{
   display: none;
+  color: #fff;
+  font-family: cursive;
+  text-shadow: 2px 2px 3px #000;
+  font-size: 100px;
 }
 
 .board{
@@ -182,7 +186,8 @@ p{
 }
 
 .container-fruid{
-  background-color: rgba(194, 238, 255, 0.5);
+  background-color: rgba(0,0,0,0.5);
+  height: 800px;
 }
 
 
@@ -238,6 +243,16 @@ p{
 }
 // =========================================
 
-@media screen and (max-width: 768px) {
- 
+@media (max-width: 768px) {
+
+  .title{
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 425px) {
+  
+  .title{
+    font-size: 50px;
+  }
 }
