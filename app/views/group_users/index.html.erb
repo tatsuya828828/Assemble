@@ -1,108 +1,65 @@
-<div class="row side-space font-white">
-	<div class="col-lg-3 side-space" style="text-align: center;">
-		<% if @group_user.present? %>
-			<% if @group_user.user.image? %>
-				<%= image_tag @group_user.user.image.url, width: 150, height: 150, class: "circle" %>
-			<% else %>
-				<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
-			<% end %>
-			<br>
-			ユーザー名:　<%= link_to @group_user.user.name, user_path(@group_user.user.id), class: "theme-color" %>
-			<br>
-			<%= link_to '詳細を見る', user_path(@group_user.user.id), class: "btn theme-color form-control" %>
-			<br>
-			<% if @leader == current_user %>
-				<% if @status == "waiting_user" %>
-					<%= link_to '参加を許可', group_user_path(
-							group_id: @group_user.group_id,
-							id: @group_user.id),
-							method: :patch, class: "btn theme-color form-control" %>
-					<br>
-					<%= link_to '参加を拒否', group_destroy_user_path(
-							group_id: @group_user.group_id,
-							id: @group.id,
-							status: @status),
-							method: :delete, remote: true, class: "btn font-red form-control" %>
-				<% else %>
-					<% if @group_user.user != @leader %>
-						<%= link_to '削除する', group_destroy_user_path(group_id: @group_user.group_id, id: @group_user.id, status: @status), method: :delete, remote: true, class: "btn font-red form-control" %>
-					<% end %>
-				<% end %>
-			<% end %>
-		<% end %>	
+<div class="row  no-gutters font-white">
+	<div class="col-lg-3">
 	</div>
-	<div class="col-lg-6 side-space text-center">
+	<div class="col-lg-6 text-center">
 		<h3><%= @title %></h3>
-		<div style="overflow: auto; height: 500px;">
-			<br>
-			<table>
-				<% @group_users.each do |group_user| %>
-
-					<tr>
-						<!-- 受け取った申請 -->
-						<% if @status == "waiting_user" %>
-
-							<td>
+		<div style="overflow: auto; height: 680px;">
+			<% @group_users.each do |group_user| %>
+				<div class="row no-gutters mt-3 mb-3">
+					<!-- 受け取った申請 -->
+					<% if @status == "waiting_user" %>
+						<div class="col-lg-4">
+							<% link_to user_path(group_user.user) do %>
 								<% if group_user.user.image? %>
 									<%= image_tag group_user.user.image.url, width: 150, height: 150, class: "circle" %>
 								<% else %>
 									<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
 								<% end %>
-							</td>
-							<td>
-								<%= link_to group_user.user.name, group_users_path(
-									group_id: group_user.group_id,
-									user_id: group_user.id,
-									status: @status), class: "theme-color pl-2" %>
-							</td>
-							<td>
-								<%= link_to '参加を許可', group_user_path(
-									group_id: group_user.group_id,
-									id: group_user.id),
-									method: :patch,
-									class: "btn theme-color form-control" %>
-							</td>
-							<td>
-								<%= link_to '参加を拒否', group_destroy_user_path(
-									group_id: group_user.group_id,
-									id: group_user.id),
-									method: :delete, remote: true,
-									class: "btn font-red form-control" %>
-							</td>
-
-						<% else %>
-
-							<td class="pb-5 pt-5">
-								<% if group_user.user.image? %>
-									<%= image_tag group_user.user.image.url, width: 150, height: 150, class: "circle" %>
-								<% else %>
-									<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
-								<% end %>
-							</td>
-							<td>
-								<%= link_to group_user.user.name, group_users_path(
-									group_id: group_user.group_id,
-									user_id: group_user.id,
-									status: @status), class: "theme-color pl-2" %>
-							</td>
-
-							<% if @leader == current_user %>
-								<td>
-									<% if group_user.user != @leader %>
-										
-										<%= link_to '削除する', group_destroy_user_path(
-											group_id: group_user.group_id,
-											id: group_user.id),
-											method: :delete, remote: true,
-											class: "btn font-red form-control" %>
-									<% end %>
-								</td>
 							<% end %>
-							<!------------------------------------->
-						<% end %>
-					</tr>
-				<% end %>
-			</table>
+						</div>
+						<div class="col-lg-4" style="line-height: 50px;">
+							<%= link_to group_user.user.name, user_path(group_user.user), class: "theme-color" %>
+							<br>
+							<%= link_to '参加を許可', group_user_path(
+								group_id: group_user.group_id,
+								id: group_user.id),
+								method: :patch,
+								class: "btn btn-outline-success form-control" %>
+							<br>
+							<%= link_to '参加を拒否', group_destroy_user_path(
+								group_id: group_user.group_id,
+								id: group_user.id),
+								method: :delete, remote: true,
+								class: "btn btn-outline-danger form-control" %>
+						</div>
+
+						<!-- すでに参加しているユーザー -->
+					<% else %>
+						<div class="col-lg-4">
+							<%= link_to user_path(group_user.user) do %>
+								<% if group_user.user.image? %>
+									<%= image_tag group_user.user.image.url, width: 150, height: 150, class: "circle" %>
+								<% else %>
+									<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+								<% end %>
+							<% end %>
+						</div>
+						<div class="col-lg-4" style="line-height: 60px;">
+							<%= link_to group_user.user.name, user_path(group_user.user), class: "theme-color" %>
+						<br>
+							<% if @leader == current_user %>
+								<% if group_user.user != @leader %>
+									<%= link_to '削除する', group_destroy_user_path(group_id: group_user.group_id,
+										id: group_user.id),
+										method: :delete, remote: true,
+										class: "btn btn-outline-danger form-control" %>
+								<% end %>
+							<% end %>
+						</div>
+						<!------------------------------------->
+					<% end %>
+				</div>
+			<% end %>
 		</div>
 	</div>
 </div>
