@@ -2,6 +2,17 @@ class UsersController < ApplicationController
 	before_action :authenticate_user!, except: [:show]
   def show
   	@user = User.find(params[:id])
+    @group_user = GroupUser.new
+
+    # current_userの参加しているグループの中で@userの参加していないグループを探して@groupsに代入していく。
+    @groups = []
+    current_user.groups.each do |group|
+    if (group.users.find_by(id: @user.id)).nil?
+      @groups<<group
+    end
+
+    end
+    
     if user_signed_in?
           # 友達の場合
       if current_user.friend?(@user)
