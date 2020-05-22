@@ -1,6 +1,6 @@
 class Admin::SearchesController < ApplicationController
   def index
-  	@word = params[:word]
+  	@word = params[:wor]
   	if params[:range] == "ユーザー名"
   		@users = User.where(name: params[:word])
   	else
