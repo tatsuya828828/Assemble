@@ -15,7 +15,7 @@ class Group < ApplicationRecord
 	#================================================
 
 	#===== グループの日記 =============================
-	has_many :diaries, dependent: :destroy
+	has_many :diaries
 	#================================================
 
 	enum private_status: { closed: 0, open: 1 }

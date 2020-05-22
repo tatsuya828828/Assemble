@@ -25,9 +25,10 @@ class GroupsController < ApplicationController
 
   def show
   	@group = Group.find(params[:id])
+    @diaries = Diary.where(group_id: @group.id, private_status: "group_only").or(Diary.where(group_id: @group.id, private_status: "open")).or(Diary.where(group_id: @group.id, private_status: "full_open"))
   	@memo = Memo.new
+    # メモ作成ボタンを押した時に表示
     @new = params[:new]
-  	@side = params[:side]
   end
 
   def edit
