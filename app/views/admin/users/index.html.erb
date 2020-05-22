@@ -1,22 +1,26 @@
-<div class="row side-space">
+<div class="row side-space font-white">
 	<div class="offset-lg-2">
 	</div>
-	<div class="col-lg-8" style="margin: 0 auto;">
-		<table class="table-responsive">
-			<tr>
-				<th style="padding-right: 30px;">ID</th>
-				<th style="padding-right: 30px;"></th>
-				<th style="padding-right: 30px;">ユーザー名</th>
-				<th style="padding-right: 30px;">登録日</th>
-			</tr>
-			<% @users.each do |user| %>
-				<tr>
-					<td style="padding-right: 30px;"><%= user.id %></td>
-					<td style="padding-right: 30px;">ユーザーイメージ</td>
-					<td style="padding-right: 30px;"><%= link_to user.name, admin_user_path(user) %></td>
-					<td style="padding-right: 30px;"><%= user.created_at.strftime("%Y年%m月%d日 %H時%M分") %></td>
-				</tr>
-			<% end %>
-		</table>
+	<div class="col-lg-8" style="overflow: auto; height: 680px;">
+		<% @users.each do |user| %>
+			<div class="row no-gutters text-center mt-3 mb-3">
+				<div class="col-lg-6">
+					<%= link_to admin_user_path(user) do %>
+						<% if user.image? %>
+							<%= image_tag user.image.url, width: 100, height: 100, class: "circle" %>
+						<% else %>
+							<%= image_tag "NO_IMAGE.png", width: 100, height: 100, class: "circle" %>
+						<% end %>
+					<% end %>
+				</div>
+				<div class="col-lg-6 mt-3" style="text-align: left;">
+					ID: <%= user.id %></td>
+					<br>
+					ユーザー名: <%= link_to user.name, admin_user_path(user), class: "link theme-color" %>
+					<br>
+					状態: <%= user.valid_status %>
+				</div>
+			</div>
+		<% end %>
 	</div>
 </div>
