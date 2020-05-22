@@ -252,6 +252,11 @@ p{
 
 @media (max-width: 425px) {
   
+  iframe{
+    max-width: 100%;
+    height: auto
+  }
+  
   .title{
     font-size: 50px;
   }
