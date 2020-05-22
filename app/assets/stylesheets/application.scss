@@ -65,7 +65,11 @@
   background-position: 50% 25%;
 }
 
-
+.file{
+  background-color: rgba(0,0,0,0);
+  border: none;
+  color: #fff;
+}
 
 // ===== 画像 ============================
 .thumbnail{
@@ -87,12 +91,20 @@
 
 
 // ===== 文字 ============================
+.theme-color{
+  color: #fff;
+}
 .theme-color:hover,theme-color:focus,theme-color:active{
   color: #00FF3B;
+  text-decoration: none;
 }
 
+.font-red{
+  color: #fff;
+}
 .font-red:hover,font-red:focus,font-red:active{
   color: #FF69A3;
+  text-decorarion: none;
 }
 
 .font-white{
@@ -118,14 +130,7 @@
 
 
 // ===== btn ==============================
-.btn {
-  background-color: rgba(0,0,0,0);
-  color: #fff;
-}
-
 .btn:hover,.btn:active,.btn:focus {
-  background-color: rgba(0,0,0,0);
-  border: 1px solid #fff;
   box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
   outline-color: transparent;
   outline-offset: 12px;
@@ -146,7 +151,6 @@
 
 // ===== form =============================
 .form-control,.form-control:focus,.form-control:active {
-  border: none;
   outline: none;
   box-shadow: none;
 }
@@ -181,15 +185,6 @@
 
 
 // ===== リンク ============================
-a{
-  color: #fff;
-}
-
-a:hover,a:focus,a:active{
-  text-decoration: none;
-  text-shadow: 2px 2px 3px #000;
-}
-
 .dropdown-menu,.dropdown-menu:focus{
   background-color: rgba(0,0,0,0);
   border: 1px solid #fff;
@@ -198,11 +193,15 @@ a:hover,a:focus,a:active{
 .link{
   background-color: rgba(0,0,0,0);
   color: #fff;
+  border: none;
 }
 
 .link:hover,.link:active,.link:focus{
   background-color: rgba(0,0,0,0);
   text-shadow: 2px 2px 3px #000;
+  color: #00FF3B;
+  text-decoration: none;
+  border-bottom: 1px solid #00FF3B;;
 }
 
 .link-danger{
@@ -235,4 +234,5 @@ a:hover,a:focus,a:active{
 // =========================================
 
 @media screen and (max-width: 768px) {
+ 
 }

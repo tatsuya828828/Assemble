@@ -1,28 +1,28 @@
-<div class="row no-gutters font-white">
+<div class="row no-gutters font-white pb-3">
 	<div class="offset-sm-3 col-sm-6">	
 		<%= form_with(model: @diary, url: group_diaries_path(group_id: @group.id), local: true) do |f| %>
 
-			<div class="field side-space">
+			<div class="field">
 				<%= f.label :title, "タイトル" %>
-				　<%= f.text_field :title, class: "form-control", style: "color: black;", required: true %>
+				　<%= f.text_field :title, class: "form form-control", style: "color: black;", required: true %>
 			</div>
 			<br>
 			<div>
 				<%= f.label :image, "サムネイル" %>
-				　<%= f.file_field :image %>
+				　<%= f.file_field :image, class: "form-control file" %>
 				<%= f.hidden_field :image_cache %>
 			</div>
 			<br>
-			<div class="field side-space">
+			<div class="field">
 				<%= f.text_area :body, required: true%>
 			</div>
 			<br>
-			<div class="field side-space">
+			<div class="field">
 				<%= f.radio_button :private_status, "closed", checked: "checked" %>
 				<%= f.label :private_status, "グループのみ表示する" %>
 			</div>
 
-			<div class="field side-space">
+			<div class="field">
 				<%= f.radio_button :private_status, "open" %>
 				<%= f.label :private_status, "マイページにも表示する" %>
 			</div>
@@ -31,12 +31,12 @@
 			<%= f.hidden_field :group_id, value: @group.id %>
 
 			<div class="action">
-				<%= f.submit '投稿する', class: "btn theme-color form-control" %>
+				<%= f.submit '投稿する', class: "btn btn-outline-success form-control" %>
 			</div>
 		<% end %>
 		<script>
 			new FroalaEditor('#diary_body',{})
 		</script>
-		<%= link_to '戻る', group_diaries_path(group_id: @group.id), class: "btn font-red form-control" %>
+		<%= link_to '戻る', group_diaries_path(group_id: @group.id), class: "btn btn-outline-danger form-control" %>
 	</div>
 </div>
