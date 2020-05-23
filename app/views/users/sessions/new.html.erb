@@ -1,7 +1,7 @@
 <div class="row no-gutters font-white">
-  <div class="offset-md-4">
+  <div class="offset-lg-4">
   </div>
-  <div class="col-md-4">
+  <div class="col-lg-4">
     <div>
       <h2>ログイン</h2>
 
@@ -32,10 +32,11 @@
       </div>
       <%= link_to "新規登録", new_registration_path(resource_name), class: "btn btn-outline-success form-control" %>
       <br>
-      <div class="row">
+      <div class="row no-gutters">
         <div class="offset-lg-6">
           <small><%= link_to "パスワードを忘れた方はこちら", new_password_path(resource_name), class: "link" %></small>
         </div>
+      </div>
     </div>
   </div>
 </div>
