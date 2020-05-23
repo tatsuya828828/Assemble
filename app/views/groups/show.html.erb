@@ -63,7 +63,7 @@
 		</div>
 		<h5 class="font-white mb-5">新着日記</h5>
 		<% if @diaries.present? %>
-			<div style="overflow: auto; height: 600px;">
+			<div  class="scroll">
 				<% @diaries.last(10).reverse_each do |diary| %>
 					<div class="mb-4">
 						<%= link_to diary_path(diary), class: "theme-color" do %>

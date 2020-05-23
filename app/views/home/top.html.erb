@@ -1,10 +1,23 @@
 <div class="row no-gutters">
 	<div class="col-lg-3">
-		<%= link_to '管理者', new_admin_session_path %>
 	</div>
 	<div class="col-lg-6">
-		<div class="text-center">
+		<div class="text-center font-white" style="margin-top: 100px; padding-bottom: 100px;" >
 			<h1 class="title">OurSpace</h1>
+			<div class="row no-gutters pt-5">
+				<div class="col-lg-2">
+				</div>
+				<div class="col-lg-3">
+					<%= link_to 'ログイン', new_user_session_path, class: "btn btn-outline-primary form-control" %>
+				</div>
+				<div class="col-lg-2" style="line-height: 35px;">
+				</div>
+				<div class="col-lg-3">
+					<%= link_to '新規登録(無料)', new_user_registration_path, class: "btn btn-outline-success form-control" %>
+				</div>
+				<div class="col-lg-2">
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="col-lg-3">

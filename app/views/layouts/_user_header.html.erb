@@ -4,7 +4,8 @@
   side-space
   theme-color
   font-white
-  pt-3 pb-3">
+  pt-3 pb-3
+  sticky-top">
 
   <% if @group.present? %>
     <%= link_to group_path(@group) do %>
@@ -108,9 +109,6 @@
           </li>
         <% else %>
           <li class="nav-item active mr-5">
-            <%= link_to 'このサイトについて', about_path, class: "nav-link theme-color" %>
-          </li>
-          <li class="nav-item active mr-5">
             <%= link_to 'ログイン', new_user_session_path, class: "nav-link theme-color" %>
           </li>
           <li class="nav-item active">
@@ -131,6 +129,8 @@
             </div>
           <% end %>
         </div>
+      <% else %>
+        <%= link_to '管理者', new_admin_session_path, style: "color: rgba(0,0,0,0);" %>
       <% end %>
     </div>
   </nav>

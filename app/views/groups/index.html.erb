@@ -1,5 +1,5 @@
 <div class="row no-gutters font-white">
-	<div class="col-lg-9 pr-5 pl-5">
+	<div class="col-lg-9 pr-1 pl-1">
 		<h4 class="text-center border-bottom">参加グループ</h4>
 		<div class="row no-gutters" style="height: 690px; overflow: auto;">
 			<% current_user.group_users.each do |group_user| %>
@@ -28,7 +28,7 @@
 			<% end %>
 		</div>
 	</div>
-	<div class="col-lg-3">
+	<div class="col-lg-3 pr-1 pl-1">
 		<div>
 			<h4 class="text-center border-bottom">グループ追加</h4>
 			<%= form_for @new_group do |f| %>
