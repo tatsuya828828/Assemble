@@ -8,8 +8,8 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  
-  <body class="top" style="background-color: #C2EEFF;">
+
+  <body id="wrapper" class="main-image" style="background-color: #C2EEFF;">
     <header>
       <% if admin_signed_in? %>
         <%= render 'layouts/admin_header' %>
@@ -17,8 +17,14 @@
         <%= render 'layouts/user_header' %>
       <% end %>
     </header>
-      <div class="container-fruid side-space pb-3" style="padding-top: 3%;">
-        <%= yield %>
-      </div>
+    <div class="container-fruid side-space main-content" style="padding-top: 3%;">
+      <%= yield %>
+    </div>
+    <div class="container-fruid fixed-bottom link_footer">
+      <%= render 'layouts/link_footer' %>
+    </div>
+    <footer>
+      <%= render 'layouts/user_footer' %>
+    </footer>
   </body>
 </html>

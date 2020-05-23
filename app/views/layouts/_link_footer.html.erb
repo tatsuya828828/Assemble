@@ -1,0 +1,32 @@
+<% if user_signed_in? %>
+	<div class="row no-gutters media-bar text-center" style="font-size: 30px;">
+		<div class="col-lg-3 media-button">
+			<%= link_to user_path(current_user) do %>
+				<i class="fas fa-user-alt theme-color"></i>
+			<% end %>
+		</div>
+		<div class="col-lg-3 media-button">
+			<%= link_to groups_path do %>
+				<i class="fas fa-users theme-color"></i>
+			<% end %>
+		</div>
+		<div class="col-lg-3 media-button">
+			<%= link_to new_diary_path do %>
+				<i class="fas fa-edit theme-color"></i>
+			<% end %>
+		</div>
+		<div class="col-lg-3 media-button">
+			<%= link_to root_path do %>
+				<i class="far fa-comments theme-color"></i>
+			<% end %>
+		</div>
+	</div>
+<% else %>
+	<div class="row no-gutters media-bar">
+		<div class="col-lg-6 text-center">
+			<%= link_to 'サイト概要', about_path, class: "link" %>
+		</div>
+		<div class="col-lg-6">
+		</div>
+	</div>
+<% end %>
