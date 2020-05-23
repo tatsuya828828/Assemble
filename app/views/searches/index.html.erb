@@ -76,7 +76,7 @@
 				<%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: @friend), method: :patch, class: "btn btn-outline-success form-control mt-3" %>
 				<br>
 
-				<%= link_to '拒否する', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-outline-danger form-control" %>
+				<%= link_to '断る', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-outline-danger form-control" %>
 			
 			<% else %>
 				<%= form_with url: user_friends_path(user_id: current_user.id), local: true do |f| %>
