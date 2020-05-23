@@ -108,7 +108,7 @@
 
 											<%= link_to '参加を許可', group_user_path(group_id: group.id, id: group_user.id, page: "groups"), method: :put, class: "btn btn-outline-success form-control" %>
 
-											<%= link_to '参加を拒否', group_destroy_user_path(group_id: group.id, id: group_user.id, page: "groups"), class: "btn btn-outline-danger form-control" %>
+											<%= link_to '参加を断る', group_destroy_user_path(group_id: group.id, id: group_user.id, page: "groups"), class: "btn btn-outline-danger form-control" %>
 										</div>
 									<% end %>
 								<% end %>

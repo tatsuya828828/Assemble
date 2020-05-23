@@ -21,10 +21,10 @@
 				<%= f.label :private_status, "公開範囲" %>
 				<br>
 				<% if @group.present? %>
-					<%= f.select :private_status, [['非公開', "closed"],['友人のみ', "friend_only"],['グループのみ', "group_only"],['友達とグループのみ', "open"],['全体に公開', "full_open"]],{}, class: "form form-control" %>
+					<%= f.select :private_status, [['非公開', "closed"],['友達のみ', "friend_only"],['グループのみ', "group_only"],['友達とグループのみ', "open"],['全体に公開', "full_open"]],{}, class: "form form-control" %>
 					<%= f.hidden_field :group_id, value: @group.id %>
 				<% else %>
-					<%= f.select :private_status, [['非公開', "closed"],['友人のみ', "friend_only"],['全体に公開', "full_open"]],{}, class: "form form-control" %>
+					<%= f.select :private_status, [['非公開', "closed"],['友達のみ', "friend_only"],['全体に公開', "full_open"]],{}, class: "form form-control" %>
 				<% end %>
 			</div>
 

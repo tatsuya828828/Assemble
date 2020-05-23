@@ -18,7 +18,7 @@
       <div class="mt-3">
         <% if @user == current_user %>
           <%= link_to '編集する', edit_user_path(@user), class: "btn btn-outline-success form-control" %>
-          <%= link_to '友人一覧へ', user_friends_path(current_user.id), class: "btn btn-outline-primary form-control" %>
+          <%= link_to '友達一覧へ', user_friends_path(current_user.id), class: "btn btn-outline-primary form-control" %>
         <% else %>
           <% if current_user.friend?(@user) %>
             <%= link_to '削除', user_friend_path(user_id: current_user.id, id: @user_info.id), method: :delete, class: "btn btn-outline-danger form-control" %>
@@ -35,8 +35,8 @@
             <%= link_to '取り消す', user_friend_path(user_id: current_user.id, id: @user_info.id), method: :delete, class: "btn btn-outline-danger form-control" %>
           <% elsif current_user.waiting_other_user?(@user) %>
             申請が来ています
-            <%= link_to '承認する', user_friend_path(user_id: current_user.id, id: @user_info.id), method: :put, class: "btn btn-outline-success form-control" %>
-            <%= link_to '拒否する', user_friend_path(user_id: current_user.id, id: @user_info.id), method: :delete, class: "btn btn-outline-danger form-control" %>
+            <%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: @user_info.id), method: :put, class: "btn btn-outline-success form-control" %>
+            <%= link_to '断る', user_friend_path(user_id: current_user.id, id: @user_info.id), method: :delete, class: "btn btn-outline-danger form-control" %>
           <% else %>
             <%= form_with(url: user_friends_path(user_id: current_user.id), local: true) do |f| %>
               <%= f.hidden_field :sender_id, value: current_user.id %>
@@ -72,8 +72,8 @@
                   <br>
                   <%= request.sender.name %>
                 
-                  <%= link_to '承認する', user_friend_path(user_id: current_user.id, id: request.id),method: :put, class: "btn btn-outline-success form-control" %>
-                  <%= link_to '拒否する', user_friend_path(user_id: current_user.id, id: request.id), method: :delete, class: "btn btn-outline-danger form-control" %>
+                  <%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: request.id),method: :put, class: "btn btn-outline-success form-control" %>
+                  <%= link_to '断る', user_friend_path(user_id: current_user.id, id: request.id), method: :delete, class: "btn btn-outline-danger form-control" %>
                 <% else %>
                   <div class="mb-3">
                     <%= link_to user_path(request.receiver.id) do %>
