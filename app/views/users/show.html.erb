@@ -1,9 +1,9 @@
 <div class="row font-white">
   <div class="col-lg-3 mb-3 text-center">
     <% if user_signed_in? && (@user == current_user) %>
-      <h5 class="mb-3">
+      <h4 class="mb-3">
         <%= link_to '日記を投稿する', new_diary_path, class: "link" %>
-      </h5>
+      </h4>
     <% end %>
     <div class="pb-2">
       <% if @user.image? %>
@@ -98,9 +98,10 @@
   <div class="col-lg-9 font-white text-center">
     <h2 class="mb-5 border-bottom">日記一覧</h2>
     <div class="scroll">
-      <% @diaries.each do |diary| %>
-          <div class="row no-gutters mb-5">
-            <div class="col-lg-3" style="height: 200px;">
+      <table class="table-borderless" style="width: 100%;">
+        <% @diaries.each do |diary| %>
+          <tr>
+            <th class="pb-5" style="width: 50%;">
               <%= link_to diary_path(diary) do %>
                 <% if diary.image? %>
                   <%= image_tag diary.image.url, width: 200, height: 200, class: "square" %>
@@ -108,25 +109,19 @@
                   <%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
                 <% end %>
               <% end %>
-            </div>
-            <div class="col-lg-6 mt-3 mb-3" style="text-align: left; height: 100px;">
-              <div style="width: 65%; margin: 0 auto; height: 200px; line-height: 40px;">
-                <h3 class="theme-color" style="">
-                  <%= link_to diary.title, diary_path(diary), class: "theme-color" %>
-                </h3>
+            </th>
+            <td class="pb-5" style="width: 50%; text-align: left;">
+              <h4 class="theme-color">
+                <%= link_to diary.title, diary_path(diary), class: "theme-color" %>
+              </h4>
+                <p><%= diary.created_at.strftime("%Y年%-m月%-d日 %-H:%M") %></p>
                 <% if @user == current_user %>
-                  <%= diary.private_status %>
-                <% end %>
-                <br>
-                <h8>
-                  投稿日時<br><%= diary.created_at.strftime("%Y年%-m月%-d日 %-H:%M") %>
-                </h8>
-              </div>
-            </div>
-            <div class="col-lg-3">
-            </div>
-          </div>
-      <% end %>
+                <p><%= diary.private_status %></p>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
     </div>
   </div>
 </div>
