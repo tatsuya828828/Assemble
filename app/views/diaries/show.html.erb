@@ -39,7 +39,7 @@
 		<h5 class="font-white text-center" style="border-bottom: 1px solid #fff;">コメント一覧</h5>
 	</div>
 </div>
-<div class="row no-gutters text-center pb-3">		
+<div class="row no-gutters text-center pb-3">
 	<div class="col-lg-8 mb-2">
 		<div style="overflow: auto; height: 160px;">
 			<% @diary.diary_comments.each do |diary_comment| %>
@@ -48,12 +48,12 @@
 						   border-radius: 5px;
 						   padding: 10px;
 						   word-break:break-all;
-						   text-align: left;">	
-					<%= diary_comment.comment %>	
+						   text-align: left;">
+					<p class="mb-0"><%= diary_comment.comment %></p>
 				</div>
-				<div class="row no-gutters font-white">
-					<% if @diary.user.image? %>
-						<%= image_tag @diary.user.image.url, width: 25, height: 25, class: "circle" %>
+				<div class="row no-gutters font-white mb-3">
+					<% if diary_comment.user.image? %>
+						<%= image_tag diary_comment.user.image.url, width: 25, height: 25, class: "circle" %>
 					<% else %>
 						<%= image_tag 'NO_IMAGE.png', width: 25, height: 30, class: "circle" %>
 					<% end %>
@@ -65,11 +65,10 @@
 						<p>匿名さん</p>
 					<% end %>
 
-					<%= diary_comment.created_at.strftime("%Y年%m月%d日 %H時%M分") %>
-					<br><br>
+					<p class="mb-0">　<%= diary_comment.created_at.strftime("%Y年%m月%d日 %H時%M分") %>　</p>
 					<% if user_signed_in? %>
 						<% if diary_comment.user_id == current_user.id || diary_comment.user_id == nil %>
-							<%= link_to '削除する', diary_comment_destroy_path(diary_id: @diary.id, id: diary_comment.id), method: :delete, remote: true, class: "btn btn-outline-danger", style: "height: 35px;" %>
+							<%= link_to '削除する', diary_comment_destroy_path(diary_id: @diary.id, id: diary_comment.id), method: :delete, remote: true, class: "btn btn-outline-danger", style: "font-size: 8px; height: 18px; padding: 0;" %>
 						<% end %>
 					<% end %>
 				</div>
