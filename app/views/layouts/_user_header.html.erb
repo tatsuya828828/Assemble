@@ -2,10 +2,8 @@
   navbar
   navbar-expand-lg
   side-space
-  theme-color
-  font-white
-  pt-3 pb-3
-  sticky-top">
+ 
+  pt-3 pb-3">
 
   <% if @group.present? %>
     <%= link_to group_path(@group) do %>
@@ -55,11 +53,11 @@
                グループ
             </a>
 
-            <div class="dropdown-menu" aria-labelledby="dropdown" style="background-color:rgba(250,100,50,0.5);">
-              　<%= link_to '一覧ページへ', groups_path, class: "theme-color link", style: "text-decoration: none;" %>
+            <div class="dropdown-menu" aria-labelledby="dropdown">
+              　<%= link_to '一覧ページへ', groups_path, class: "theme-color", style: "text-decoration: none;" %>
                 <br>
                 <% (current_user.group_users.where(join_status: "joined")).each do |join_group| %>
-                  　<%= link_to join_group.group.name, group_path(join_group.group.id), class: "theme-color link", style: "text-decoration: none;" %>
+                  　<%= link_to join_group.group.name, group_path(join_group.group.id), class: "theme-color", style: "text-decoration: none;" %>
                   <br>
                 <% end %>
             </div>
@@ -78,24 +76,24 @@
                  <%= @group.name %>
               </a>
 
-              <div class="dropdown-menu" aria-labelledby="dropdown" style="background-color:rgba(250,100,50,0.5);">
-               　<%= link_to 'グループホーム', group_path(@group), class: "theme-color link", style: "text-decoration: none;" %>
+              <div class="dropdown-menu" aria-labelledby="dropdown">
+               　<%= link_to 'グループホーム', group_path(@group), class: "theme-color", style: "text-decoration: none;" %>
                 <br>
-                　<%= link_to '日記一覧', diaries_path(group_id: @group), class: "theme-color link" %>
+                　<%= link_to '日記一覧', diaries_path(group_id: @group), class: "theme-color" %>
                 <br>
-                　<%= link_to '参加ユーザー', group_users_path(group_id: @group, status: "joined"), class: "theme-color link" %>
+                　<%= link_to '参加ユーザー', group_users_path(group_id: @group, status: "joined"), class: "theme-color" %>
                 <br>
-                　<%= link_to 'チャットルーム', group_chats_path(group_id: @group), class: "theme-color link" %>
+                　<%= link_to 'チャットルーム', group_chats_path(group_id: @group), class: "theme-color" %>
                 <br>
 
                 <!-- グループのリーダーにのみ表示 -->
                 <% @leader = @group.users.find_by(id: @group.leader) %>
                 <% if current_user == @leader %>
-                　<%= link_to '受け取った申請', group_users_path(group_id: @group, status: "waiting_user"), class: "theme-color link" %>
+                　<%= link_to '受け取った申請', group_users_path(group_id: @group, status: "waiting_user"), class: "theme-color" %>
                   <br>
-                　<%= link_to 'グループの編集', edit_group_path(@group), class: "theme-color link" %>
+                　<%= link_to 'グループの編集', edit_group_path(@group), class: "theme-color" %>
                 <% else %>
-                　<%= link_to 'グループを抜ける', group_destroy_confirm_path(group_id: @group, destroy: "user"), class: "link-danger" %>
+                　<%= link_to 'グループを抜ける', group_destroy_confirm_path(group_id: @group, destroy: "user"), class: "font-red" %>
                 <% end %>
                 <!------------------------------->
               </div>
@@ -121,7 +119,7 @@
           <%= form_with url: searches_path, method: :get, local: true do |f| %>
             <div class="row">
 
-              <%= f.text_field :word, required: true, class: "form form-control font-white col-md-6", id: "search" %>
+              <%= f.text_field :word, required: true, class: "form form-control col-md-6", id: "search" %>
 
               <%= select_tag :range, options_for_select([["グループID"],["ユーザーID"]]), class: "form-control col-md-4 theme-color", id: "search-tag"%>
 

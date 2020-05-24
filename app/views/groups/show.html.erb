@@ -1,16 +1,16 @@
 <div class="row no-gutters">
 	<div class="col-lg-3 text-center mb-3">
-		<h5><%= link_to "チャットルームへ", group_chats_path(@group), class: "link theme-color border-bottom" %></h5>
+		<h4><%= link_to "チャットルームへ", group_chats_path(@group), class: "link theme-color border-bottom" %></h4>
 	</div>
 	<div class="col-lg-6 mb-5">
 		<div class="text-center mb-5">
-			<h5>
+			<h4>
 				<% if @new == "new" %>
 					<%= link_to 'やめる', group_path(id: @group.id), class: "link-danger font-red" %>
 				<% else %>
 					<%= link_to '新しくメモを貼る', group_path(id: @group.id, new: "new"), class: "link theme-color" %>
 				<% end %>
-			</h5>
+			</h4>
 		</div>
 		<div class="row no-gutters mt-2 board">
 			<% if @new == "new" %>
@@ -59,13 +59,13 @@
 	</div>
 	<div class="col-lg-3" style="text-align: center;">
 		<div class="mb-5">
-			<h5><%= link_to '日記一覧へ',diaries_path(group_id:@group), class: "link theme-color border-bottom" %></h5>
+			<h4><%= link_to '日記一覧へ',diaries_path(group_id:@group), class: "link theme-color border-bottom" %></h4>
 		</div>
-		<h5 class="font-white mb-5">新着日記</h5>
+		<h4 class="font-white mb-3">新着日記</h4>
 		<% if @diaries.present? %>
 			<div  class="scroll">
 				<% @diaries.last(10).reverse_each do |diary| %>
-					<div class="mb-4">
+					<div class="mb-3">
 						<%= link_to diary_path(diary), class: "theme-color" do %>
 							<% if diary.image? %>
 								<%= image_tag diary.image.url, width: 150, height: 150, class: "square" %>
@@ -73,9 +73,8 @@
 								<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "square" %>
 							<% end %>
 							<br>
-							<%= diary.title %>
+							<h4 class="mb-0 pb-0"><%= diary.title %></h4>
 						<% end %>
-							<br>
 						<%= link_to diary.user.name, user_path(diary.user), class: "theme-color" %>
 						<br>
 					</div>

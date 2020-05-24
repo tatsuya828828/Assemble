@@ -50,12 +50,12 @@
 
 			<div class="form-group">
 				<%= f.radio_button :private_status, "closed" %>
-				<%= f.label :private_status, :招待者以外参加不可に設定 %>
+				<%= f.label :private_status, "検索不可にする" %>
 			</div>
 
 			<div class="form-group">
 				<%= f.radio_button :private_status, "open" %>
-				<%= f.label :private_status, :誰でも参加申請可に設定 %>
+				<%= f.label :private_status, "検索可能にする" %>
 			</div>
 			<%= f.submit '変更する', class: "btn btn-outline-success form-control" %>
 			<%= link_to '削除する', group_destroy_confirm_path(group_id: @group, destroy: "group"), class: "btn btn-outline-danger form-control" %>

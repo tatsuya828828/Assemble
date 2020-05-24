@@ -72,6 +72,14 @@
 }
 
 
+// ===== チャットのスクロール ===============
+.chat-scroll{
+    height: 45vh;
+    overflow: auto;
+    padding:10px;
+}
+// =======================================
+
 
 // ===== ナビゲーションバー ==================
 .navbar-expand-lg .navbar-toggler-icon {
@@ -267,20 +275,12 @@ a:hover{
 // =========================================
 
 
-
-
-
-
-
-
-
-
-
-// ===== メディアクエリ ======================
+// ===== PCのみ反映させる ====================
 @media (min-width: 769px) {
   .link_footer{
     display: none;
   }
+
   .scroll{
     overflow: auto;
     height: 600px;
@@ -295,9 +295,26 @@ a:hover{
     height: 800px;
   }
 
+  
 }
+// ==========================================
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ===== メディアクエリ ===========================================================
 
 
 @media (max-width: 768px) {
@@ -375,8 +392,8 @@ a:hover{
   }
 
   img{
-    max-height: 15vh;
-    max-width: 15vh;
+    max-height: 30vh;
+    max-width: 30vh;
   }
 
   h2{
@@ -386,9 +403,15 @@ a:hover{
   h4{
     font-size: 15px;
   }
+
   p{
     margin-bottom: 0;
     font-size: 10px;
+  }
+
+  .scroll{
+    height: 65vh;
+    overflow: auto;
   }
 
   .board{
@@ -402,5 +425,15 @@ a:hover{
   overflow: auto;
   width: 80%;
   height: 40vh;
+  }
 }
+
+
+
+@media (max-width: 425px){
+
+  img{
+    max-height: 15vh;
+    max-width: 15vh;
+  }
 }

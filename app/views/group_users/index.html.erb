@@ -2,64 +2,65 @@
 	<div class="col-lg-3">
 	</div>
 	<div class="col-lg-6 text-center">
-		<h3><%= @title %></h3>
-		<div style="overflow: auto; height: 680px;">
-			<% @group_users.each do |group_user| %>
-				<div class="row no-gutters mt-3 mb-3">
-					<!-- 受け取った申請 -->
-					<% if @status == "waiting_user" %>
-						<div class="col-lg-4">
-							<% link_to user_path(group_user.user) do %>
-								<% if group_user.user.image? %>
-									<%= image_tag group_user.user.image.url, width: 150, height: 150, class: "circle" %>
-								<% else %>
-									<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+		<h2><%= @title %></h2>
+		<div class="scroll">
+			<table class="table-borderless" style="width: 100%;">
+				<% @group_users.each do |group_user| %>
+					<tr class="no-gutters">
+						<!-- 受け取った申請 -->
+						<% if @status == "waiting_user" %>
+							<th style="width: 50%;">
+								<%= link_to user_path(group_user.user) do %>
+									<% if group_user.user.image? %>
+										<%= image_tag group_user.user.image.url, width: 150, height: 150, class: "circle" %>
+									<% else %>
+										<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+									<% end %>
 								<% end %>
-							<% end %>
-						</div>
-						<div class="col-lg-4" style="line-height: 50px;">
-							<%= link_to group_user.user.name, user_path(group_user.user), class: "theme-color" %>
-							<br>
-							<%= link_to '参加を許可', group_user_path(
-								group_id: group_user.group_id,
-								id: group_user.id),
-								method: :patch,
-								class: "btn btn-outline-success form-control" %>
-							<br>
-							<%= link_to '参加を断る', group_destroy_user_path(
-								group_id: group_user.group_id,
-								id: group_user.id),
-								method: :delete, remote: true,
-								class: "btn btn-outline-danger form-control" %>
-						</div>
+								<h4><%= link_to group_user.user.name, user_path(group_user.user), class: "theme-color" %></h4>
+							</th>
+							<td style="width: 50%;">
+								<%= link_to '参加を許可', group_user_path(
+									group_id: group_user.group_id,
+									id: group_user.id),
+									method: :patch,
+									class: "btn btn-outline-success form-control" %>
+								<br>
+								<%= link_to '参加を断る', group_destroy_user_path(
+									group_id: group_user.group_id,
+									id: group_user.id),
+									method: :delete, remote: true,
+									class: "btn btn-outline-danger form-control" %>
+							</td>
 
-						<!-- すでに参加しているユーザー -->
-					<% else %>
-						<div class="col-lg-4">
-							<%= link_to user_path(group_user.user) do %>
-								<% if group_user.user.image? %>
-									<%= image_tag group_user.user.image.url, width: 150, height: 150, class: "circle" %>
-								<% else %>
-									<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+							<!-- すでに参加しているユーザー -->
+						<% else %>
+							<th style="width: 50%;">
+								<%= link_to user_path(group_user.user) do %>
+									<% if group_user.user.image? %>
+										<%= image_tag group_user.user.image.url, width: 150, height: 150, class: "circle" %>
+									<% else %>
+										<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+									<% end %>
 								<% end %>
-							<% end %>
-						</div>
-						<div class="col-lg-4" style="line-height: 60px;">
-							<%= link_to group_user.user.name, user_path(group_user.user), class: "theme-color" %>
-						<br>
-							<% if @leader == current_user %>
-								<% if group_user.user != @leader %>
-									<%= link_to '削除する', group_destroy_user_path(group_id: group_user.group_id,
-										id: group_user.id),
-										method: :delete, remote: true,
-										class: "btn btn-outline-danger form-control" %>
+
+								<h4><%= link_to group_user.user.name, user_path(group_user.user), class: "theme-color" %></h4>
+							</th>
+							<td style="width: 50%;">
+								<% if @leader == current_user %>
+									<% if group_user.user != @leader %>
+										<%= link_to '削除する', group_destroy_user_path(group_id: group_user.group_id,
+											id: group_user.id),
+											method: :delete, remote: true,
+											class: "btn btn-outline-danger form-control" %>
+									<% end %>
 								<% end %>
-							<% end %>
-						</div>
-						<!------------------------------------->
-					<% end %>
-				</div>
-			<% end %>
+							</td>
+							<!------------------------------------->
+						<% end %>
+					</tr>
+				<% end %>
+			</table>
 		</div>
 	</div>
 </div>
