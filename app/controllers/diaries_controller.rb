@@ -15,7 +15,11 @@ class DiariesController < ApplicationController
 	def create
 		diary = Diary.new(diary_params)
 		diary.save
-		redirect_to diary_path(diary)
+		if (diary.group_id).nil?
+			redirect_to diary_path(diary)
+		else
+			redirect_to diary_path(id: diary.id, group_id: diary.group_id)
+		end
 	end
 
 	def show
@@ -34,13 +38,24 @@ class DiariesController < ApplicationController
 	def update
 		diary = Diary.find(params[:id])
 		diary.update(diary_params)
-		redirect_to diary_path(diary)
+		if (diary.group_id).nil?
+			redirect_to diary_path(diary)
+		else
+			redirect_to diary_path(id: diary.id, group_id: diary.group_id)
+		end
 	end
 
 	def destroy
 		diary = Diary.find(params[:id])
+		if (diary.group_id).present?
+			group = diary.group_id
+		end
 		diary.destroy
-		redirect_to user_path(current_user)
+		if group.nil?
+			redirect_to user_path(current_user)
+		else
+			redirect_to diaries_path(group_id: group)
+		end
 	end
 
 	private
