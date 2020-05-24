@@ -57,10 +57,11 @@
             </h6>
           </div>
           <% if @friend_requests.present? %>
+            <h4 style="color: #00FF3B;">申請が来ています</h4>
             <div style="overflow: auto; height: 300px;">
               <% @friend_requests.each do |request| %>
                 <% if request.receiver_id == current_user.id %>
-                  <div class="mb-3">
+                  <div>
                     <%= link_to user_path(request.sender.id) do %>
                       <% if request.sender.image? %>
                         <%= image_tag request.sender.image.url, width: 150, height: 150, class: "circle" %>
@@ -75,7 +76,7 @@
                   <%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: request.id),method: :put, class: "btn btn-outline-success form-control" %>
                   <%= link_to '断る', user_friend_path(user_id: current_user.id, id: request.id), method: :delete, class: "btn btn-outline-danger form-control" %>
                 <% else %>
-                  <div class="mb-3">
+                  <div>
                     <%= link_to user_path(request.receiver.id) do %>
                       <% if request.receiver.image? %>
                         <%= image_tag request.receiver.image.url, width: 150, height: 150, class: "circle" %>
