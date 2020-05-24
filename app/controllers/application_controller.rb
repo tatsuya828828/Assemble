@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 	# ユーザー登録時にname,self_idのカラムを持ってくるように設定
 
 	def configure_permitted_parameters
-		devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :name, :self_id])
+		devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :name, :self_id, :image])
 	end
 	# configureは設定する
 	# permittedは許可

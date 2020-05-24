@@ -8,30 +8,34 @@
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
         <div class="field">
-          <%= f.label :email, :メールアドレス %><br />
+          <%= f.label :image, "サムネイル" %>
+          <%= f.file_field :image, class: "form-control file" %>
+          <%= f.hidden_field :image_cache %>
+        </div>
+
+        <div class="field">
+          <%= f.label :email, "メールアドレス" %><br />
           <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, placeholder: "taro1@gmail.com" ,class: "form-control form" %>
         </div>
 
         <div class="field">
-          <%= f.label :name, :ユーザー名 %><br />
+          <%= f.label :name, "ユーザー名" %><br />
           <%= f.text_field :name, autofocus: true, autocomplete: "name", required: true, placeholder: "たろう",class: "form-control form" %>
         </div>
 
         <div class="field">
-          <%= f.label :self_id, :ユーザーID %><br />
+          <%= f.label :self_id, "ログインID" %><br />
           <%= f.text_field :self_id, autofocus: true, autocomplete: "self_id", required: true, placeholder: "taro1",class: "form-control form" %>
         </div>
 
         <div class="field">
-          <%= f.label :password, :パスワード %>
-          <em>(6文字以上)</em>
+          <%= f.label :password, "パスワード(6文字以上)" %>
           <br />
           <%= f.password_field :password, autocomplete: "new-password", required: true,placeholder: "******",class: "form-control form" %>
         </div>
 
         <div class="field">
-          <%= f.label :password_confirmation, :パスワード %>
-          <em>(確認用)</em>
+          <%= f.label :password_confirmation, "パスワード(確認)" %>
           <br />
           <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true,placeholder: "******",class: "form-control form" %>
           <br>
