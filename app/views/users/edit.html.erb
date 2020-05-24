@@ -4,7 +4,7 @@
 
 			<div class="form-group">
 				<% if @user.image? %>
-					<div class="thmbnail">
+					<div class="thmbnail text-center">
 						<%= image_tag @user.image.url, width: 150, height: 150, class: "circle" %>
 					</div>
 				<% end %>
