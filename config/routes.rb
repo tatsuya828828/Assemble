@@ -37,6 +37,13 @@ Rails.application.routes.draw do
 #=====================================================================================
 
 
+#===== ダイレクトメッセージとルーム ====================
+resources :rooms, only: [:index, :show, :create, :destroy] do
+  resources :entries, only: [:create, :destroy]
+end
+#===================================================
+
+
 #====== 日記と日記のコメント ==========================
   resources :diaries do
     post   'diary_comments', to: 'diary_comments#create',  as: 'comments'
