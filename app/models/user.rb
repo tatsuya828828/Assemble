@@ -23,6 +23,13 @@ class User < ApplicationRecord
   #========================================================
 
 
+  #===== ユーザーのダイレクトメッセージとルーム ================
+  has_many :entries, dependent: :destroy
+  has_many :rooms, through: :entries
+  has_many :direct_messages, dependent: :destroy
+  #========================================================
+
+
   #===== 自分が申請したユーザー(receiver)との関連 =======================
   # 申請したユーザー(sender)から見て、承認する側のユーザー(receiver)を(中間テーブルを介して)集める。なので親は、sender_id(申請を送る側)
   has_many :sender_friends, foreign_key: :sender_id, class_name: "Friend", dependent: :destroy

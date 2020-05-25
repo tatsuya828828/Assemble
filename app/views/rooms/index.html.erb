@@ -1,2 +1,35 @@
-<h1>Rooms#index</h1>
-<p>Find me in app/views/rooms/index.html.erb</p>
+<div class="row no-gutters">
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-9 font-white text-center">
+		<div class="scroll">
+			<table class="table-borderless" style="width: 100%;">
+				<% current_user.rooms.each do |room| %>
+					<tr>
+						<% user = room.users.where.not(id: current_user.id) %>
+						<% user = user[0] %>
+						<th class="pb-5" style="width: 50%;">
+							<%= link_to user_path(user) do %>
+								<% if user.image? %>
+									<%= image_tag user.image.url, width: 200, height: 200, class: "square" %>
+								<% else %>
+									<%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
+								<% end %>
+							<% end %>
+						</th>
+						<td class="pb-5" style="width: 50%; text-align: left;">
+							<h4 class="theme-color">
+								<%= link_to user.name, user_path(user), class: "theme-color" %>
+							</h4>
+							<p><%= link_to 'チャットルームへ',room_path(room),  class: "theme-color" %></p>
+							<% if room.direct_messages.present? %>
+								<p><%= room.direct_messages.last.content %></p>
+								<p><%= room.direct_messages.last.created_at.strftime("%-m月%-d日 %-H時%-M分") %></p>
+							<% end %>
+						</td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>

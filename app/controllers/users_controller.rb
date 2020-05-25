@@ -4,13 +4,20 @@ class UsersController < ApplicationController
   	@user = User.find(params[:id])
     @group_user = GroupUser.new
 
+    # current_userの所持しているチャットルームに@userが所属しているルームがあるか探す
+    @room = []
+    current_user.rooms.each do |room|
+      if (room.users.find_by(id: @user.id)).present?
+        @room<<room
+      end
+    end
+
     # current_userの参加しているグループの中で@userの参加していないグループを探して@groupsに代入していく。
     @groups = []
     current_user.groups.each do |group|
-    if (group.users.find_by(id: @user.id)).nil?
-      @groups<<group
-    end
-
+      if (group.users.find_by(id: @user.id)).nil?
+        @groups<<group
+      end
     end
     
     if user_signed_in?

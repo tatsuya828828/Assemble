@@ -1,0 +1,36 @@
+<% @direct_messages.last(100).each do |direct_message| %>
+	<div class="row pr-3 pl-3">
+		<% if direct_message.user.id == current_user.id %>
+			<div class="offset-lg-6 col-lg-6" style="text-align: right; margin-bottom: 3px;">
+				<div  class="font-white" style="
+					color: black;
+					background-color: #fff;
+					border-radius: 5px;
+					border: black 1px solid;
+					word-break:break-all;
+					padding: 3px 10px;
+					display: inline-block;
+					text-align: left;">
+					<%= direct_message.content %>
+				</div>
+			</div>
+		<% else %>
+			<div class="col-lg-6" style="text-align: left; margin-bottom: 3px;">
+				<%= direct_message.user.name %>
+				<br>
+				<div  class="font-white" style="
+					color: black;
+					background-color: #fff;
+					border-radius: 5px;
+					border: black 1px solid;
+					word-break:break-all;
+					padding: 3px 10px;
+					display: inline-block;">
+					<%= direct_message.content %>
+				</div>
+			</div>
+			<div class="col-lg-6">
+			</div>
+		<% end %>
+	</div>
+<% end %>

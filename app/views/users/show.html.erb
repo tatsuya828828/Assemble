@@ -19,15 +19,25 @@
         <% if @user == current_user %>
           <%= link_to '編集する', edit_user_path(@user), class: "btn btn-outline-success form-control" %>
           <%= link_to '友達一覧へ', user_friends_path(current_user.id), class: "btn btn-outline-primary form-control" %>
+          <%= link_to 'チャットルーム一覧', rooms_path, class: "btn btn-outline-primary form-control" %>
         <% else %>
+
+          <!-- @userとcurrent_userの関係性を評価 -->
           <% if current_user.friend?(@user) %>
+
+            <% if @room.present? %>
+              <%= link_to 'チャットルームへ', room_path(@room), class: "btn btn-outline-primary form-control" %>
+            <% else %>
+              <%= link_to 'チャットを始める', rooms_path(user_id: @user.id), method: :post, class: "btn btn-outline-success form-control" %>
+            <% end %>
+
             <%= link_to '削除', user_friend_path(user_id: current_user.id, id: @user_info.id), method: :delete, class: "btn btn-outline-danger form-control" %>
             <% if @groups.present? %>
               <%= form_with url: group_users_path(group_id: @groups),local: true do |f| %>
                 <%= f.hidden_field :join_status, value: "joined" %>
                 <%= f.hidden_field :user_id, value: @user.id %>
-                <%= f.collection_select(:group_id, @groups, :id, :name,{prompt: "選択して下さい"}, {class: "form-control form"}) %>
-                <%= f.submit '招待する', class: "btn btn-outline-success form-control" %>
+                <%= f.collection_select(:group_id, @groups, :id, :name,{prompt: @groups[1]}, {class: "form-control form"}) %>
+                <%= f.submit 'グループに招待する', class: "btn btn-outline-success form-control" %>
               <% end %>
             <% end %>
           <% elsif current_user.wait_self?(@user) %>
