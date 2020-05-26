@@ -2,23 +2,23 @@
 	<div class="row no-gutters media-bar text-center" style="font-size: 30px;">
 		<div class="col-lg-3 media-button">
 			<%= link_to user_path(current_user) do %>
-				<i class="fas fa-user-alt theme-color"></i>
+				<i class="fas fa-user-alt link-footer-font"></i>
 			<% end %>
 		</div>
 		<div class="col-lg-3 media-button">
 			<%= link_to groups_path do %>
-				<i class="fas fa-users theme-color"></i>
+				<i class="fas fa-users link-footer-font"></i>
 			<% end %>
 		</div>
 		<div class="col-lg-3 media-button">
 			<!-- グループ内にいるときはグループの日記として記録するためグループの情報を渡す -->
 			<% if @group.present? %>
 				<%= link_to new_diary_path(group_id: @group) do %>
-					<i class="fas fa-edit theme-color"></i>
+					<i class="fas fa-edit link-footer-font"></i>
 				<% end %>
 			<% else %>
 				<%= link_to new_diary_path do %>
-					<i class="fas fa-edit theme-color"></i>
+					<i class="fas fa-edit link-footer-font"></i>
 				<% end %>
 			<% end %>
 		</div>
@@ -26,11 +26,11 @@
 			<!-- グループ内にいるときはグループチャットへ飛ばすためグループの情報を渡す -->
 			<% if @group.present? %>
 				<%= link_to group_chats_path(@group) do %>
-					<i class="far fa-comments theme-color"></i>
+					<i class="far fa-comments link-footer-font"></i>
 				<% end %>
 			<% else %>
 				<%= link_to rooms_path do %>
-					<i class="far fa-comments theme-color"></i>
+					<i class="far fa-comments link-footer-font"></i>
 				<% end %>
 			<% end %>
 		</div>

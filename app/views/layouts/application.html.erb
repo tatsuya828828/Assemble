@@ -9,7 +9,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body id="wrapper" class="main-image" style="background-color: #C2EEFF;">
+  <body class="<%= @back %>" style="background-color: #fff">
     <header>
       <% if admin_signed_in? %>
         <%= render 'layouts/admin_header' %>

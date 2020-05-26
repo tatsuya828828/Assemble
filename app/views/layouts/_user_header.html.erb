@@ -14,8 +14,8 @@
     <% end %>
   <% else %>
     <%= link_to 'OurSpace', root_path,
-    class: "navbar-brand theme-color mr-5",
-    style: "font-size: 30px; font-family: cursive; text-shadow: 2px 2px 3px #000;"%>
+    class: "navbar-brand header-color mr-5",
+    style: "color: #fff; font-size: 30px; font-family: cursive; text-shadow: 2px 2px 3px #000;"%>
   <% end %>
 
     <button
@@ -33,18 +33,18 @@
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active mr-5">
-          <%= link_to 'ホーム', root_path, class: "nav-link theme-color" %>
+          <%= link_to 'ホーム', root_path, class: "nav-link header-color" %>
         </li>
 
         <% if user_signed_in? %>
 
           <li class="nav-item active mr-5">
-            <%= link_to 'マイページ', user_path(current_user.id), class: "nav-link theme-color" %>
+            <%= link_to 'マイページ', user_path(current_user.id), class: "nav-link header-color" %>
           </li>
 
           <!-- 参加しているグループのプルダウン -->
            <li class="nav-item dropdown mr-5">
-            <a class="nav-link dropdown-toggle theme-color"
+            <a class="nav-link dropdown-toggle header-color"
                href="#" id="dropdown"
                data-toggle="dropdown"
                aria-haspopup="true"
@@ -53,10 +53,10 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdown">
-              　<%= link_to '一覧ページへ', groups_path, class: "theme-color", style: "text-decoration: none;" %>
+              　<%= link_to '一覧ページへ', groups_path, class: "header-color", style: "text-decoration: none;" %>
                 <br>
                 <% (current_user.group_users.where(join_status: "joined")).each do |join_group| %>
-                  　<%= link_to join_group.group.name, group_path(join_group.group.id), class: "theme-color", style: "text-decoration: none;" %>
+                  　<%= link_to join_group.group.name, group_path(join_group.group.id), class: "header-color", style: "text-decoration: none;" %>
                   <br>
                 <% end %>
             </div>
@@ -67,7 +67,7 @@
           <!-- グループページのみ表示するプルダウン  -->
           <% if @group.present? %>
             <li class="nav-item dropdown mr-5">
-              <a class="nav-link dropdown-toggle theme-color"
+              <a class="nav-link dropdown-toggle header-color"
                  href="#" id="dropdown"
                  data-toggle="dropdown"
                  aria-haspopup="true"
@@ -76,21 +76,21 @@
               </a>
 
               <div class="dropdown-menu" aria-labelledby="dropdown">
-               　<%= link_to 'グループホーム', group_path(@group), class: "theme-color", style: "text-decoration: none;" %>
+               　<%= link_to 'グループホーム', group_path(@group), class: "header-color", style: "text-decoration: none;" %>
                 <br>
-                　<%= link_to '日記一覧', diaries_path(group_id: @group), class: "theme-color" %>
+                　<%= link_to '日記一覧', diaries_path(group_id: @group), class: "header-color" %>
                 <br>
-                　<%= link_to '参加ユーザー', group_users_path(group_id: @group, status: "joined"), class: "theme-color" %>
+                　<%= link_to '参加ユーザー', group_users_path(group_id: @group, status: "joined"), class: "header-color" %>
                 <br>
-                　<%= link_to 'チャットルーム', group_chats_path(group_id: @group), class: "theme-color" %>
+                　<%= link_to 'チャットルーム', group_chats_path(group_id: @group), class: "header-color" %>
                 <br>
 
                 <!-- グループのリーダーにのみ表示 -->
                 <% @leader = @group.users.find_by(id: @group.leader) %>
                 <% if current_user == @leader %>
-                　<%= link_to '受け取った申請', group_users_path(group_id: @group, status: "waiting_user"), class: "theme-color" %>
+                　<%= link_to '受け取った申請', group_users_path(group_id: @group, status: "waiting_user"), class: "header-color" %>
                   <br>
-                　<%= link_to 'グループの編集', edit_group_path(@group), class: "theme-color" %>
+                　<%= link_to 'グループの編集', edit_group_path(@group), class: "header-color" %>
                 <% else %>
                 　<%= link_to 'グループを抜ける', group_destroy_confirm_path(group_id: @group, destroy: "user"), class: "font-red" %>
                 <% end %>
@@ -102,27 +102,27 @@
 
 
           <li class="nav-item active">
-            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link font-red" %>
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link btn btn-outline-danger form-control" %>
           </li>
         <% else %>
           <li class="nav-item active mr-5">
-            <%= link_to 'ログイン', new_user_session_path, class: "nav-link theme-color" %>
+            <%= link_to 'ログイン', new_user_session_path, class: "nav-link header-color" %>
           </li>
           <li class="nav-item active">
-            <%= link_to '新規登録(無料)', new_user_registration_path, class: "nav-link theme-color" %>
+            <%= link_to '新規登録(無料)', new_user_registration_path, class: "nav-link header-color" %>
           </li>
         <% end %>
       </ul>
       <% if user_signed_in? %>
         <div>
           <%= form_with url: searches_path, method: :get, local: true do |f| %>
-            <div class="row">
+            <div class="row no-gutters">
 
-              <%= f.text_field :word, required: true, class: "form form-control col-md-6", id: "search" %>
+              <%= f.text_field :word, required: true, class: "form form-control col-lg-5", id: "search" %>
 
-              <%= select_tag :range, options_for_select([["グループID"],["ユーザーID"]]), class: "form-control col-md-4 theme-color", id: "search-tag"%>
+              <%= select_tag :range, options_for_select([["グループID"],["ユーザーID"]]), class: "form-control col-lg-5 header-color", id: "search-tag"%>
 
-              <%= f.submit '検索', class: "btn col-md-2 btn-outline-success" %>
+              <%= f.submit '検索', class: "btn col-lg-2 btn-outline-success form-control" %>
             </div>
           <% end %>
         </div>
