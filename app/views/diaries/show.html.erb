@@ -24,10 +24,16 @@
 			<!-- 日記はログインしていないユーザーでも場合によっては閲覧可能なため確認を入れる -->
 			<% if user_signed_in? %>
 				<% if @diary.user_id == current_user.id %>
+					<!-- グループから編集する場合 -->
 					<% if @group.present? %>
-						<%= link_to '編集する', edit_diary_path(group_id: @group.id, id: @diary.id), class: "btn btn-outline-primary form-control" %>
+						<%= link_to edit_diary_path(group_id: @group.id, id: @diary.id), class: "btn btn-outline-primary form-control" do %>
+							<i class="fas fa-pencil-alt"></i>編集する
+						<% end %>
+					<!-- グループ外から編集する場合 -->
 					<% else %>
-						<%= link_to '編集する', edit_diary_path(id: @diary), class: "btn btn-outline-primary form-control" %>
+						<%= link_to edit_diary_path(id: @diary), class: "btn btn-outline-primary form-control" do %>
+							<i class="fas fa-pencil-alt"></i>編集する
+						<% end %>
 					<% end %>
 				<% end %>
 			<% end %>
@@ -80,7 +86,7 @@
 		<div>
 			<%= form_with url: diary_comments_path(@diary), local: true do |f| %>
 
-				<%= f.text_area :comment, class: "form-control", rows: 5, placeholder: "(500文字以内)" %>
+				<%= f.text_area :comment, class: "form-control", rows: 5, placeholder: "(500文字以内)", required: true %>
 
 				<% if user_signed_in? %>
 					<%= f.hidden_field :user_id, value: current_user.id %>
@@ -90,7 +96,9 @@
 
 				<%= f.hidden_field :diary_id, value: @diary.id %>
 
-				<%= f.submit 'コメントを送る', class: "btn btn-outline-success form-control" %>
+				<%= f.button type: "submit" ,class: "btn btn-outline-success form-control" do %>
+					<i class="fas fa-comment-alt"></i>コメントを送る
+				<% end %>
 			<% end %>
 		</div>
 	</div>

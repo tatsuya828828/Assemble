@@ -33,7 +33,9 @@
 					<div class="col-lg-7 mt-5">
 						<%= link_to user.receiver.name, user_path(user.receiver.id), class: "link" %>
 
-						<%= link_to '取り消す', user_friend_path(user_id: current_user.id, id: user.id, status: "wait_self"), method: :delete, remote: true, class: "btn btn-outline-danger form-control" %>
+						<%= link_to user_friend_path(user_id: current_user.id, id: user.id, status: "wait_self"), method: :delete, remote: true, class: "btn btn-outline-danger form-control" do %>
+							<i class="fas fa-dizzy"></i>　取り消す
+						<% end %>
 					</div>
 				</div>
 
@@ -55,9 +57,13 @@
 
 						<%= link_to user.sender.name, user_path(user.sender.id), class: "link" %>
 
-						<%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: user.id, status: "waiting_user"), method: :patch, class: "btn btn-outline-success form-control" %>
+						<%= link_to user_friend_path(user_id: current_user.id, id: user.id, status: "waiting_user"), method: :patch, class: "btn btn-outline-success form-control" do %>
+							<i class="fas fa-handshake"></i>承認
+						<% end %>
 
-						<%= link_to '断る', user_friend_path(user_id: current_user.id, id: user.id), method: :delete, remote: true, class: "btn btn-outline-danger form-control" %>
+						<%= link_to user_friend_path(user_id: current_user.id, id: user.id), method: :delete, remote: true, class: "btn btn-outline-danger form-control" do %>
+							<i class="fas fa-dizzy"></i>断る
+						<% end %>
 					</div>
 				</div>
 			<% else %>
@@ -77,7 +83,9 @@
 				
 						<%= link_to user.receiver.name, user_path(user.receiver.id), class: "link" %>
 
-						<%= link_to '削除する', user_friend_path(user_id: current_user.id, id: user.id), method: :delete, remote: true, class: "btn btn-outline-danger form-control" %>
+						<%= link_to user_friend_path(user_id: current_user.id, id: user.id), method: :delete, remote: true, class: "btn btn-outline-danger form-control" do %>
+							<i class="fas fa-dizzy"></i>お別れする
+						<% end %>
 					</div>
 				</div>
 			<% end %>

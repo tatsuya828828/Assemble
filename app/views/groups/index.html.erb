@@ -1,6 +1,6 @@
 <div class="row no-gutters font-white">
 	<div class="col-lg-9 pr-1 pl-1">
-		<h4 class="text-center border-bottom">参加グループ</h4>
+		<h4 class="text-center border-bottom"><i class="fas fa-door-closed"></i>参加グループ</h4>
 		<div class="row no-gutters scroll">
 			<% current_user.group_users.each do |group_user| %>
 				<% if group_user.join_status == "joined" %>
@@ -30,10 +30,10 @@
 	</div>
 	<div class="col-lg-3 pr-1 pl-1">
 		<div>
-			<h4 class="text-center border-bottom">グループ追加</h4>
+			<h4 class="text-center border-bottom"><i class="fas fa-child"></i><i class="fas fa-child"></i>グループ追加<i class="fas fa-child"></i><i class="fas fa-child"></i></h4>
 			<%= form_for @new_group do |f| %>
 
-				<%= f.label :image, "グループのサムネイル" %>
+				<%= f.label :image, "グループのサムネイル" %><i class="fas fa-camera"></i>
 				<%= f.file_field :image, class: "form-control file" %>
 				<%= f.hidden_field :image_cache %>
 

@@ -33,13 +33,17 @@
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active mr-5">
-          <%= link_to 'ホーム', root_path, class: "nav-link header-color" %>
+          <%= link_to root_path, class: "nav-link header-color" do %>
+            <i class="fas fa-home"></i>ホーム
+          <% end %>
         </li>
 
         <% if user_signed_in? %>
 
           <li class="nav-item active mr-5">
-            <%= link_to 'マイページ', user_path(current_user.id), class: "nav-link header-color" %>
+            <%= link_to user_path(current_user.id), class: "nav-link header-color" do %>
+              <i class="fas fa-user-alt link-footer-font"></i>マイページ
+            <% end %>
           </li>
 
           <!-- 参加しているグループのプルダウン -->
@@ -49,7 +53,7 @@
                data-toggle="dropdown"
                aria-haspopup="true"
                aria-expanded="false">
-               グループ
+              <i class="fas fa-users link-footer-font"></i>グループ
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdown">
@@ -72,7 +76,7 @@
                  data-toggle="dropdown"
                  aria-haspopup="true"
                  aria-expanded="false">
-                 <%= @group.name %>
+                <i class="fas fa-door-open"></i><%= @group.name %>
               </a>
 
               <div class="dropdown-menu" aria-labelledby="dropdown">

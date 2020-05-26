@@ -1,14 +1,13 @@
 <div class="row no-gutters">
-	<div class="col-lg-3 mb-3 text-center">
-		<h4 class="mb-3">
-			<%= link_to '新しく投稿する', new_diary_path(group_id: @group.id), class: "link theme-color" %>
-		</h4>
-		<h4>
-			<%= link_to 'ホームに戻る', group_path(@group), class: "link theme-color" %>
-		</h4>
+	<div class="col-lg-1">
 	</div>
-	<div class="col-lg-9 font-white text-center">
-		<h2 class="mb-5 border-bottom">日記一覧</h2>
+	<div class="col-lg-10 font-white text-center">
+		<h2 class="border-bottom">日記一覧</h2>
+		<div class="row no-gutters mb-5">
+			<%= link_to new_diary_path(group_id: @group.id), class: "btn btn-outline-success form-control" do %>
+				<i class="fas fa-edit link-footer-font"></i>　日記を投稿する
+			<% end %>
+		</div>
 		<div class="scroll">
 			<table class="table-borderless" style="width: 100%;">
 				<% @diaries.each do |diary| %>

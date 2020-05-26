@@ -20,17 +20,21 @@
 								<h4><%= link_to group_user.user.name, user_path(group_user.user), class: "theme-color" %></h4>
 							</th>
 							<td style="width: 50%;">
-								<%= link_to '参加を許可', group_user_path(
+								<%= link_to group_user_path(
 									group_id: group_user.group_id,
 									id: group_user.id),
 									method: :patch,
-									class: "btn btn-outline-success form-control" %>
+									class: "btn btn-outline-success form-control" do %>
+									<i class="fas fa-user-plus"></i>
+								<% end %>
 								<br>
 								<%= link_to '参加を断る', group_destroy_user_path(
 									group_id: group_user.group_id,
 									id: group_user.id),
 									method: :delete, remote: true,
-									class: "btn btn-outline-danger form-control" %>
+									class: "btn btn-outline-danger form-control" do %>
+									<i class="fas fa-user-minus"></i>
+								<% end %>
 							</td>
 
 							<!-- すでに参加しているユーザー -->
@@ -49,10 +53,12 @@
 							<td style="width: 50%;">
 								<% if @leader == current_user %>
 									<% if group_user.user != @leader %>
-										<%= link_to '削除する', group_destroy_user_path(group_id: group_user.group_id,
+										<%= link_to group_destroy_user_path(group_id: group_user.group_id,
 											id: group_user.id),
 											method: :delete, remote: true,
-											class: "btn btn-outline-danger form-control" %>
+											class: "btn btn-outline-danger form-control" do %>
+											<i class="fas fa-user-minus"></i>
+										<% end %>
 									<% end %>
 								<% end %>
 							</td>

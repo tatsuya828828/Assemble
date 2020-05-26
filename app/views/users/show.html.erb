@@ -45,9 +45,9 @@
 
           <!-- current_userと友達の場合 -->
           <% if current_user.friend?(@user) %>
-            <div class="col-lg-3" style="width: 20%;">
+            <div class="col-lg-2" style="width: 10%;">
             </div>
-            <div class="col-lg-3" style="width: 30%;">
+            <div class="col-lg-4" style="width: 40%;">
               <!-- チャットルーム -->
               <% if @room.present? %>
                 <%= link_to room_path(@room), class: "btn btn-outline-primary form-control" do %>
@@ -59,37 +59,41 @@
                 <% end %>
               <% end %>
             </div>
-            <div class="col-lg-3" style="width: 30%;">
+            <div class="col-lg-4" style="width: 40%;">
               <!-- 友達削除 -->
               <%= link_to user_friend_path(user_id: current_user.id, id: @user_info.id), method: :delete, class: "btn btn-outline-danger form-control" do %>
-                <i class="fas fa-user-minus"></i>
+                <i class="fas fa-dizzy"></i>お別れする
               <% end %>
             </div>
-            <div class="col-lg-3" style="width: 20%;">
+            <div class="col-lg-2" style="width: 10%;">
             </div>
-            <div class="row no-gutters">
               <!-- グループへの招待 -->
-              <% if @groups.present? %>
-                <div class="row no-gutters">
+            <% if @groups.present? %>
+              <div class="row no-gutters mt-3" style="width: 100%">
+                <div class="col-lg-12">
                   <%= form_with url: group_users_path(group_id: @groups),local: true do |f| %>
-                    <%= f.hidden_field :join_status, value: "joined" %>
-                    <%= f.hidden_field :user_id, value: @user.id %>
-                    <div class="col-lg-8">
-                      <%= f.collection_select(:group_id, @groups, :id, :name,{prompt: @groups[1]}, {class: "form-control form"}) %>
-                    </div>
-                    <div class="col-lg-4">
-                      <%= f.submit 'グループに招待する', class: "btn btn-outline-success form-control" %>
+                    <div class="row no-gutters" style="width: 100%;">
+                      <div class="col-lg-8">
+                        <%= f.hidden_field :join_status, value: "joined" %>
+                        <%= f.hidden_field :user_id, value: @user.id %>
+                        <%= f.collection_select(:group_id, @groups, :id, :name,{}, {class: "form-control form"}) %>
+                      </div>
+                      <div class="col-lg-4">
+                        <%= f.button type: "submit", class: "btn btn-outline-success form-control" do %>
+                          <i class="fas fa-user-plus"></i>　招待する
+                        <% end %>
+                      </div>
                     </div>
                   <% end %>
                 </div>
+              </div>
               <% end %>
-            </div>
           <!-- 友達申請を自分が送っていた場合 -->
           <% elsif current_user.wait_self?(@user) %>
             <div class="offset-lg-3 col-lg-6 text-center" style="width: 60%">
               <p>申請中です</p>
               <%= link_to user_friend_path(user_id: current_user.id, id: @user_info.id), method: :delete, class: "btn btn-outline-danger form-control" do %>
-                <i class="fas fa-user-minus"></i>　取り消す
+                <i class="fas fa-dizzy"></i>　取り消す
               <% end %>
             </div>
 
@@ -103,10 +107,10 @@
             <div class="col-lg-2" style="width: 20%;">
             </div>
             <%= link_to user_friend_path(user_id: current_user.id, id: @user_info.id), method: :put, class: "btn btn-outline-success form-control col-lg-4", style: "width: 30%;" do %>
-              <i class="fas fa-user-plus"></i>承認
+              <i class="fas fa-handshake"></i>承認
             <% end %>
             <%= link_to user_friend_path(user_id: current_user.id, id: @user_info.id), method: :delete, class: "btn btn-outline-danger form-control col-lg-4", style: "width: 30%;" do %>
-              <i class="fas fa-user-minus"></i>断る
+              <i class="fas fa-dizzy"></i>断る
             <% end %>
           <!-- 何にも当てはまらないユーザー -->
           <% else %>
@@ -120,8 +124,8 @@
                   <%= f.button type: "submit", class: "btn btn-outline-success form-control" do %>
                     <i class="fas fa-user-plus"></i>　友達になる
                   <% end %>
-                </div>
-              <% end %>
+                <% end %>
+              </div>
               <div class="col-lg-3" style="width: 20%;">
               </div>
           <% end %>
@@ -160,10 +164,10 @@
                     <div class="col-lg-2" style="width: 20%;">
                     </div>
                     <%= link_to user_friend_path(user_id: current_user.id, id: request.id),method: :put, class: "btn btn-outline-success form-control col-lg-4", style:"width: 30%;" do %>
-                      <i class="fas fa-user-plus"></i>承認
+                      <i class="fas fa-handshake"></i>承認
                     <% end %>
                     <%= link_to user_friend_path(user_id: current_user.id, id: request.id), method: :delete, class: "btn btn-outline-danger form-control col-lg-4", style:"width: 30%;" do %>
-                      <i class="fas fa-user-minus"></i>断る
+                      <i class="fas fa-dizzy"></i>断る
                     <% end %>
                     <div class="col-lg-2" style="width: 20%;">
                     </div>
@@ -186,7 +190,7 @@
                     <div class="col-lg-4" style="width: 30%;">
                     </div>
                     <%= link_to user_friend_path(user_id: current_user.id, id: request.id), method: :delete, class: "btn btn-outline-danger form-control col-lg-4" , style: "width: 40%;" do%>
-                      <i class="fas fa-user-minus"></i>　取り消す
+                      <i class="fas fa-dizzy"></i>　取り消す
                     <% end %>
                   </div>
                 <% end %>
@@ -202,7 +206,7 @@
       <% if @user == current_user %>
         <div class="row no-gutters mb-5 ">
           <%= link_to new_diary_path, class: "btn btn-outline-success form-control" do %>
-            <i class="fas fa-plus-circle"></i>　日記を投稿する
+            <i class="fas fa-edit"></i>　日記を投稿する
           <% end %>
         </div>
       <% end %>

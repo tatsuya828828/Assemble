@@ -8,9 +8,13 @@
 			<p class="font-white">削除すると、このグループ内のあなたの情報が、全て消えてしまいます。本当によろしいですか？<br>
 			(日記はマイページでご確認いただけます)</p>
 			<br>
-			<%= link_to '削除する',group_destroy_user_path(group_id: @group.id, id: @group_user, destroy: "user"),method: :delete, class: "btn btn-outline-danger form-control" %>
+			<%= link_to group_destroy_user_path(group_id: @group.id, id: @group_user, destroy: "user"),method: :delete, class: "btn btn-outline-danger form-control" do %>
+				<i class="fas fa-tired"></i>　退出する
+			<% end %>
 
-			<%= link_to 'やめる', :back, class: "btn btn-outline-primary form-control" %>
+			<%= link_to :back, class: "btn btn-outline-primary form-control" do %>
+				<i class="fas fa-undo-alt"></i>やめる
+			<% end %>
 
 		</div>
 		
@@ -20,9 +24,13 @@
 			<h4>本当に削除しますか？</h4>
 			<p class="font-white">削除すると、このグループの情報が全て消えてしまいます。本当によろしいですか？</p>
 			<br>
-			<%= link_to '削除する',group_path(@group),method: :delete, class: "btn btn-outline-danger form-control" %>
+			<%= link_to group_path(@group),method: :delete, class: "btn btn-outline-danger form-control" do %>
+				<i class="fas fa-tired"></i>　削除する
+			<% end %>
 
-			<%= link_to 'やめる', group_path(@group), class: "btn btn-outline-primary form-control" %>
+			<%= link_to group_path(@group), class: "btn btn-outline-primary form-control" do %>
+				<i class="fas fa-undo-alt"></i>　やめる
+			<% end %>
 
 		</div>
 	<% end %>

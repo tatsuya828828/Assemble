@@ -33,7 +33,9 @@
 					<%= f.hidden_field :user_id, value: current_user.id %>
 					<%= f.hidden_field :group_id, value: @group.id %>
 					<%= f.hidden_field :join_status, value: "waiting_for_allow" %>
-					<%= f.submit '参加申請を送る', class: "btn btn-outline-success form-control" %>
+					<%= f.button type: "submit", class: "btn btn-outline-success form-control" do %>
+						<i class="fas fa-door-closed"></i>参加申請を送る
+					<% end %>
 				<% end %>
 			<% end %>
 
@@ -60,30 +62,40 @@
 				
 				すでに友達です
 				<br>
-				<%= link_to '削除する', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-outline-danger form-control mt-3" %>
+				<%= link_to user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-outline-danger form-control mt-3" do %>
+					<i class="fas fa-dizzy"></i>お別れする
+				<% end %>
 
 			<% elsif current_user.senders.find_by(id: @user.id) && (@user.senders.find_by(id: current_user.id)).nil? %>
 
 				承認待ちです
 				<br>
 
-				<%= link_to '取り消す', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-outline-danger form-control mt-3" %>
+				<%= link_to user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-outline-danger form-control mt-3" do %>
+					<i class="fas fa-dizzy"></i>取り消す
+				<% end %>
 
 			<% elsif (current_user.senders.find_by(id: @user.id,)).nil? && @user.senders.find_by(id: current_user.id) %>
 				
 				申請が来ています
 				<br>
-				<%= link_to '友達になる', user_friend_path(user_id: current_user.id, id: @friend), method: :patch, class: "btn btn-outline-success form-control mt-3" %>
+				<%= link_to user_friend_path(user_id: current_user.id, id: @friend), method: :patch, class: "btn btn-outline-success form-control mt-3" do %>
+					<i class="fas fa-handshake"></i>承認
+				<% end %>
 				<br>
 
-				<%= link_to '断る', user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-outline-danger form-control" %>
+				<%= link_to user_friend_path(user_id: current_user.id, id: @friend, status: @status), method: :delete, remote: true, class: "btn btn-outline-danger form-control" do %>
+					<i class="fas fa-dizzy"></i>断る
+				<% end %>
 			
 			<% else %>
 				<%= form_with url: user_friends_path(user_id: current_user.id), local: true do |f| %>
 					<%= f.hidden_field :sender_id, value: current_user.id %>
 					<%= f.hidden_field :receiver_id, value: @user.id %>
 					<%= f.hidden_field :request_status, value: "waiting_for_allow" %>
-						<%= f.submit '友達申請を送る',class: "btn btn-outline-success form-control mt-3" %>
+					<%= f.button type: "submit",class: "btn btn-outline-success form-control mt-3" do %>
+						<i class="fas fa-handshake"></i>友達申請を送る
+					<% end %>
 				<% end %>
 			<% end %>
 
