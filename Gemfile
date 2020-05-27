@@ -74,6 +74,7 @@ gem 'wysiwyg-rails'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'font-awesome-sass'
+gem 'fog-aws'
 
 group :production do
   gem 'mysql2'
