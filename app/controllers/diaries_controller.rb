@@ -15,10 +15,28 @@ class DiariesController < ApplicationController
 	def create
 		diary = Diary.new(diary_params)
 		diary.save
-		if (diary.group_id).nil?
+
+		if (diary.private_status != "closed") && (diary.private_status != "group_only")
+			current_user.sended_friends.each do |friend|
+				notification = Notification.new(diary_id: diary.id, confirm_status: "unconfirmed", creator_id: current_user.id)
+				notification.confirmer_id = friend.receiver.id
+				notification.save
+			end
 			redirect_to diary_path(diary)
-		else
+
+		elsif diary.private_status == "group_only"
+			group = Group.find_by(id: diary.group_id)
+			group.users.each do |user|
+				notification = Notification.new(diary_id: diary.id, confirm_status: "unconfirmed", creator_id: current_user.id, group_id: diary.group_id)
+				if user != current_user
+					notification.confirmer_id = user.id
+					notification.save
+					binding.pry
+				end
+			end
 			redirect_to diary_path(id: diary.id, group_id: diary.group_id)
+		else
+			redirect_to diary_path(diary)
 		end
 	end
 

@@ -41,9 +41,13 @@
 			<% end %>
 		</div>
 		<div class="media-button">
-			<%= link_to root_path do %>
-				<i class="fas fa-bell link-footer-font"></i>
-				<p class="link-footer-font"><small>通知</small></p>
+			<%= link_to notifications_path do %>
+				<% if current_user.new_notifications.present? %>
+					<i class="fas fa-bell link-footer-font" style="color: yellow;"></i>
+				<% else %>
+					<i class="fas fa-bell link-footer-font"></i>
+				<% end %>
+					<p class="link-footer-font"><small>通知</small></p>
 			<% end %>
 		</div>
 	</div>

@@ -1,2 +1,29 @@
-<h1>Notifications#index</h1>
-<p>Find me in app/views/notifications/index.html.erb</p>
+<div class="row no-gutters scroll" style="height: 100%; width: 100%;">
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-9">
+		<% @notifications.each do |notification| %>
+			<div class="row no-gutters" style="height: 20vh; text-align: center">
+				<div class="col-lg-6" style="width: 50%;">
+					<%= link_to user_path(notification.creator) do %>
+						<% if notification.creator.image? %>
+							<%= image_tag notification.creator.image.url, width: 150, height: 150, class: "circle" %>
+						<% else %>
+							<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+						<% end %>
+					<% end %>
+				</div>
+				<div class="col-lg-6" style="width: 50%; text-align: left">
+					<div class="row no-gutters mt-3" style="height: 50%;">
+						<p><%= notification.creator.name %>さんが</p>
+						<% if notification.diary.present? %>
+							<p><%= link_to notification.diary.title %>を投稿しました。</p>
+						<% end %>
+					</div>
+
+					<p><%= notification.created_at.strftime("%Y年%m月%d日 %H時%M分") %></p>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>

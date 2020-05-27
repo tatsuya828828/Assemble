@@ -16,7 +16,7 @@ class Diary < ApplicationRecord
 
 
   mount_uploader :image, ImageUploader
-  
+
   validates :title, presence: true
   validates :body, presence: true
   validates :private_status, presence: true
