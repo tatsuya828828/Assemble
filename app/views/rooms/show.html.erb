@@ -2,7 +2,7 @@
 	<div class="col-lg-3">
 	</div>
 	<div class="col-lg-6">
-		<h4><%= @user.name %></h4>
+		<h4><%= link_to @user.name, user_path(@user), class: "theme-color" %></h4>
 		<div class="chat-scroll">
 
 				<%= render "direct_message", collection: @direct_messages %>
@@ -21,28 +21,5 @@
 				<button id="direct-submit" class="btn btn-outline-success form-control" type="button">投稿</button>
 			</div>
 		</div>
-	</div>
-</div>
-<div class="row no-gutters">
-	<div class="col-lg-3">
-	</div>
-	<div class="col-lg-6">
-		<table class="text-center table table-borderless table-responsive">
-			<tr>
-				<% @room.users.each do |user| %>
-					<td>
-						<%= link_to user_path(user) do %>
-							<% if user.image? %>
-								<%= image_tag user.image.url, width: 150, height: 150, class: "circle mt-5 mb-3" %>
-							<% else %>
-								<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle mt-5 mb-3" %>
-							<% end %>
-						<% end %>
-						<br>
-						<%= link_to user.name, user_path(user), class: "theme-color" %>
-					</td>
-				<% end %>
-			</tr>
-		</table>
 	</div>
 </div>
