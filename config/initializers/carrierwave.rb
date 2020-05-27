@@ -7,7 +7,7 @@ CarrierWave.configure do |config|
     config.storage :fog
     config.fog_provider = 'fog/aws'
     config.fog_directory  = 'our-space-image'
-    config.asset_host = 'https://s3.amazonaws.com/our-space-image'
+    config.asset_host = 'https://our-space-image.s3.amazonaws.com'
     config.fog_public = false
     config.fog_credentials = {
       provider: 'AWS',
