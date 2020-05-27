@@ -44,6 +44,15 @@ end
 #===================================================
 
 
+#===== 通知一覧 =====================================
+resources :notifications, only: [:index, :destroy] do
+  collection do
+    get '/destroy_all', to: 'notifications#destroy_all', as: 'destroy_all'
+  end
+end
+#===================================================
+
+
 #====== 日記と日記のコメント ==========================
   resources :diaries do
     post   'diary_comments', to: 'diary_comments#create',  as: 'comments'

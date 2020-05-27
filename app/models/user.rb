@@ -48,11 +48,31 @@ class User < ApplicationRecord
   #================================================================
 
 
+  #===== (自分が通知を作成する側) ======================================
+  has_many :creator_notifications, foreign_key: :creator_id, class_name: "Notification", dependent: :destroy
+  has_many :creators, through: :creator_notifications, source: :confirmer
+  #================================================================
+
+  #===== 自分が通知を確認する側 ===================================
+  has_many :confirmer_notifications, foreign_key: :confirmer_id, class_name: "Notification", dependent: :destroy
+  has_many :confirmers, through: :confirmer_notifications, source: :creator
+  #================================================================
+
+
   mount_uploader :image, ImageUploader
 
   # deviseがログイン時に呼び出しているメソッドをオーバーライドして、バリデーションを追加して、valid_statusがactiveなuserのみログイン可能にする。
   def active_for_authentication?
     super && valid_status == "active"
+  end
+
+  # 新着通知の確認
+  def new_notifications
+    notifications = Notification.where(confirmer_id: self.id, confirm_status: "unconfirmed")
+    new_notifications = []
+    notifications.each do |notification|
+      new_notifications<<notification
+    end
   end
 
   # すでに友達になっているユーザー

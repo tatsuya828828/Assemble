@@ -18,6 +18,10 @@ class Group < ApplicationRecord
 	has_many :diaries
 	#================================================
 
+	#===== グループの通知 =============================
+	has_many :notifications, dependent: :destroy
+	#================================================
+
 	enum private_status: { closed: 0, open: 1 }
 
 
