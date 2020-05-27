@@ -75,6 +75,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'font-awesome-sass'
 gem 'fog-aws'
+gem 'froala-editor-sdk'
 
 group :production do
   gem 'mysql2'
