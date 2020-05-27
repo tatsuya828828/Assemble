@@ -14,9 +14,7 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require bootstrap-sprockets
-//= require jquery3
-//= require jquery_ujs
+//= require jquery
 //= require froala_editor.min.js
 //= require languages/ja.js
 //= require plugins/align.min.js
@@ -44,8 +42,10 @@
 //= require plugins/table.min.js
 //= require plugins/url.min.js
 //= require plugins/video.min.js
+//= require bootstrap-sprockets
+//= require jquery_ujs
 //= require_tree .
 
-$(document).on('turbolinks:load',function () {
+$(function () {
 	$('.title').slideDown(2000);
 });

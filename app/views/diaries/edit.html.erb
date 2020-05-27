@@ -58,7 +58,7 @@
 				heightMax: 750,
 				videoUploadToS3: <%= @aws_video.to_json.html_safe %>,
 				imageUploadToS3: <%= @aws_image.to_json.html_safe %>,
-				fileUploadToS3: <%= @aws_file.to_json.html_safe %>
+				fileUploadToS3: <%= @aws_file.to_json.html_safe %>,
 			})
 		</script>
 		<%= link_to '削除する', diary_path(@diary), method: :delete, class: "btn form-control btn-outline-danger" %>
