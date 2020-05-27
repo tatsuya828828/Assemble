@@ -46,6 +46,6 @@
 //= require jquery_ujs
 //= require_tree .
 
-$(function () {
+$(document).on('turbolinks:load',function () {
 	$('.title').slideDown(2000);
 });
