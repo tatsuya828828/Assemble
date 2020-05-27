@@ -5,7 +5,7 @@
     <% end %>
     <div>
       <% if @user.image? %>
-        <%= image_tag @user.image.url, width: 150, height: 150, class: "circle" %>
+        <%= image_tag @user.image.to_s, width: 150, height: 150, class: "circle" %>
       <% else %>
         <%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
       <% end %>
