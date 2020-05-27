@@ -75,6 +75,11 @@ class User < ApplicationRecord
     end
   end
 
+   # ユーザーの友達全員
+  def sended_friends
+    sender_friends.where(request_status: "friend")
+  end
+
   # すでに友達になっているユーザー
   def friend?(other_user)
     senders.find_by(id: other_user.id) && receivers.find_by(id: other_user.id)
