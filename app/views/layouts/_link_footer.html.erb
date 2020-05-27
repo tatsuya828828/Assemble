@@ -3,11 +3,13 @@
 		<div class="media-button">
 			<%= link_to user_path(current_user) do %>
 				<i class="fas fa-user-alt link-footer-font"></i>
+				<p class="link-footer-font"><small>マイページ</small></p>
 			<% end %>
 		</div>
 		<div class="media-button">
 			<%= link_to groups_path do %>
 				<i class="fas fa-users link-footer-font"></i>
+				<p class="link-footer-font"><small>グループ</small></p>
 			<% end %>
 		</div>
 		<div class="media-button">
@@ -15,10 +17,12 @@
 			<% if @group.present? %>
 				<%= link_to new_diary_path(group_id: @group) do %>
 					<i class="fas fa-edit link-footer-font"></i>
+					<p class="link-footer-font"><small>日記投稿</small></p>
 				<% end %>
 			<% else %>
 				<%= link_to new_diary_path do %>
 					<i class="fas fa-edit link-footer-font"></i>
+					<p class="link-footer-font"><small>日記投稿</small></p>
 				<% end %>
 			<% end %>
 		</div>
@@ -27,16 +31,19 @@
 			<% if @group.present? %>
 				<%= link_to group_chats_path(@group) do %>
 					<i class="fas fa-comments link-footer-font"></i>
+					<p class="link-footer-font"><small>チャット</small></p>
 				<% end %>
 			<% else %>
 				<%= link_to rooms_path do %>
 					<i class="fas fa-comment-dots link-footer-font"></i>
+					<p class="link-footer-font"><small>DM一覧</small></p>
 				<% end %>
 			<% end %>
 		</div>
 		<div class="media-button">
 			<%= link_to root_path do %>
 				<i class="fas fa-bell link-footer-font"></i>
+				<p class="link-footer-font"><small>通知</small></p>
 			<% end %>
 		</div>
 	</div>
