@@ -1,105 +1,107 @@
-<div class="row no-gutters mb-5">
-	<div class="col-lg-8 mb-5">
-		<div style="overflow: auto;">
+<div class="container-fluid scroll" style="height: 100%;">
+	<div class="row no-gutters mb-5">
+		<div class="col-lg-8 mb-5">
+			<div style="overflow: auto;">
+				<div class="text-center">
+					<h2 class="font-white" style="border-bottom: 1px solid #fff;"><%= @diary.title %></h2>
+				</div>
+				<div class="diary" style="background-color: #fff; border-radius: 5px; padding: 10px;">
+					<%== @diary.body %>
+				</div>
+			</div>
+		</div>
+		<div class="offset-lg-1 col-lg-3">
 			<div class="text-center">
-				<h2 class="font-white" style="border-bottom: 1px solid #fff;"><%= @diary.title %></h2>
-			</div>
-			<div class="diary" style="background-color: #fff; border-radius: 5px; padding: 10px;">
-				<%== @diary.body %>
-			</div>
-		</div>
-	</div>
-	<div class="offset-lg-1 col-lg-3">
-		<div class="text-center">
-			<%= link_to user_path(@diary.user_id) do %>
-				<% if @diary.user.image? %>
-					<%= image_tag @diary.user.image.url, width: 100, height: 100, class: "circle" %>
-				<% else %>
-					<%= image_tag 'NO_IMAGE.png', width: 100, height: 100, class: "circle" %>
-				<% end %>
-			<% end %>
-			<br>
-			<h5 class="mt-2"><%= link_to @diary.user.name, user_path(@diary.user_id), class: "link theme-color" %></h5>
-			
-			<!-- 日記はログインしていないユーザーでも場合によっては閲覧可能なため確認を入れる -->
-			<% if user_signed_in? %>
-				<% if @diary.user_id == current_user.id %>
-					<!-- グループから編集する場合 -->
-					<% if @group.present? %>
-						<%= link_to edit_diary_path(group_id: @group.id, id: @diary.id), class: "btn btn-outline-primary form-control" do %>
-							<i class="fas fa-pencil-alt"></i>編集する
-						<% end %>
-					<!-- グループ外から編集する場合 -->
+				<%= link_to user_path(@diary.user_id) do %>
+					<% if @diary.user.image? %>
+						<%= image_tag @diary.user.image.url, width: 100, height: 100, class: "circle" %>
 					<% else %>
-						<%= link_to edit_diary_path(id: @diary), class: "btn btn-outline-primary form-control" do %>
-							<i class="fas fa-pencil-alt"></i>編集する
-						<% end %>
+						<%= image_tag 'NO_IMAGE.png', width: 100, height: 100, class: "circle" %>
 					<% end %>
 				<% end %>
-			<% end %>
-		</div>
-	</div>
-</div>
-<div class="row no-gutters">
-	<div class="col-lg-8">
-		<h5 class="font-white text-center" style="border-bottom: 1px solid #fff;">コメント一覧</h5>
-	</div>
-</div>
-<div class="row no-gutters text-center pb-3">
-	<div class="col-lg-8 mb-2">
-		<div style="overflow: auto; height: 160px;">
-			<% @diary.diary_comments.each do |diary_comment| %>
-				<div class="row no-gutters"
-					style="background-color: #fff;
-						   border-radius: 5px;
-						   padding: 10px;
-						   word-break:break-all;
-						   text-align: left;">
-					<p class="mb-0"><%= diary_comment.comment %></p>
-				</div>
-				<div class="row no-gutters font-white mb-3">
-					<% if diary_comment.user.image? %>
-						<%= image_tag diary_comment.user.image.url, width: 25, height: 25, class: "circle" %>
-					<% else %>
-						<%= image_tag 'NO_IMAGE.png', width: 25, height: 30, class: "circle" %>
-					<% end %>
-
-					<!-- 登録していないユーザーのコメントは匿名表示にする -->
-					<% if diary_comment.user_id.present? %>
-						<%= diary_comment.user.name %>
-					<% else %>
-						<p>匿名さん</p>
-					<% end %>
-
-					<p class="mb-0">　<%= diary_comment.created_at.strftime("%Y年%m月%d日 %H時%M分") %>　</p>
-					<% if user_signed_in? %>
-						<% if diary_comment.user_id == current_user.id || diary_comment.user_id == nil %>
-							<%= link_to '削除する', diary_comment_destroy_path(diary_id: @diary.id, id: diary_comment.id), method: :delete, remote: true, class: "btn btn-outline-danger", style: "font-size: 8px; height: 18px; padding: 0;" %>
-						<% end %>
-					<% end %>
-				</div>
-
-			<% end %>
-		</div>
-	</div>
-	<div class="offset-lg-1 col-lg-3">
-		<div>
-			<%= form_with url: diary_comments_path(@diary), local: true do |f| %>
-
-				<%= f.text_area :comment, class: "form-control", rows: 5, placeholder: "(500文字以内)", required: true %>
-
+				<br>
+				<h5 class="mt-2"><%= link_to @diary.user.name, user_path(@diary.user_id), class: "link theme-color" %></h5>
+				
+				<!-- 日記はログインしていないユーザーでも場合によっては閲覧可能なため確認を入れる -->
 				<% if user_signed_in? %>
-					<%= f.hidden_field :user_id, value: current_user.id %>
-				<% else  %>
-					<%= f.hidden_field :user_id, value: nil %>
+					<% if @diary.user_id == current_user.id %>
+						<!-- グループから編集する場合 -->
+						<% if @group.present? %>
+							<%= link_to edit_diary_path(group_id: @group.id, id: @diary.id), class: "btn btn-outline-primary form-control" do %>
+								<i class="fas fa-pencil-alt"></i>編集する
+							<% end %>
+						<!-- グループ外から編集する場合 -->
+						<% else %>
+							<%= link_to edit_diary_path(id: @diary), class: "btn btn-outline-primary form-control" do %>
+								<i class="fas fa-pencil-alt"></i>編集する
+							<% end %>
+						<% end %>
+					<% end %>
 				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="row no-gutters">
+		<div class="col-lg-8">
+			<h5 class="font-white text-center" style="border-bottom: 1px solid #fff;">コメント一覧</h5>
+		</div>
+	</div>
+	<div class="row no-gutters text-center pb-3">
+		<div class="col-lg-8 mb-2">
+			<div style="overflow: auto; height: 160px;">
+				<% @diary.diary_comments.each do |diary_comment| %>
+					<div class="row no-gutters"
+						style="background-color: #fff;
+							   border-radius: 5px;
+							   padding: 10px;
+							   word-break:break-all;
+							   text-align: left;">
+						<p class="mb-0"><%= diary_comment.comment %></p>
+					</div>
+					<div class="row no-gutters font-white mb-3">
+						<% if diary_comment.user.image? %>
+							<%= image_tag diary_comment.user.image.url, width: 25, height: 25, class: "circle" %>
+						<% else %>
+							<%= image_tag 'NO_IMAGE.png', width: 25, height: 30, class: "circle" %>
+						<% end %>
 
-				<%= f.hidden_field :diary_id, value: @diary.id %>
+						<!-- 登録していないユーザーのコメントは匿名表示にする -->
+						<% if diary_comment.user_id.present? %>
+							<%= diary_comment.user.name %>
+						<% else %>
+							<p>匿名さん</p>
+						<% end %>
 
-				<%= f.button type: "submit" ,class: "btn btn-outline-success form-control" do %>
-					<i class="fas fa-comment-alt"></i>コメントを送る
+						<p class="mb-0">　<%= diary_comment.created_at.strftime("%Y年%m月%d日 %H時%M分") %>　</p>
+						<% if user_signed_in? %>
+							<% if diary_comment.user_id == current_user.id || diary_comment.user_id == nil %>
+								<%= link_to '削除する', diary_comment_destroy_path(diary_id: @diary.id, id: diary_comment.id), method: :delete, remote: true, class: "btn btn-outline-danger", style: "font-size: 8px; height: 18px; padding: 0;" %>
+							<% end %>
+						<% end %>
+					</div>
+
 				<% end %>
-			<% end %>
+			</div>
+		</div>
+		<div class="offset-lg-1 col-lg-3">
+			<div>
+				<%= form_with url: diary_comments_path(@diary), local: true do |f| %>
+
+					<%= f.text_area :comment, class: "form-control", rows: 5, placeholder: "(500文字以内)", required: true %>
+
+					<% if user_signed_in? %>
+						<%= f.hidden_field :user_id, value: current_user.id %>
+					<% else  %>
+						<%= f.hidden_field :user_id, value: nil %>
+					<% end %>
+
+					<%= f.hidden_field :diary_id, value: @diary.id %>
+
+					<%= f.button type: "submit" ,class: "btn btn-outline-success form-control" do %>
+						<i class="fas fa-comment-alt"></i>コメントを送る
+					<% end %>
+				<% end %>
+			</div>
 		</div>
 	</div>
 </div>

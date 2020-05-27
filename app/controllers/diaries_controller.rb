@@ -1,7 +1,7 @@
 class DiariesController < ApplicationController
 	before_action :authenticate_user!, except: [:show]
 	before_action :group_diary
-	
+	before_action :hash_init
 
 	def index
 		# グループ公開以上のステータスの日記のみ公開
@@ -68,5 +68,19 @@ class DiariesController < ApplicationController
 		if params[:group_id].present?
 			@group = Group.find(params[:group_id])
 		end
+	end
+
+	def hash_init
+     options = {
+       bucket: 'our-space-image',
+       region: 'ap-northeast-1', # japan[Tokyo]
+       keyStart: 'uploads/diary/', # uploads/filename.png
+       acl: 'public-read',
+       accessKey: ENV['AWS_ACCESS_ID'], # 環境変数などで設定して直に書かない
+       secretKey: ENV['AWS_ACCESS_KEY'], #　環境変数などで設定して直に書かない
+     }
+      @aws_image = FroalaEditorSDK::S3.data_hash(options)
+      @aws_video = FroalaEditorSDK::S3.data_hash(options)
+      @aws_file = FroalaEditorSDK::S3.data_hash(options)
 	end
 end

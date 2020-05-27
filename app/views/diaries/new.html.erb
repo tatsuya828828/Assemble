@@ -1,5 +1,5 @@
-<div class="row no-gutters font-white pb-3">
-	<div class="offset-sm-3 col-sm-6">
+<div class="row no-gutters font-white pb-3 scroll" style="height: 100%;">
+	<div class="offset-sm-3 col-sm-6 mb-5">
 		<%= form_with(model: @diary, url: diaries_path, local: true) do |f| %>
 
 			<div class="field">
@@ -35,7 +35,14 @@
 			</div>
 		<% end %>
 		<script>
-			new FroalaEditor('#diary_body',{})
+			new FroalaEditor('#diary_body',{
+				language: 'ja',
+				heightMin: 500,
+				heightMax: 750,
+				videoUploadToS3: <%= @aws_video.to_json.html_safe %>,
+				imageUploadToS3: <%= @aws_image.to_json.html_safe %>,
+				fileUploadToS3: <%= @aws_file.to_json.html_safe %>
+			})
 		</script>
 
 		<%= link_to '戻る', user_path(current_user), class: "btn btn-outline-danger form-control" %>
