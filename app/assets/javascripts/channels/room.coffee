@@ -7,7 +7,8 @@ App.room = App.cable.subscriptions.create "RoomChannel",
 
   received: (data) ->
     senderId = $("input[id='direct-chat']").data("user") # idがchatのinputタグのdata属性がユーザーの情報をsenderIdとして定義
-    if senderId == data.user_id # 上で定義したsenderIdとチャンネルで定義したdata.user_idを評価
+    senderRoom = $("input[id='direct-chat']").data("room")
+    if senderId == data.user_id && senderRoom == data.room_id # 上で定義したsenderIdとチャンネルで定義したdata.user_idを評価
       $('#direct_messages').append("<div class='
       offset-lg-6
       col-lg-6'
@@ -22,7 +23,7 @@ App.room = App.cable.subscriptions.create "RoomChannel",
       padding: 3px 10px;
       display: inline-block;
       margin-bottom: 3px;'>"+data["content"]+"</div>"+"<br>");
-    else if senderId != data.user_id
+    else if senderId != data.user_id && senderRoom == data.room_id
           $('#direct_messages').append("<div class='
           col-lg-6'
           style='

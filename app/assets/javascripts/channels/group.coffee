@@ -7,7 +7,8 @@ App.group = App.cable.subscriptions.create "GroupChannel",
 
   received: (data) ->
         senderId = $("input[id='chat']").data("user") # idがchatのinputタグのdata属性がユーザーの情報をsenderIdとして定義
-        if senderId == data.user_id # 上で定義したsenderIdとチャンネルで定義したdata.user_idを評価
+        senderGroup = $("input[id='chat']").data("group")
+        if senderId == data.user_id && senderGroup == data.group_id # 上で定義したsenderIdとチャンネルで定義したdata.user_idを評価
           $('#messages').append("<div class='
           offset-lg-6
           col-lg-6'
@@ -22,7 +23,7 @@ App.group = App.cable.subscriptions.create "GroupChannel",
           padding: 3px 10px;
           display: inline-block;
           margin-bottom: 3px;'>"+data["content"]+"</div>"+"<br>");
-        else if senderId != data.user_id
+        else if senderId != data.user_id && senderGroup == data.group_id
           $('#messages').append("<div class='
           col-lg-6'
           style='
