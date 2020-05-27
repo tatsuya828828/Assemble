@@ -10,8 +10,6 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery3
-//= require jquery_ujs
 //= require popper
 //= require rails-ujs
 //= require activestorage
@@ -44,6 +42,8 @@
 //= require plugins/url.min.js
 //= require plugins/video.min.js
 //= require bootstrap-sprockets
+//= require jquery3
+//= require jquery_ujs
 //= require_tree .
 
 $(document).on('turbolinks:load',function () {
