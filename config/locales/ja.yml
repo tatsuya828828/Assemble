@@ -1,0 +1,24 @@
+ja:
+  activerecord:
+    models:
+      user:
+    attributes:
+      user:
+        name: "名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        current_password: "現在のパスワード"
+        password_confirmation: "新しいパスワード"
+        self_id: "ログインID"
+      group:
+        name: "名前"
+        self_id: "グループID"
+
+  enums:
+    diary:
+      private_status:
+        closed: "非公開"
+        friend_only: "友達のみ"
+        group_only: "グループのみ"
+        open: "友達とグループのみ"
+        full_open: "全体に公開"

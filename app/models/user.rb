@@ -68,7 +68,27 @@ class User < ApplicationRecord
 
   # 新着通知の確認
   def new_notifications
+    notifications = Notification.where(confirmer_id: self.id, confirm_status: "unconfirmed", direct_message_id: nil, message_id: nil)
+    new_notifications = []
+    notifications.each do |notification|
+      new_notifications<<notification
+    end
+  end
+
+  # 新着グループメッセージの確認
+  def new_message
     notifications = Notification.where(confirmer_id: self.id, confirm_status: "unconfirmed")
+    notifications = notifications.where.not(message_id: nil)
+    new_notifications = []
+    notifications.each do |notification|
+      new_notifications<<notification
+    end
+  end
+
+  # 新着DMの確認
+  def new_direct_message
+    notifications = Notification.where(confirmer_id: self.id, confirm_status: "unconfirmed")
+    notifications = notifications.where.not(direct_message_id: nil)
     new_notifications = []
     notifications.each do |notification|
       new_notifications<<notification
@@ -99,6 +119,6 @@ class User < ApplicationRecord
 
 
   validates :name,    presence: true
-  validates :self_id, presence: true
+  validates :self_id, presence: true, uniqueness: true
 
 end

@@ -226,7 +226,7 @@
               </h4>
                 <p><%= diary.created_at.strftime("%Y年%-m月%-d日 %-H:%M") %></p>
                 <% if @user == current_user %>
-                <p><%= diary.private_status %></p>
+                <p><%= diary.private_status_i18n %></p>
               <% end %>
             </td>
           </tr>
