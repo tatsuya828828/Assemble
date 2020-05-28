@@ -30,6 +30,8 @@
 					        <% else %>
 					        	<p>と友達になりました</p>
 					        <% end %>
+					    <% elsif (notification.diary.present?) && (notification.diary_comment.present?) %>
+					    	<p>から<%= link_to notification.diary.title, diary_path(notification.diary) %>にコメントが届いています。</p>
 						<% elsif notification.diary.present? %>
 							<p>が<%= link_to notification.diary.title, diary_path(notification.diary) %>を投稿しました。</p>
 						<% end %>

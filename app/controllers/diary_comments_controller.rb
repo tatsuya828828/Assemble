@@ -3,6 +3,11 @@ class DiaryCommentsController < ApplicationController
 	def create
 		comment = DiaryComment.new(diary_comment_params)
 		comment.save
+
+		notification = Notification.new(creator_id: comment.user_id, confirmer_id: comment.diary.user.id, confirm_status: "unconfirmed", diary_id: comment.diary_id, diary_comment_id: comment.id)
+		notification.save
+		binding.pry
+
 		redirect_back(fallback_location: root_path)
 	end
 
