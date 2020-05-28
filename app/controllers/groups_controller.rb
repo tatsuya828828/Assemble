@@ -33,6 +33,9 @@ class GroupsController < ApplicationController
   	@memo = Memo.new
     # メモ作成ボタンを押した時に表示
     @new = params[:new]
+
+    notifications = Notification.where(confirmer_id: current_user.id, message_id: nil, confirm_status: "unconfirmed", group_id: @group.id)
+    notifications.update_all(confirm_status: "confirmed")
   end
 
   def edit
@@ -85,6 +88,10 @@ class GroupsController < ApplicationController
     if params[:user_id].present?
       @user = User.find(params[:user_id])
     end
+
+    notifications = Notification.where(group_id: @group.id, confirmer_id: current_user.id)
+    notifications = notifications.where.not(message_id: nil)
+    notifications.update_all(confirm_status: "confirmed")
   end
 
   private

@@ -30,13 +30,21 @@
 			<!-- グループ内にいるときはグループチャットへ飛ばすためグループの情報を渡す -->
 			<% if @group.present? %>
 				<%= link_to group_chats_path(@group) do %>
-					<i class="fas fa-comments link-footer-font"></i>
+					<% if current_user.new_message.present? %>
+						<i class="fas fa-comments link-footer-font" style="color: #FFCC00;"></i>
+					<% else %>
+						<i class="fas fa-comments link-footer-font"></i>
+					<% end %>
 					<p class="link-footer-font"><small>チャット</small></p>
 				<% end %>
 			<% else %>
 				<%= link_to rooms_path do %>
-					<i class="fas fa-comment-dots link-footer-font"></i>
-					<p class="link-footer-font"><small>DM一覧</small></p>
+					<% if current_user.new_direct_message.present? %>
+						<i class="fas fa-comment-dots link-footer-font" style="color: #FFCC00;"></i>
+					<% else %>
+						<i class="fas fa-comment-dots link-footer-font"></i>
+					<% end %>
+						<p class="link-footer-font"><small>DM一覧</small></p>
 				<% end %>
 			<% end %>
 		</div>

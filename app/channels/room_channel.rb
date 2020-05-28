@@ -11,7 +11,7 @@ class RoomChannel < ApplicationCable::Channel
   	@new_direct_message = DirectMessage.new(content: content['content'][0], user_id: content['content'][1].to_i, room_id: content['content'][2].to_i)
     @new_direct_message.save
 
-
+    # DMを送った相手に通知を送る
     @new_direct_message.room.users.each do |user|
       if user != @new_direct_message.user
         notification = Notification.new(creator_id: @new_direct_message.user_id, direct_message_id: @new_direct_message.id, confirm_status: "unconfirmed", room_id: @new_direct_message.room_id)

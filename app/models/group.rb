@@ -28,6 +28,11 @@ class Group < ApplicationRecord
 	mount_uploader :image, ImageUploader
 
 
+	def group_notification
+		Notification.where(group_id: self.id, confirm_status: "unconfirmed")
+	end
+
+
 	validates :name, 		   presence: true
 	validates :leader, 		   presence: true
 	validates :private_status, presence: true

@@ -59,6 +59,7 @@ class User < ApplicationRecord
   #================================================================
 
 
+
   mount_uploader :image, ImageUploader
 
   # deviseがログイン時に呼び出しているメソッドをオーバーライドして、バリデーションを追加して、valid_statusがactiveなuserのみログイン可能にする。
@@ -79,20 +80,12 @@ class User < ApplicationRecord
   def new_message
     notifications = Notification.where(confirmer_id: self.id, confirm_status: "unconfirmed")
     notifications = notifications.where.not(message_id: nil)
-    new_notifications = []
-    notifications.each do |notification|
-      new_notifications<<notification
-    end
   end
 
   # 新着DMの確認
   def new_direct_message
     notifications = Notification.where(confirmer_id: self.id, confirm_status: "unconfirmed")
     notifications = notifications.where.not(direct_message_id: nil)
-    new_notifications = []
-    notifications.each do |notification|
-      new_notifications<<notification
-    end
   end
 
    # ユーザーの友達全員
