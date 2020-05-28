@@ -60,8 +60,13 @@ class UsersController < ApplicationController
 
   def update
   	user = User.find(params[:id])
-  	user.update(user_params)
-  	redirect_to action: :show
+  	if user.update(user_params)
+  	 redirect_to action: :show
+    else
+      @user = User.find(params[:id])
+      flash.now[:alert] = "既に使われています"
+      render action: :edit
+    end
   end
 
   def destroy

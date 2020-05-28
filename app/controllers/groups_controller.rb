@@ -14,13 +14,17 @@ class GroupsController < ApplicationController
   	if group.self_id == ""
   		group.self_id = nil
   	end
-  	group.save
-
-  	# グループを作成した後、作成したユーザーをグループに追加
-  	group_user = GroupUser.new(group_id: group.id, user_id: group.leader, join_status: "joined")
-  	group_user.save
-
-  	redirect_to group_path(group.id)
+  	if group.save
+    	# グループを作成した後、作成したユーザーをグループに追加
+    	group_user = GroupUser.new(group_id: group.id, user_id: group.leader, join_status: "joined")
+    	group_user.save
+  	  redirect_to group_path(group.id)
+    else
+      @new_group = Group.new
+      @request = params[:request]
+      flash.now[:alert] = "既に使われています"
+      render action: :index
+    end
   end
 
   def show
@@ -38,12 +42,16 @@ class GroupsController < ApplicationController
   def update
   	group = Group.find(params[:id])
   	# グループIDを入力していた場合のみ値を保存
-  	group.update(group_params)
-  	if group.self_id == ""
-  		group.update(self_id: nil)
-  	end
-
-  	redirect_to group_path(group.id)
+  	if group.update(group_params)
+    	if group.self_id == ""
+    		group.update(self_id: nil)
+    	end
+    	redirect_to group_path(group.id)
+    else
+      @group = Group.find(params[:id])
+      flash.now[:alert] = "既に使われています"
+      render action: :edit
+    end
   end
 
   def destroy_confirm

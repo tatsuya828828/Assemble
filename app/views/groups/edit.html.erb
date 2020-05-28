@@ -25,7 +25,7 @@
 					</label>
 				<% end %>
 			</div>
-				
+
 			<div class="form-group">
 				<%= f.label :name, :グループ名 %>
 				<br>
@@ -46,6 +46,7 @@
 				<% else %>
 					<%= f.text_field :self_id, placeholder: @group.self_id, class: "form form-control" %>
 				<% end %>
+				<p style="color: red;"><%= alert %></p>
 			</div>
 
 			<div class="form-group">

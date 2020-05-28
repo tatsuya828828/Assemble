@@ -1,7 +1,6 @@
 <div class="row no-gutters">
 	<div class="offset-lg-4 font-white" style="margin: 0 auto;">
 		<%= form_for @user do |f| %>
-
 			<div class="form-group">
 				<% if @user.image? %>
 					<div class="thmbnail text-center">
@@ -21,7 +20,7 @@
 					</label>
 				<% end %>
 			</div>
-				
+
 			<div class="form-group">
 				<%= f.label :name, :ユーザー名 %>
 				<br>
@@ -36,6 +35,7 @@
 				<% else %>
 					<%= f.text_field :self_id, placeholder: @user.self_id, class: "form form-control" %>
 				<% end %>
+				<p style="color: red;"><%= alert %></p>
 			</div>
 
 			<%= f.submit '変更する', class: "btn btn-outline-success form-control" %>
