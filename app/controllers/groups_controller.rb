@@ -59,9 +59,11 @@ class GroupsController < ApplicationController
   def destroy
   	group = Group.find(params[:id])
     diaries = Diary.where(group_id: group.id)
-    diaries.update_all(group_id: nil)
-    change_diaries = diaries.where(private_status: "group_only")
-    change_diaries.updata_all(private_status: "closed")
+    if diaries.present?
+      diaries.update_all(group_id: nil)
+      change_diaries = diaries.where(private_status: "group_only")
+      change_diaries.updata_all(private_status: "closed")
+    end
   	group.destroy
   	redirect_to groups_path
   end
