@@ -18,20 +18,23 @@
           </div>
           <div class="col-lg-2" style="width: 20%;">
             <!-- 友達一覧 -->
-            <%= link_to user_friends_path(current_user.id), class: "btn btn-outline-primary form-control" do %>
+            <%= link_to user_friends_path(current_user.id), class: "btn btn-outline-primary form-control pb-5" do %>
               <i class="fas fa-user-friends"></i>
+              <p><small>友達</small></p>
             <% end %>
           </div>
           <div class="col-lg-2" style="width: 20%;">
             <!-- チャット一覧 -->
-            <%= link_to rooms_path, class: "btn btn-outline-warning form-control" do %>
+            <%= link_to rooms_path, class: "btn btn-outline-warning form-control pb-5" do %>
               <i class="far fa-comments"></i>
+              <p><small>DM</small></p>
             <% end %>
           </div>
           <div class="col-lg-2" style="width: 20%;">
             <!-- ユーザー編集 -->
-            <%= link_to edit_user_path(@user), class: "btn btn-outline-success form-control" do %>
+            <%= link_to edit_user_path(@user), class: "btn btn-outline-success form-control pb-5" do %>
               <i class="fas fa-user-edit"></i>
+              <p><small>編集</small></p>
             <% end %>
           </div>
           <div class="col-lg-3" style="width: 20%;">

@@ -135,14 +135,32 @@ p{
    word-wrap:break-word;
 }
 
-.header-color{
+.header-color, .header-color-red{
   color: #fff;
 }
 
-.header-color:hover,theme-color:focus,theme-color:active{
+.header-color:hover{
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 2px 2px 3px #000;
+  transition: all 0.3s ease 0s;
+  transform: translateY(-0.1875em);
+}
+
+theme-color:focus,theme-color:active{
   color: #00FF3B;
   text-decoration: none;
   text-shadow: 2px 2px 3px #000;
+  transition: all 0.3s ease 0s;
+  transform: translateY(-0.1875em);
+}
+
+.header-color-red:hover{
+  color: #FF69A3;
+  text-decoration: none;
+  text-shadow: 2px 2px 3px #000;
+  transition: all 0.3s ease 0s;
+  transform: translateY(-0.1875em);
 }
 
 .logout{

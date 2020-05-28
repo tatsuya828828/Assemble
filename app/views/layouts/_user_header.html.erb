@@ -32,17 +32,21 @@
 
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active mr-5">
-          <%= link_to root_path, class: "nav-link header-color" do %>
-            <i class="fas fa-home"></i>ホーム
-          <% end %>
-        </li>
-
         <% if user_signed_in? %>
+          <li class="nav-item active mr-5">
+            <%= link_to notifications_path, class: "nav-link header-color" do %>
+              <% if current_user.new_notifications.present? %>
+                <i class="fas fa-bell" style="color: #FFCC00;"></i>
+              <% else %>
+                <i class="fas fa-bell"></i>
+              <% end %>
+                通知
+            <% end %>
+          </li>
 
           <li class="nav-item active mr-5">
             <%= link_to user_path(current_user.id), class: "nav-link header-color" do %>
-              <i class="fas fa-user-alt link-footer-font"></i>マイページ
+              <i class="fas fa-user-alt"></i>マイページ
             <% end %>
           </li>
 
@@ -53,7 +57,7 @@
                data-toggle="dropdown"
                aria-haspopup="true"
                aria-expanded="false">
-              <i class="fas fa-users link-footer-font"></i>グループ
+              <i class="fas fa-users"></i>グループ
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdown">
@@ -96,7 +100,7 @@
                   <br>
                 　<%= link_to 'グループの編集', edit_group_path(@group), class: "header-color" %>
                 <% else %>
-                　<%= link_to 'グループを抜ける', group_destroy_confirm_path(group_id: @group, destroy: "user"), class: "font-red" %>
+                　<%= link_to 'グループを抜ける', group_destroy_confirm_path(group_id: @group, destroy: "user"), class: "header-color-red" %>
                 <% end %>
                 <!------------------------------->
               </div>
