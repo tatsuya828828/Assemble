@@ -32,7 +32,6 @@ class DiariesController < ApplicationController
 				if user != current_user
 					notification.confirmer_id = user.id
 					notification.save
-					binding.pry
 				end
 			end
 			redirect_to diary_path(id: diary.id, group_id: diary.group_id)

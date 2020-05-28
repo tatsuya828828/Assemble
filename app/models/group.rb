@@ -27,7 +27,7 @@ class Group < ApplicationRecord
 
 	mount_uploader :image, ImageUploader
 
-	
+
 	validates :name, 		   presence: true
 	validates :leader, 		   presence: true
 	validates :private_status, presence: true

@@ -19,7 +19,7 @@ class UsersController < ApplicationController
         @groups<<group
       end
     end
-    
+
     if user_signed_in?
           # 友達の場合
       if current_user.friend?(@user)
@@ -66,8 +66,17 @@ class UsersController < ApplicationController
 
   def destroy
   	user = User.find(params[:id])
-  	group = Group.where(leader: user.id)
-  	group.destroy_all
+  	groups = Group.where(leader: user.id)
+    binding.pry
+    if groups.present?
+      groups.each do |group|
+        self_diaries = group.diaries.where(group_id: group.id, user_id: user.id)
+        self_diaries.destroy_all
+        (group.diaries.where(private_status: "group_only")).update_all(private_status: "closed")
+        group.diaries.update_all(group_id: nil)
+        group.destroy
+      end
+    end
   	user.destroy
   	redirect_to root_path
   end
