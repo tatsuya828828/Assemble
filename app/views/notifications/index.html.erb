@@ -34,6 +34,9 @@
 					    	<p>から<%= link_to notification.diary.title, diary_path(notification.diary) %>にコメントが届いています。</p>
 						<% elsif notification.diary.present? %>
 							<p>が<%= link_to notification.diary.title, diary_path(notification.diary) %>を投稿しました。</p>
+
+						<% elsif notification.memo.present? %>
+							<p>が<%= link_to notification.group.name, group_path(notification.group) %>にメモを貼りました。</p>
 						<% end %>
 					</div>
 
