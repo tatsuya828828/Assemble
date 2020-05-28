@@ -16,6 +16,7 @@ class DiariesController < ApplicationController
 		diary = Diary.new(diary_params)
 		diary.save
 
+		# 日記の公開範囲が当てはまるとき友達へ通知を送る
 		if (diary.private_status != "closed") && (diary.private_status != "group_only")
 			current_user.sended_friends.each do |friend|
 				notification = Notification.new(diary_id: diary.id, confirm_status: "unconfirmed", creator_id: current_user.id)
@@ -23,7 +24,7 @@ class DiariesController < ApplicationController
 				notification.save
 			end
 			redirect_to diary_path(diary)
-
+		# 日記の公開範囲がグループのみだったときはグループユーザーのみ通知を送る
 		elsif diary.private_status == "group_only"
 			group = Group.find_by(id: diary.group_id)
 			group.users.each do |user|
