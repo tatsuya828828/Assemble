@@ -30,5 +30,6 @@ class Group < ApplicationRecord
 
 	validates :name, 		   presence: true
 	validates :leader, 		   presence: true
-	validates :private_status, presence: true, uniqueness: true
+	validates :private_status, presence: true
+	validates :self_id, 	   uniqueness: true
 end
