@@ -7,10 +7,10 @@
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <% if notice %>
-          <p class="alert alert-notice"><%= notice %></p>
+          <p class="alert alert-notice" style="color: red;"><%= notice %></p>
         <% end %>
         <% if alert %>
-          <p class="alert alert-error"><%= alert %></p>
+          <p class="alert alert-error" style="color: red;"><%= alert %></p>
         <% end %>
       <div class="field">
         <%= f.label :self_id, :ユーザーID %><br />

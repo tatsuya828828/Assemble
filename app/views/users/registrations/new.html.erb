@@ -1,7 +1,7 @@
 <div class="row font-white">
-  <div class="offset-md-4">
+  <div class="col-lg-4">
   </div>
-  <div class="col-md-4 side-space">
+  <div class="col-lg-4 side-space">
     <div>
       <h2 class="text-center">新規登録</h2>
 
@@ -10,12 +10,13 @@
           <div id="error_explanation">
             <ul>
               <% @user.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
+                <li style="color: red;"><%= message %></li>
               <% end %>
             </ul>
           </div>
         <% end %>
 
+        <div class="field">
           <%= f.label :image, "サムネイル" %><i class="fas fa-camera"></i>
           <%= f.file_field :image, class: "form-control file" %>
           <%= f.hidden_field :image_cache %>

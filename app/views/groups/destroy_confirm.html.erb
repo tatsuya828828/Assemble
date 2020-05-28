@@ -4,8 +4,8 @@
 	<% if @group_user.present? %>
 
 		<div class="col-lg-4" style="margin: 10% 0;">
-			<h4>本当に削除しますか？</h4>
-			<p class="font-white">削除すると、このグループ内のあなたの情報が、全て消えてしまいます。本当によろしいですか？<br>
+			<h4>本当に退出しますか？</h4>
+			<p class="font-white">退出すると、このグループ内のあなたの情報が、全て消えてしまいます。本当によろしいですか？<br>
 			(日記はマイページでご確認いただけます)</p>
 			<br>
 			<%= link_to group_destroy_user_path(group_id: @group.id, id: @group_user, destroy: "user"),method: :delete, class: "btn btn-outline-danger form-control" do %>
@@ -17,7 +17,7 @@
 			<% end %>
 
 		</div>
-		
+
 	<% else %>
 
 		<div class="col-lg-4" style="margin: 10% 0;">
