@@ -67,7 +67,6 @@ class UsersController < ApplicationController
   def destroy
   	user = User.find(params[:id])
   	groups = Group.where(leader: user.id)
-    binding.pry
     if groups.present?
       groups.each do |group|
         self_diaries = group.diaries.where(group_id: group.id, user_id: user.id)
