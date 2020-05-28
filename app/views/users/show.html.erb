@@ -59,7 +59,7 @@
             <div class="col-lg-4" style="width: 40%;">
               <!-- 友達削除 -->
               <%= link_to user_friend_path(user_id: current_user.id, id: @user_info.id), method: :delete, class: "btn btn-outline-danger form-control" do %>
-                <i class="fas fa-dizzy"></i>お別れする
+                <i class="fas fa-dizzy"></i>お別れ
               <% end %>
             </div>
             <div class="col-lg-2" style="width: 10%;">
@@ -87,7 +87,7 @@
               <% end %>
           <!-- 友達申請を自分が送っていた場合 -->
           <% elsif current_user.wait_self?(@user) %>
-            <div class="offset-lg-3 col-lg-6 text-center" style="width: 60%">
+            <div class="offset-lg-3 col-lg-6 text-center" style="width: 60%; margin: 0 20%;">
               <p>申請中です</p>
               <%= link_to user_friend_path(user_id: current_user.id, id: @user_info.id), method: :delete, class: "btn btn-outline-danger form-control" do %>
                 <i class="fas fa-dizzy"></i>　取り消す

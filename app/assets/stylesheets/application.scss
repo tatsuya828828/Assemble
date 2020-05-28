@@ -196,6 +196,12 @@ p{
   outline-offset: none;
   text-shadow: none;
 }
+
+notification-button{
+  width: 50%;
+  height: 55%;
+  padding: 0;
+}
 // ========================================
 
 
@@ -404,8 +410,8 @@ video{
   }
 
   img{
-    max-height: 30vh;
-    max-width: 30vh;
+    max-height: 15vh;
+    max-width: 15vh;
   }
 
   h2{

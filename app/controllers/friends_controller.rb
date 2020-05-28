@@ -32,6 +32,11 @@ class FriendsController < ApplicationController
   	# 申請を送った時点では送った側のユーザーのみ情報を保存
   	sender = Friend.new(friend_params)
   	sender.save
+
+    # 申請を送った相手に通知を送る
+    notification = Notification.new(creator_id: sender.sender_id, confirmer_id: sender.receiver_id, friend_id: sender.id, confirm_status: "unconfirmed")
+    notification.save
+
   	# 申請中一覧ページにとぶ
   	redirect_back(fallback_location: root_path)
   end
@@ -44,6 +49,11 @@ class FriendsController < ApplicationController
   	receiver.save
   	# 申請した側のユーザーもステータスを友達に変更
   	sender.update(request_status: "friend")
+
+    # 友達になった場合通知を送る
+    notification = Notification.new(creator_id: sender.receiver_id, confirmer_id: sender.sender_id, friend_id: sender.id, confirm_status: "unconfirmed")
+    notification.save
+
   	# 友達一覧ページにとぶ
   	redirect_back(fallback_location: root_path)
   end
