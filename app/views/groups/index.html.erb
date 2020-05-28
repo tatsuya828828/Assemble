@@ -4,7 +4,7 @@
 		<div class="row no-gutters scroll">
 			<% current_user.group_users.each do |group_user| %>
 				<% if group_user.join_status == "joined" %>
-					<div class="col-lg-4" style="text-align: center; margin-bottom: 20px;">
+					<div class="col-lg-4 mb-1" style="text-align: center;">
 						<%= link_to group_path(group_user.group_id) do %>
 							<% if group_user.group.image? %>
 								<%= image_tag group_user.group.image.url, width: 200, height: 200, class: "circle" %>

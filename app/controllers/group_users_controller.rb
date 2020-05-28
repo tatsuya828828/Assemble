@@ -33,9 +33,23 @@ class GroupUsersController < ApplicationController
 	def create
 		group_user = GroupUser.new(group_user_params)
 		group_user.save
+
+		group = Group.find_by(id: group_user.group_id)
+		# グループに招待した場合
 		if group_user.join_status == "joined"
+			group.users.each do |user|
+				if user.id != group.leader
+					notification = Notification.new(creator_id: current_user.id, group_id: group.id, group_user_id: group_user.id, confirm_status: "unconfirmed")
+					notification.confirmer_id = user.id
+					notification.save
+				end
+			end
 			redirect_to group_users_path(group_id: group_user.group_id, status: "joined")
+		# グループに参加申請を送った場合
 		else
+			notification = Notification.new(creator_id: current_user.id, group_id: group_user.group_id, group_user_id: group_user.id, confirm_status: "unconfirmed")
+			notification.confirmer_id = group.leader
+			notification.save
 			redirect_to groups_path
 		end
 	end
@@ -44,6 +58,17 @@ class GroupUsersController < ApplicationController
 	def update
 		group_user = GroupUser.find(params[:id])
 		group_user.update(join_status: "joined")
+
+		# 承認した場合グループのユーザーに通知を送る
+		group_user.group.users.each do |user|
+			if user != current_user
+				notification = Notification.new(creator_id: current_user.id, group_id: group_user.group_id, group_user_id: group_user.id, confirm_status: "unconfirmed")
+				notification.confirmer_id = user.id
+				notification.save
+				binding.pry
+			end
+		end
+
 		redirect_back(fallback_location: root_path)
 	end
 
