@@ -76,7 +76,7 @@ class UsersController < ApplicationController
       groups.each do |group|
         self_diaries = group.diaries.where(group_id: group.id, user_id: user.id)
         self_diaries.destroy_all
-        (group.diaries.where(private_status: "group_only")).update_all(private_status: "closed")
+        (group.diaries.where(private_status: "group_only").or(group.diaries.where(private_status: "open"))).update_all(private_status: "closed")
         group.diaries.update_all(group_id: nil)
         group.destroy
       end

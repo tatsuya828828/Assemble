@@ -23,7 +23,11 @@ class DiariesController < ApplicationController
 				notification.confirmer_id = friend.receiver.id
 				notification.save
 			end
-			redirect_to diary_path(diary)
+			if diary.group_id.present?
+				redirect_to diary_path(id: diary, group_id: diary.group_id)
+			else
+				redirect_to diary_path(diary)
+			end
 		# 日記の公開範囲がグループのみだったときはグループユーザーのみ通知を送る
 		elsif diary.private_status == "group_only"
 			group = Group.find_by(id: diary.group_id)
