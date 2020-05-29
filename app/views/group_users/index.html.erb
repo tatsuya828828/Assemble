@@ -25,15 +25,15 @@
 									id: group_user.id),
 									method: :patch,
 									class: "btn btn-outline-success form-control" do %>
-									<i class="fas fa-user-plus"></i>
+									<i class="fas fa-user-plus"></i>承認
 								<% end %>
 								<br>
-								<%= link_to '断る', group_destroy_user_path(
+								<%= link_to group_destroy_user_path(
 									group_id: group_user.group_id,
 									id: group_user.id),
 									method: :delete, remote: true,
 									class: "btn btn-outline-danger form-control" do %>
-									<i class="fas fa-user-minus"></i>
+									<i class="fas fa-user-minus"></i>断る
 								<% end %>
 							</td>
 

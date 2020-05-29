@@ -1,5 +1,30 @@
 <div class="row no-gutters">
-	<div class="col-lg-3">
+	<div class="col-lg-3 text-center">
+		<% if @waiting_for_allows.present? && (current_user.id == @group.leader) %>
+			<% @waiting_for_allows.each do |waiting_for_allow| %>
+				<div style="margin-bottom: 15px;">
+					<%= link_to user_path(waiting_for_allow.user.id) do %>
+						<% if waiting_for_allow.user.image? %>
+							<%= image_tag waiting_for_allow.user.image.url, width: 150, height: 150, class: "circle" %>
+						<% else %>
+								<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+						<% end %>
+					<% end %>
+					<br>
+					<p><%= link_to waiting_for_allow.user.name, user_path(waiting_for_allow.user.id), class: "theme-color" %>さんから</p>
+
+					<p>このグループに参加申請が来ています</p>
+
+					<%= link_to group_user_path(group_id: waiting_for_allow.group.id, id: waiting_for_allow.id), method: :put, class: "btn btn-outline-success form-control" do %>
+						<i class="fas fa-user-plus"></i>承認
+					<% end %>
+
+					<%= link_to group_destroy_user_path(group_id: waiting_for_allow.group.id, id: waiting_for_allow.id), method: :delete, class: "btn btn-outline-danger form-control" do %>
+						<i class="fas fa-user-minus"></i>断る
+					<% end %>
+				</div>
+			<% end %>
+		<% end %>
 	</div>
 	<div class="col-lg-6 mb-3">
 		<div class="row no-gutters" style="width: 100%;">

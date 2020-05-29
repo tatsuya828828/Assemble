@@ -4,8 +4,7 @@ class GroupsController < ApplicationController
 
   def index
   	@new_group = Group.new
-    @request = params[:request]
-  	back = 'url(/assets/top.png)'
+    @waiting_for_allows = GroupUser.where(user_id: current_user.id, join_status: "waiting_for_allow")
   end
 
   def create
@@ -33,6 +32,8 @@ class GroupsController < ApplicationController
   	@memo = Memo.new
     # メモ作成ボタンを押した時に表示
     @new = params[:new]
+
+    @waiting_for_allows = GroupUser.where(group_id: @group.id, join_status: "waiting_for_allow")
 
     notifications = Notification.where(confirmer_id: current_user.id, message_id: nil, confirm_status: "unconfirmed", group_id: @group.id)
     notifications.update_all(confirm_status: "confirmed")

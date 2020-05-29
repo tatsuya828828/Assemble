@@ -65,7 +65,6 @@ class GroupUsersController < ApplicationController
 				notification = Notification.new(creator_id: current_user.id, group_id: group_user.group_id, group_user_id: group_user.id, confirm_status: "unconfirmed")
 				notification.confirmer_id = user.id
 				notification.save
-				binding.pry
 			end
 		end
 

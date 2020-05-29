@@ -1,4 +1,6 @@
 class NotificationsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
   	unconfirmeds = Notification.where(confirmer_id: current_user.id, confirm_status: "unconfirmed", direct_message_id: nil, message_id: nil)
   	unconfirmeds.update_all(confirm_status: "confirmed")
