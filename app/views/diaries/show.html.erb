@@ -21,7 +21,7 @@
 				<% end %>
 				<br>
 				<h5 class="mt-2"><%= link_to @diary.user.name, user_path(@diary.user_id), class: "link theme-color" %></h5>
-				
+
 				<!-- 日記はログインしていないユーザーでも場合によっては閲覧可能なため確認を入れる -->
 				<% if user_signed_in? %>
 					<% if @diary.user_id == current_user.id %>

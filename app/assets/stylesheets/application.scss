@@ -72,7 +72,6 @@
   background-position: 50% 150vh;
 }
 
-
 // ===== チャットのスクロール ===============
 .chat-scroll{
     height: 70vh;
@@ -431,7 +430,12 @@ video{
     background-position: 50% 100vh;
   }
 
-  img{
+  .diary img{
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .circle, .square{
     max-height: 15vh;
     max-width: 15vh;
   }
@@ -478,8 +482,9 @@ video{
 
 @media (max-width: 425px){
 
-  img{
-    max-height: 10vh;
-    max-width: 10vh;
+  .diary img{
+    min-width: 100%;
+    min-height: 100%;
   }
+
 }
