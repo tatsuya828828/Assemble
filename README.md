@@ -1,15 +1,15 @@
-# Assemble　　
+# OurSpace　　
 
 ## サイト概要
-当サイトは、家族や友人との思い出を簡単に振り返りたい、という気持ちで作られました。
-登録をしていただいた会員の方々には、所属しているグループの予定の共有、グループ内のチャット、写真投稿、日記などの機能を無料で使用していただくことができます。
+当サイトは、家族や友人との思い出を共有できるサイトです。
+登録をしていただいた会員の方々には、所属しているグループのメモの共有、グループ内のチャット、写真投稿、日記などの機能を無料で使用していただくことができます。
+またグループに入らなくても、日記の投稿、友達になった会員の方とのDMをお使いいただけます。
 
 ### サイトテーマ
-みんなで集まって思い出や連絡事項の共有
+日記やメモの共有
 
 ### テーマを選んだ理由
-現代では、集団でも簡単に連絡のやり取りができる連絡ツールは沢山あります。
-しかし、より集団に特化し、予定の共有、思い出の共有などが簡単にできるアプリがあれば便利だなと私自身が思い、今回の製作に当たりました。
+予定の共有、日記の共有などができるアプリがあれば便利だなと私自身が思い、今回の製作に当たりました。
 
 ### ターゲットユーザ
 家族、学生、社会人
@@ -28,13 +28,13 @@
 * [ER図](https://drive.google.com/file/d/1qIn7UVMB6ErQEl2aqSzRtPXmVwWZBb21/view?usp=sharing)
   
   
-* [テーブル定義書](https://docs.google.com/spreadsheets/d/1wgdqRpaaIk_NFXclSNIHferk6NOe_Bzi/edit#gid=1278772273)
+* [テーブル定義書](https://drive.google.com/file/d/1wgdqRpaaIk_NFXclSNIHferk6NOe_Bzi/view?usp=sharing)
   
   
-* [アプリケーション詳細設計](https://docs.google.com/spreadsheets/d/1Xs4Hn947ySbepbMICMISg7Lf338FrKpH/edit#gid=111042263)
+* [アプリケーション詳細設計](https://drive.google.com/file/d/1Xs4Hn947ySbepbMICMISg7Lf338FrKpH/view?usp=sharing)
   
   
 ### 機能一覧
-[Assembleの機能](https://docs.google.com/spreadsheets/d/1hZQYMRX-gK7tf0u2Va29ZOamWvdQL_JKQU96qsnEXPE/edit#gid=0)
+[OurSpaceの機能](https://docs.google.com/spreadsheets/d/1hZQYMRX-gK7tf0u2Va29ZOamWvdQL_JKQU96qsnEXPE/edit?usp=sharing)
 
 
