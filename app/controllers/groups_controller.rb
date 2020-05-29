@@ -72,9 +72,9 @@ class GroupsController < ApplicationController
   	group = Group.find(params[:id])
     diaries = Diary.where(group_id: group.id)
     if diaries.present?
+      change_diaries = diaries.where(private_status: "group_only").or(diaries.where(private_status: "open"))
+      change_diaries.update_all(private_status: "closed")
       diaries.update_all(group_id: nil)
-      change_diaries = diaries.where(private_status: "group_only")
-      change_diaries.updata_all(private_status: "closed")
     end
   	group.destroy
   	redirect_to groups_path
