@@ -22,6 +22,10 @@ class User < ApplicationRecord
   has_many :diary_comments, dependent: :destroy
   #========================================================
 
+  #===== ユーザーが投稿したグループチャット ====================
+  has_many :messages, dependent: :destroy
+  #========================================================
+
 
   #===== ユーザーのダイレクトメッセージとルーム ================
   has_many :entries, dependent: :destroy
