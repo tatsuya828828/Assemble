@@ -2,14 +2,14 @@
   navbar
   navbar-expand-lg
   side-space
-  theme-color
+  header-color
   font-white
   text-center
   pt-3 pb-3">
 
 
   <%= link_to 'OurSpace', root_path,
-    class: "navbar-brand theme-color",
+    class: "navbar-brand header-color",
     style: "font-size: 30px; font-family: cursive; text-shadow: 2px 2px 3px #000;"%>
 
     <button
@@ -26,17 +26,17 @@
 
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav mr-auto ml-auto">
-        <li class="nav-item active mr-3 ml-3">
-          <%= link_to 'ホーム', admin_root_path, class: "nav-link theme-color mr-3 ml-3" %>
+        <li class="nav-item active">
+          <%= link_to 'お問い合わせ', admin_root_path, class: "nav-link header-color mr-3 ml-3" %>
         </li>
 
         <li class="nav-item active">
-            <%= link_to 'ユーザー一覧', admin_users_path, class: "nav-link theme-color mr-3 ml-3" %>
+            <%= link_to 'ユーザー一覧', admin_users_path, class: "nav-link header-color mr-3 ml-3" %>
           </li>
 
 
           <li class="nav-item active mr-3 ml-3">
-            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link font-red" %>
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link header-color-red" %>
           </li>
       </ul>
         <div>
@@ -45,7 +45,7 @@
 
               <%= f.text_field :word, required: true, class: "form-control font-white col-md-6", id: "search" %>
 
-              <%= select_tag :range, options_for_select([["ユーザー名"],["ログインID"]]), class: "form-control col-lg-4 theme-color", id: "search-tag"%>
+              <%= select_tag :range, options_for_select([["ユーザー名"],["ログインID"]]), class: "form-control col-lg-4 header-color", id: "search-tag"%>
 
               <%= f.submit '検索', class: "btn col-lg-2 btn-outline-success" %>
 
