@@ -22,7 +22,6 @@ ja:
         group_only: "グループのみ"
         open: "友達とグループのみ"
         full_open: "全体に公開"
-  enums:
     user:
       valid_status:
         is_deleted: "凍結中"
