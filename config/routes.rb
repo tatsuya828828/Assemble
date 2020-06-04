@@ -2,18 +2,23 @@ Rails.application.routes.draw do
 
 #===== 管理者 ========================================================================
   devise_for :admins, skip: :all
-  devise_scope :admin do 
+  devise_scope :admin do
     get 'admins/sign_in', to: 'admins/sessions#new', as: 'new_admin_session'
     post 'admins/sign_in', to: 'admins/sessions#create', as: 'admin_session'
     delete 'admins/sign_out', to: 'admins/sessions#destroy', as: 'destroy_admin_session'
   end
-  
+
   namespace :admin do
     root 'home#top'
     resources :users, only: [:index, :show, :update]
     resources :searches, only: [:index]
   end
 #====================================================================================
+
+
+#===== 問い合わせ  ===================================================================
+  resources :contacts, only: [:index, :show, :new, :create, :destroy]
+#===================================================================================
 
 
 #===== ユーザー ======================================================================
