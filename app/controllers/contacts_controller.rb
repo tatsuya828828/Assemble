@@ -24,4 +24,10 @@ class ContactsController < ApplicationController
     redirect_to action: :index
   end
 
+  private
+
+  def contact_params
+    params.require(:contact).permit(:title, :body, :user_id)
+  end
+
 end
