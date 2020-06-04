@@ -1,0 +1,23 @@
+<div class="row no-gutters">
+  <div class="col-lg-3">
+  　　<%= link_to '過去のお問い合わせ', contacts_path %>
+  </div>
+  <div class="col-lg-6">
+    <h2>問い合わせフォーム</h2>
+    <%= form_for @contact do |f| %>
+      <div>
+        <%= f.label :title, "タイトル" %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+
+      <div>
+        <%= f.label :body, "本文" %>
+        <%= f.text_area :body, rows: 10, class: "form-control" %>
+      </div>
+
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <br>
+      <%= f.submit '送信', class: "btn btn-outline-success form-control" %>
+    <% end %>
+  </div>
+</div>

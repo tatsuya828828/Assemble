@@ -26,3 +26,7 @@ ja:
       valid_status:
         is_deleted: "凍結中"
         active: "有効"
+    contact:
+      response_status:
+        before_reply: "未返信"
+        already_replyed: "返信済"

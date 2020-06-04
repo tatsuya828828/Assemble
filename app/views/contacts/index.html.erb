@@ -1,7 +1,31 @@
 <div class="row no-gutters">
   <div class="col-lg-3">
+    <%= link_to '問い合わせへ',new_contact_path %>
   </div>
   <div class="col-lg-6">
     <h2>お問い合わせ一覧</h2>
+    <table class="table">
+      <tr style="width: 100%;">
+        <th style="width: 25%;"><p>タイトル</p></th>
+        <th style="width: 25%;"><p>ユーザーID</p></th>
+        <th style="width: 25%;"><p>日時</p></th>
+        <th style="width: 25%;"></th>
+      </tr>
+      <% @contacts.each do |contact| %>
+        <tr>
+          <td>
+            <p>
+              <%= contact.title %>
+              <% if contact.confirm_status == "unconfirmed" %>
+                <span style="background-color: red; color: #fff;">New</span>
+              <% end %>
+            </p>
+          </td>
+          <td><p><%= contact.user.self_id %></p></td>
+          <td><p><%= contact.created_at.strftime("%Y年%m月%d日 %H時%M分") %></p></td>
+          <td><p><%= contact.response_status %></p></td>
+        </tr>
+      <% end %>
+    </table>
   </div>
 </div>

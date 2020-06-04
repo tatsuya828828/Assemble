@@ -5,7 +5,7 @@ class ContactsController < ApplicationController
   end
 
   def create
-    contact = contact.new(contact_params)
+    contact = Contact.new(contact_params)
     contact.save
     redirect_to action: :index
   end

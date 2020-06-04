@@ -1,6 +1,7 @@
 class Admin::ContactsController < ApplicationController
   def show
     @contact = Contact.find(params[:id])
+    @contact.update(confirm_status: "confirmed")
   end
 
   def index
@@ -12,4 +13,11 @@ class Admin::ContactsController < ApplicationController
     contact.update(reply_params)
     redirect_to action: :show
   end
+
+  private
+
+  def reply_params
+    params.permit(:reply, :response_status)
+  end
+
 end
