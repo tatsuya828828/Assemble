@@ -29,7 +29,7 @@
 			</tr>
 	    <% @user.contacts.each do |contact| %>
 			  <tr>
-		      <td><%= link_to contact.title, admin_contact_path %></td>
+		      <td><%= link_to contact.title, admin_contact_path(contact) %></td>
 					<td><%= contact.created_at.strftime("%Y年%-m月%-d日 %-H時%-M分") %></td>
 				</tr>
 		  <% end %>
