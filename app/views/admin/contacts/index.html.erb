@@ -16,7 +16,7 @@
         </th>
         <th style="width: 25%;"></th>
       </tr>
-      <% @contacts.each do |contact| %>
+      <% @contacts.reverse_each do |contact| %>
       <tr>
         <td>
           <p>
@@ -30,7 +30,7 @@
           <p><%= link_to contact.user.self_id, admin_user_path(contact.user) %></p>
         </td>
         <td>
-          <p><%= contact.created_at.strftime("%Y年%m月%d日 %H時%M分") %></p>
+          <p><%= contact.created_at.strftime("%Y年%-m月%-d日 %-H時%-M分") %></p>
         </td>
         <td>
           <p>
