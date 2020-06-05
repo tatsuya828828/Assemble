@@ -1,70 +1,108 @@
-<% if user_signed_in? %>
-	<div class="row no-gutters media-bar text-center" style="font-size: 30px;">
-		<div class="media-button">
-			<%= link_to user_path(current_user) do %>
-				<i class="fas fa-user-alt link-footer-font"></i>
-				<p class="link-footer-font"><small>マイページ</small></p>
-			<% end %>
-		</div>
-		<div class="media-button">
-			<%= link_to groups_path do %>
-				<i class="fas fa-users link-footer-font"></i>
-				<p class="link-footer-font"><small>グループ</small></p>
-			<% end %>
-		</div>
-		<div class="media-button">
-			<!-- グループ内にいるときはグループの日記として記録するためグループの情報を渡す -->
-			<% if @group.present? %>
-				<%= link_to new_diary_path(group_id: @group) do %>
-					<i class="fas fa-edit link-footer-font"></i>
-					<p class="link-footer-font"><small>日記投稿</small></p>
-				<% end %>
-			<% else %>
-				<%= link_to new_diary_path do %>
-					<i class="fas fa-edit link-footer-font"></i>
-					<p class="link-footer-font"><small>日記投稿</small></p>
-				<% end %>
-			<% end %>
-		</div>
-		<div class="media-button">
-			<!-- グループ内にいるときはグループチャットへ飛ばすためグループの情報を渡す -->
-			<% if @group.present? %>
-				<%= link_to group_chats_path(@group) do %>
-					<% if current_user.new_message.present? %>
-						<i class="fas fa-comments link-footer-font" style="color: #FFCC00;"></i>
-					<% else %>
-						<i class="fas fa-comments link-footer-font"></i>
-					<% end %>
-					<p class="link-footer-font"><small>チャット</small></p>
-				<% end %>
-			<% else %>
-				<%= link_to rooms_path do %>
-					<% if current_user.new_direct_message.present? %>
-						<i class="fas fa-comment-dots link-footer-font" style="color: #FFCC00;"></i>
-					<% else %>
-						<i class="fas fa-comment-dots link-footer-font"></i>
-					<% end %>
-						<p class="link-footer-font"><small>DM一覧</small></p>
-				<% end %>
-			<% end %>
-		</div>
-		<div class="media-button">
-			<%= link_to notifications_path do %>
-				<% if current_user.new_notifications.present? %>
-					<i class="fas fa-bell link-footer-font" style="color: #FFCC00;"></i>
-				<% else %>
-					<i class="fas fa-bell link-footer-font"></i>
-				<% end %>
-					<p class="link-footer-font"><small>通知</small></p>
-			<% end %>
-		</div>
-	</div>
-<% else %>
-	<div class="row no-gutters media-bar">
-		<div class="col-lg-6 text-center">
-			<%= link_to 'サイト概要', about_path, class: "link" %>
-		</div>
-		<div class="col-lg-6">
-		</div>
-	</div>
-<% end %>
+<div class="table-responsive">
+  <% if user_signed_in? %>
+  <div class="row no-gutters media-bar text-center" style="font-size: 30px;">
+    <div class="media-button">
+      <%= link_to user_path(current_user) do %>
+      <i class="fas fa-user-alt link-footer-font"></i>
+      <p class="link-footer-font"><small>マイページ</small></p>
+      <% end %>
+    </div>
+    <div class="media-button">
+      <%= link_to groups_path do %>
+      <i class="fas fa-users link-footer-font"></i>
+      <p class="link-footer-font"><small>グループ</small></p>
+      <% end %>
+    </div>
+    <div class="media-button">
+      <!-- グループ内にいるときはグループの日記として記録するためグループの情報を渡す -->
+      <% if @group.present? %>
+      <%= link_to new_diary_path(group_id: @group) do %>
+      <i class="fas fa-edit link-footer-font"></i>
+      <p class="link-footer-font"><small>日記投稿</small></p>
+      <% end %>
+      <% else %>
+      <%= link_to new_diary_path do %>
+      <i class="fas fa-edit link-footer-font"></i>
+      <p class="link-footer-font"><small>日記投稿</small></p>
+      <% end %>
+      <% end %>
+    </div>
+    <div class="media-button">
+      <!-- グループ内にいるときはグループチャットへ飛ばすためグループの情報を渡す -->
+      <% if @group.present? %>
+      <%= link_to group_chats_path(@group) do %>
+      <% if current_user.new_message.present? %>
+      <i class="fas fa-comments link-footer-font" style="color: #FFCC00;"></i>
+      <% else %>
+      <i class="fas fa-comments link-footer-font"></i>
+      <% end %>
+      <p class="link-footer-font"><small>チャット</small></p>
+      <% end %>
+      <% else %>
+      <%= link_to rooms_path do %>
+      <% if current_user.new_direct_message.present? %>
+      <i class="fas fa-comment-dots link-footer-font" style="color: #FFCC00;"></i>
+      <% else %>
+      <i class="fas fa-comment-dots link-footer-font"></i>
+      <% end %>
+      <p class="link-footer-font"><small>DM一覧</small></p>
+      <% end %>
+      <% end %>
+    </div>
+    <div class="media-button">
+      <%= link_to notifications_path do %>
+      <% if current_user.new_notifications.present? %>
+      <i class="fas fa-bell link-footer-font" style="color: #FFCC00;"></i>
+      <% else %>
+      <i class="fas fa-bell link-footer-font"></i>
+      <% end %>
+      <p class="link-footer-font"><small>通知</small></p>
+      <% end %>
+    </div>
+
+    <div class="media-button">
+      <%= link_to destroy_user_session_path, method: :delete do %>
+      <i class="fas fa-sign-out-alt link-footer-font"></i>
+      <p class="link-footer-font"><small>ログアウト</small></p>
+      <% end %>
+    </div>
+
+    <div class="media-button">
+      <%= link_to new_contact_path do %>
+      <i class="fas fa-clipboard-list link-footer-font"></i>
+      <p class="link-footer-font"><small>お問い合わせ</small></p>
+      <% end %>
+    </div>
+  </div>
+  <% elsif admin_signed_in? %>
+  <div class="row no-gutters media-bar text-center" style="font-size: 30px;">
+    <div class="media-button">
+      <%= link_to admin_contacts_path do %>
+      <i class="fas fa-clipboard-list link-footer-font"></i>
+      <p class="link-footer-font"><small>お問い合わせ</small></p>
+      <% end %>
+    </div>
+    <div class="media-button">
+      <%= link_to admin_users_path do %>
+      <i class="fas fa-users link-footer-font"></i>
+      <p class="link-footer-font"><small>ユーザー一覧</small></p>
+      <% end %>
+    </div>
+    <div class="media-button">
+      <%= link_to destroy_admin_session_path, method: :delete do %>
+      <i class="fas fa-sign-out-alt link-footer-font"></i>
+      <p class="link-footer-font"><small>ログアウト</small></p>
+      <% end %>
+    </div>
+  </div>
+  <% else %>
+  <div class="row no-gutters media-bar" style="font-size: 30px;">
+    <div class="text-center" style="margin: 0 auto;">
+      <%= link_to about_path do %>
+      <i class="fas fa-question-circle link-footer-font"></i>
+      <p class="link-footer-font"><small>サイト概要</small></p>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+</div>

@@ -36,21 +36,21 @@
 
 
           <li class="nav-item active mr-3 ml-3">
-            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link header-color-red" %>
+            <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: "nav-link header-color-red" %>
           </li>
       </ul>
-        <div>
-          <%= form_with url: admin_searches_path, method: :get, local: true do |f| %>
-            <div class="row">
+      <div>
+        <%= form_with url: admin_searches_path, method: :get, local: true do |f| %>
+          <div class="row">
 
-              <%= f.text_field :word, required: true, class: "form-control font-white col-md-6", id: "search" %>
+            <%= f.text_field :word, required: true, class: "form-control font-white col-md-6", id: "search" %>
 
-              <%= select_tag :range, options_for_select([["ユーザー名"],["ログインID"]]), class: "form-control col-lg-4 header-color", id: "search-tag"%>
+            <%= select_tag :range, options_for_select([["ユーザー名"],["ログインID"]]), class: "form-control col-lg-4 header-color", id: "search-tag"%>
 
-              <%= f.submit '検索', class: "btn col-lg-2 btn-outline-success" %>
+            <%= f.submit '検索', class: "btn col-lg-2 btn-outline-success" %>
 
-            </div>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </nav>
