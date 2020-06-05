@@ -6,12 +6,12 @@
     <%= form_for @contact do |f| %>
       <div>
         <%= f.label :title, "タイトル" %>
-        <%= f.text_field :title, class: "form-control" %>
+        <%= f.text_field :title, class: "form-control", required: true %>
       </div>
 
       <div>
         <%= f.label :body, "本文" %>
-        <%= f.text_area :body, rows: 10, class: "form-control" %>
+        <%= f.text_area :body, rows: 10, class: "form-control", required: true %>
       </div>
 
       <%= f.hidden_field :user_id, value: current_user.id %>
