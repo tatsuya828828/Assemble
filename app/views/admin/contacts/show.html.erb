@@ -8,12 +8,13 @@
     <h4 class="text-center">返信内容</h4>
     <div class="row no-gutters mb-5">
       <% if @contact.reply.present? %>
-        <%= @contact.reply %>
+      <%= @contact.reply %>
       <% else %>
-        <p>まだ返信していません</p>
+      <p>まだ返信していません</p>
       <% end %>
     </div>
   </div>
+  <% if @contact.reply.nil? %>
   <div class="col-lg-6">
     <%= form_with url: admin_contact_path, method: :patch do |f| %>
     <%= f.text_area :reply, rows: 10, class: "form-control", required: true %>
@@ -23,4 +24,5 @@
     <br>
     <p class="text-center"><%= link_to "問い合わせ一覧へ", admin_contacts_path %></p>
   </div>
+  <% end %>
 </div>

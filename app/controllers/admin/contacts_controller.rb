@@ -1,7 +1,7 @@
 class Admin::ContactsController < ApplicationController
   def show
     @contact = Contact.find(params[:id])
-    @contact.update(confirm_status: "confirmed")
+    @contact.update(confirm_status: "admin_confirmed")
   end
 
   def index
