@@ -12,6 +12,9 @@ class ContactsController < ApplicationController
 
   def show
     @contact = Contact.find(params[:id])
+    if (@contact.confirm_status == "admin_confirmed") && (@contact.reply.present?)
+      @contact.update(confirm_status: "user_confirmed")
+    end
   end
 
   def index
