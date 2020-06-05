@@ -1,0 +1,29 @@
+<div class="row no-gutters">
+  <div class="col-lg-3">
+  </div>
+  <div class="col-lg-6 scroll">
+    <h2>お問い合わせ一覧</h2>
+    <table class="table">
+      <tr style="width: 100%;">
+        <th style="width: 50%;"><p>タイトル</p></th>
+        <th style="width: 50%;"><p>日時</p></th>
+      </tr>
+      <% @contacts.reverse_each do |contact| %>
+        <tr>
+          <td>
+            <p>
+              <%= link_to contact.title, contact_path(contact), class: "theme-color" %>
+              <% if contact.response_status == ("already_replyed") && (contact.confirm_status == "admin_confirmed") %>
+                <span style="background-color: red; color: #fff; padding: 1px;">New</span>
+              <% end %>
+            </p>
+          </td>
+          <td><p><%= contact.created_at.strftime("%Y年%-m月%-d日 %-H時%-M分") %></p></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-lg-3" style="text-align: right;">
+    <h4><%= link_to '問い合わせへ', new_contact_path, class: "theme-color" %></h4>
+  </div>
+</div>

@@ -1,19 +1,29 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'contacts/show'
+    get 'contacts/index'
+  end
 #===== 管理者 ========================================================================
   devise_for :admins, skip: :all
-  devise_scope :admin do 
-    get 'admins/sign_in', to: 'admins/sessions#new', as: 'new_admin_session'
-    post 'admins/sign_in', to: 'admins/sessions#create', as: 'admin_session'
+  devise_scope :admin do
+    get 'admins/sign_in',     to: 'admins/sessions#new', as: 'new_admin_session'
+    post 'admins/sign_in',    to: 'admins/sessions#create', as: 'admin_session'
     delete 'admins/sign_out', to: 'admins/sessions#destroy', as: 'destroy_admin_session'
   end
-  
+
   namespace :admin do
     root 'home#top'
-    resources :users, only: [:index, :show, :update]
+    resources :users,    only: [:index, :show, :update]
     resources :searches, only: [:index]
+    resources :contacts, only: [:index, :show, :update, :destroy]
   end
 #====================================================================================
+
+
+#===== 問い合わせ  ===================================================================
+  resources :contacts, only: [:index, :show, :new, :create, :destroy]
+#===================================================================================
 
 
 #===== ユーザー ======================================================================
@@ -55,7 +65,7 @@ end
 
 #====== 日記と日記のコメント ==========================
   resources :diaries do
-    post   'diary_comments', to: 'diary_comments#create',  as: 'comments'
+    post   'diary_comments',     to: 'diary_comments#create',  as: 'comments'
     delete 'diary_comments/:id', to: 'diary_comments#destroy', as: 'comment_destroy'
   end
 #===================================================

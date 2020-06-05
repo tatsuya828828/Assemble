@@ -1,0 +1,48 @@
+<div class="row no-gutters">
+  <div class="col-lg-3">
+  </div>
+  <div class="col-lg-6">
+    <h2>お問い合わせ一覧</h2>
+    <table class="table">
+      <tr style="width: 100%;">
+        <th style="width: 25%;">
+          <p>タイトル</p>
+        </th>
+        <th style="width: 25%;">
+          <p>ユーザーID</p>
+        </th>
+        <th style="width: 25%;">
+          <p>日時</p>
+        </th>
+        <th style="width: 25%;"></th>
+      </tr>
+      <% @contacts.reverse_each do |contact| %>
+      <tr>
+        <td>
+          <p>
+            <%= link_to contact.title, admin_contact_path(contact) %>
+            <% if contact.confirm_status == "unconfirmed" %>
+            <span style="background-color: #DC3545; color: #fff; padding: 1px;">New</span>
+            <% end %>
+          </p>
+        </td>
+        <td>
+          <p><%= link_to contact.user.self_id, admin_user_path(contact.user) %></p>
+        </td>
+        <td>
+          <p><%= contact.created_at.strftime("%Y年%-m月%-d日 %-H時%-M分") %></p>
+        </td>
+        <td>
+          <p>
+            <% if contact.response_status == "before_reply" %>
+              <span style="background-color: #DC3545; color: #fff; padding: 1px;">
+            <% else %>
+              <span style="background-color: #28A745; color: #fff; padding: 1px;">
+            <% end %>
+              <%= contact.response_status_i18n %></p></span>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

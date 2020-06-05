@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  #=====  ユーザーの問い合わせ ===============================
+  has_many :contacts, dependent: :destroy
+  #========================================================
+
   #===== ユーザーのグループ ==================================
   has_many :group_users, dependent: :destroy
   # group_userモデルを通して、groupモデルを参照できるように設定

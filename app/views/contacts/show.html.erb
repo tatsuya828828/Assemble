@@ -1,0 +1,24 @@
+<div class="row no-gutters">
+  <div class="col-lg-3">
+  </div>
+  <div class="col-lg-6">
+    <h4 class="text-center"><%= @contact.title %></h4>
+    <br>
+    <div class="row no-gutters mb-5">
+      <%= @contact.body %>
+    </div>
+    <h4 class="text-center">返信内容</h4>
+    <div class="row no-gutters mb-5">
+      <% if @contact.reply.present? %>
+      <%= @contact.reply %>
+      <% else %>
+      <p style="margin: 0 auto;">申し訳ございません、返信をお待ちください。</p>
+      <% end %>
+    </div>
+  </div>
+  <% if @contact.reply.nil? %>
+  <div class="col-lg-3">
+    <h4 style="text-align: right"><%= link_to "問い合わせ一覧へ", contacts_path, class: "theme-color" %></h4>
+  </div>
+  <% end %>
+</div>
