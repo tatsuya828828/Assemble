@@ -46,6 +46,18 @@
 //= require popper
 //= require_tree .
 
-$(document).on('turbolinks:load',function () {
-	$('.title').slideDown(2000);
+$(document).on('turbolinks:load', function () {
+    $('.title').slideDown(2000);
+});
+
+$(document).on('turbolinks:load', function(){
+    $('.table-tabs tbody[id != "already_replyed"]').hide();
+
+    $('.tab-menu a').on('click', function() {
+        $(".table-tabs tbody").hide();
+        $(".tab-menu .active").removeClass("active");
+        $(this).addClass("active");
+        $($(this).attr("href")).show();
+        return false;
+    });
 });
