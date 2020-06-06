@@ -1,38 +1,38 @@
 <div class="row no-gutters font-white text-center">
-	<div class="offset-lg-3 col-lg-6 mb-5">
-		<h4>ユーザー詳細</h4>
-		<br>
-			<% if @user.image? %>
-				<%= image_tag @user.image.url, width: 150, height: 150, class: "circle" %>
-			<% else %>
-				<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
-			<% end %>
-		<br>
-		ユーザー名:<%= @user.name %>
-		<br>
-		ログインID:<%= @user.self_id %>
-		<br>
-		登録日:<%= @user.created_at.strftime("%Y年%-m月%-d日 %-H時%-M分") %>
-		<br>
-		<% if @user.valid_status == "active" %>
-			<%= link_to 'アカウントを凍結する', admin_user_path(id: @user.id, status: "is_deleted"),method: :put, class: "btn btn-outline-danger form-control" %>
-		<% else %>
-			<%= link_to '凍結を解除する', admin_user_path(id: @user.id, status: "active"),method: :put, class: "btn btn-outline-primary form-control" %>
-		<% end %>
-	</div>
-	<div class="col-lg-3">
-	  <h4 class="mb-3">問い合わせ履歴</h4>
-	  <table style="width: 100%; text-align: left;">
-		  <tr>
-			  <th>タイトル</th>
-				<th>日時</th>
-			</tr>
-	    <% @user.contacts.each do |contact| %>
-			  <tr>
-		      <td><%= link_to contact.title, admin_contact_path(contact) %></td>
-					<td><%= contact.created_at.strftime("%Y年%-m月%-d日 %-H時%-M分") %></td>
-				</tr>
-		  <% end %>
-		</table>
-	</div>
+  <div class="offset-lg-3 col-lg-6 mb-5">
+    <h4>ユーザー詳細</h4>
+    <br>
+    <% if @user.image? %>
+    <%= image_tag @user.image.url, width: 150, height: 150, class: "circle" %>
+    <% else %>
+    <%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "circle" %>
+    <% end %>
+    <br>
+    ユーザー名:<%= @user.name %>
+    <br>
+    ログインID:<%= @user.self_id %>
+    <br>
+    登録日:<%= @user.created_at.strftime("%Y年%-m月%-d日 %-H時%-M分") %>
+    <br>
+    <% if @user.valid_status == "active" %>
+    <%= link_to 'アカウントを凍結する', admin_user_path(id: @user.id, status: "is_deleted"),method: :put, class: "btn btn-outline-danger form-control" %>
+    <% else %>
+    <%= link_to '凍結を解除する', admin_user_path(id: @user.id, status: "active"),method: :put, class: "btn btn-outline-primary form-control" %>
+    <% end %>
+  </div>
+  <div class="col-lg-3">
+    <h4 class="mb-3">問い合わせ履歴</h4>
+    <table style="width: 100%; text-align: left;">
+      <tr>
+        <th>タイトル</th>
+        <th>日時</th>
+      </tr>
+      <% @user.contacts.each do |contact| %>
+      <tr>
+        <td><%= link_to contact.title, admin_contact_path(contact) %></td>
+        <td><%= contact.created_at.strftime("%Y年%-m月%-d日 %-H時%-M分") %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
 </div>
