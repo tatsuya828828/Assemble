@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require popper
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
@@ -43,7 +44,6 @@
 //= require plugins/url.min.js
 //= require plugins/video.min.js
 //= require bootstrap-sprockets
-//= require popper
 //= require_tree .
 
 // topページの見出し
@@ -64,7 +64,7 @@ $(document).on('turbolinks:load', function(){
     });
 });
 
-
+// マイページの申請通知のtab-menu
 $(document).on('turbolinks:load', function(){
     $('.tab .tab-content[id != "waiting_other"]').hide();
 
@@ -76,3 +76,18 @@ $(document).on('turbolinks:load', function(){
         return false;
     });
 });
+
+// マイページの日記のtab-menu
+$(document).on('turbolinks:load', function(){
+    $('.diary-tab .diary-tab-content[id != "all"]').hide();
+
+    $('.diary-tab-menu a').on('click', function(){
+        $(".diary-tab .diary-tab-content").hide();
+        $(".diary-tab-menu .active").removeClass("active");
+        $(this).addClass("active");
+        $($(this).attr("href")).slideDown(1000);
+        return false;
+    });
+});
+
+

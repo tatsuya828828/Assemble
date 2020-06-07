@@ -209,38 +209,205 @@
   </div>
   <div class="col-lg-9 font-white text-center">
     <h2 class="border-bottom"><i class="fas fa-book-open"></i>　日記一覧</h2>
-      <% if @user == current_user %>
-        <div class="row no-gutters mb-5 ">
+    <% if @user == current_user %>
+      <div class="row no-gutters">
+        <div class="col-lg-10">
           <%= link_to new_diary_path, class: "btn btn-outline-success form-control" do %>
             <i class="fas fa-edit"></i>　日記を投稿する
           <% end %>
         </div>
-      <% end %>
-    <div class="scroll">
-      <table class="table-borderless" style="width: 100%;">
-        <% @diaries.each do |diary| %>
-          <tr>
-            <th class="pb-5" style="width: 50%;">
-              <%= link_to diary_path(diary) do %>
-                <% if diary.image? %>
-                  <%= image_tag diary.image.url, width: 200, height: 200, class: "square" %>
-                <% else %>
-                  <%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
+        <div class="col-lg-2">
+          <div class="dropdown mb-5">
+            <button type="button"
+                class="btn btn-outline-primary dropdown-toggle form-control"
+                data-toggle="dropdown">
+              絞り込み
+            </button>
+            <div class="diary-tab-menu dropdown-menu form-control" style="background-color: #007bff; border-radius: 3px;">
+              <a href="#all" class="active dropdown-item" style="background-color: #007bff; color: #fff;">全て</a>
+              <a href="#closed" class="dropdown-item" style="background-color: #007bff; color: #fff;">非公開</a>
+              <a href="#friend_only" class="dropdown-item" style="background-color: #007bff; color: #fff;">友達のみ</a>
+              <a href="#group_only" class="dropdown-item" style="background-color: #007bff; color: #fff;">グループのみ</a>
+              <a href="#open" class="dropdown-item" style="background-color: #007bff; color: #fff;">グループと友達</a>
+              <a href="#full_open" class="dropdown-item" style="background-color: #007bff; color: #fff; border-radius: 0 0 3px 3px;">全体公開</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="diary-tab">
+      <!-- 全表示 -->
+      <div class="diary-tab-content scroll" id="all">
+        <table class="table-borderless" style="width: 100%;">
+          <% @diaries.each do |diary| %>
+            <tr>
+              <th class="pb-5" style="width: 50%;">
+                <%= link_to diary_path(diary) do %>
+                  <% if diary.image? %>
+                    <%= image_tag diary.image.url, width: 200, height: 200, class: "square" %>
+                  <% else %>
+                    <%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </th>
-            <td class="pb-5" style="width: 50%; text-align: left;">
-              <h4 class="theme-color">
-                <%= link_to diary.title, diary_path(diary), class: "theme-color" %>
-              </h4>
-                <p><%= diary.created_at.strftime("%Y年%-m月%-d日 %-H:%M") %></p>
-                <% if @user == current_user %>
-                <p><%= diary.private_status_i18n %></p>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </table>
+              </th>
+              <td class="pb-5" style="width: 50%; text-align: left;">
+                <h4 class="theme-color">
+                  <%= link_to diary.title, diary_path(diary), class: "theme-color" %>
+                </h4>
+                  <p><%= diary.created_at.strftime("%Y年%-m月%-d日 %-H:%M") %></p>
+                  <% if @user == current_user %>
+                  <p><%= diary.private_status_i18n %></p>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <!-- 非公開 -->
+      <div class="diary-tab-content scroll" id="closed">
+        <table class="table-borderless" style="width: 100%;">
+          <% @diaries.each do |diary| %>
+            <% if diary.private_status == "closed" %>
+              <tr>
+                <th class="pb-5" style="width: 50%;">
+                  <%= link_to diary_path(diary) do %>
+                    <% if diary.image? %>
+                      <%= image_tag diary.image.url, width: 200, height: 200, class: "square" %>
+                    <% else %>
+                      <%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
+                    <% end %>
+                  <% end %>
+                </th>
+                <td class="pb-5" style="width: 50%; text-align: left;">
+                  <h4 class="theme-color">
+                    <%= link_to diary.title, diary_path(diary), class: "theme-color" %>
+                  </h4>
+                    <p><%= diary.created_at.strftime("%Y年%-m月%-d日 %-H:%M") %></p>
+                    <% if @user == current_user %>
+                    <p><%= diary.private_status_i18n %></p>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+      </div>
+      <!-- 友達のみ -->
+      <div class="diary-tab-content scroll" id="friend_only">
+        <table class="table-borderless" style="width: 100%;">
+          <% @diaries.each do |diary| %>
+            <% if diary.private_status == "friend_only" %>
+              <tr>
+                <th class="pb-5" style="width: 50%;">
+                  <%= link_to diary_path(diary) do %>
+                    <% if diary.image? %>
+                      <%= image_tag diary.image.url, width: 200, height: 200, class: "square" %>
+                    <% else %>
+                      <%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
+                    <% end %>
+                  <% end %>
+                </th>
+                <td class="pb-5" style="width: 50%; text-align: left;">
+                  <h4 class="theme-color">
+                    <%= link_to diary.title, diary_path(diary), class: "theme-color" %>
+                  </h4>
+                    <p><%= diary.created_at.strftime("%Y年%-m月%-d日 %-H:%M") %></p>
+                    <% if @user == current_user %>
+                    <p><%= diary.private_status_i18n %></p>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+      </div>
+      <!-- グループのみ -->
+      <div class="diary-tab-content scroll" id="group_only">
+        <table class="table-borderless" style="width: 100%;">
+          <% @diaries.each do |diary| %>
+            <% if diary.private_status == "group_only" %>
+              <tr>
+                <th class="pb-5" style="width: 50%;">
+                  <%= link_to diary_path(diary) do %>
+                    <% if diary.image? %>
+                      <%= image_tag diary.image.url, width: 200, height: 200, class: "square" %>
+                    <% else %>
+                      <%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
+                    <% end %>
+                  <% end %>
+                </th>
+                <td class="pb-5" style="width: 50%; text-align: left;">
+                  <h4 class="theme-color">
+                    <%= link_to diary.title, diary_path(diary), class: "theme-color" %>
+                  </h4>
+                    <p><%= diary.created_at.strftime("%Y年%-m月%-d日 %-H:%M") %></p>
+                    <% if @user == current_user %>
+                    <p><%= diary.private_status_i18n %></p>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+      </div>
+      <!-- グループと友達 -->
+      <div class="diary-tab-content scroll" id="open">
+        <table class="table-borderless" style="width: 100%;">
+          <% @diaries.each do |diary| %>
+            <% if diary.private_status == "open" %>
+              <tr>
+                <th class="pb-5" style="width: 50%;">
+                  <%= link_to diary_path(diary) do %>
+                    <% if diary.image? %>
+                      <%= image_tag diary.image.url, width: 200, height: 200, class: "square" %>
+                    <% else %>
+                      <%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
+                    <% end %>
+                  <% end %>
+                </th>
+                <td class="pb-5" style="width: 50%; text-align: left;">
+                  <h4 class="theme-color">
+                    <%= link_to diary.title, diary_path(diary), class: "theme-color" %>
+                  </h4>
+                    <p><%= diary.created_at.strftime("%Y年%-m月%-d日 %-H:%M") %></p>
+                    <% if @user == current_user %>
+                    <p><%= diary.private_status_i18n %></p>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+      </div>
+      <!-- 全公開 -->
+      <div class="diary-tab-content scroll" id="full_open">
+        <table class="table-borderless" style="width: 100%;">
+          <% @diaries.each do |diary| %>
+            <% if diary.private_status == "full_open" %>
+              <tr>
+                <th class="pb-5" style="width: 50%;">
+                  <%= link_to diary_path(diary) do %>
+                    <% if diary.image? %>
+                      <%= image_tag diary.image.url, width: 200, height: 200, class: "square" %>
+                    <% else %>
+                      <%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
+                    <% end %>
+                  <% end %>
+                </th>
+                <td class="pb-5" style="width: 50%; text-align: left;">
+                  <h4 class="theme-color">
+                    <%= link_to diary.title, diary_path(diary), class: "theme-color" %>
+                  </h4>
+                    <p><%= diary.created_at.strftime("%Y年%-m月%-d日 %-H:%M") %></p>
+                    <% if @user == current_user %>
+                    <p><%= diary.private_status_i18n %></p>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+      </div>
     </div>
   </div>
 </div>
