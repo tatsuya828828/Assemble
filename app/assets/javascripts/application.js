@@ -46,10 +46,12 @@
 //= require popper
 //= require_tree .
 
+// topページの見出し
 $(document).on('turbolinks:load', function () {
     $('.title').slideDown(2000);
 });
 
+// admin側の問い合わせ一覧のtab-menu
 $(document).on('turbolinks:load', function(){
     $('.table-tabs tbody[id != "already_replyed"]').hide();
 
