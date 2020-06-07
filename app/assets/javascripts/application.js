@@ -46,10 +46,12 @@
 //= require popper
 //= require_tree .
 
+// topページの見出し
 $(document).on('turbolinks:load', function () {
     $('.title').slideDown(2000);
 });
 
+// admin側の問い合わせ一覧のtab-menu
 $(document).on('turbolinks:load', function(){
     $('.table-tabs tbody[id != "already_replyed"]').hide();
 
@@ -58,6 +60,19 @@ $(document).on('turbolinks:load', function(){
         $(".tab-menu .active").removeClass("active");
         $(this).addClass("active");
         $($(this).attr("href")).show();
+        return false;
+    });
+});
+
+
+$(document).on('turbolinks:load', function(){
+    $('.tab .tab-content[id != "waiting_other"]').hide();
+
+    $('.tab-menu a').on('click', function() {
+        $(".tab .tab-content").hide();
+        $(".tab-menu .active").removeClass("active");
+        $(this).addClass("active");
+        $($(this).attr("href")).slideDown(2000);
         return false;
     });
 });

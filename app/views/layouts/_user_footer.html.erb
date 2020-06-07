@@ -1,32 +1,40 @@
 <div class="containaer">
-	<div class="row no-gutters text-center" style="height: 100px; line-height: 100px;">
-		<div class="col-lg-3 footer-text">
-			<%= link_to new_contact_path do  %>
-				<div>
-					<p class="footer-color mb-0">お問い合わせ</p>
-				</div>
-			<% end %>
-		</div>
-		<div class="col-lg-3 footer-text">
-			<%= link_to root_path do  %>
-				<div>
-					<p class="footer-color mb-0">サイトポリシー</p>
-				</div>
-			<% end %>
-		</div>
-		<div class="col-lg-3 footer-text">
-			<%= link_to root_path do  %>
-				<div>
-					<p class="footer-color mb-0">このサイトについて</p>
-				</div>
-			<% end %>
-		</div>
-		<div class="col-lg-3 footer-text">
-			<%= link_to root_path do  %>
-				<div>
-					<p class="footer-color mb-0">開発者情報</p>
-				</div>
-			<% end %>
-		</div>
-	</div>
+  <div class="row no-gutters text-center" style="height: 100px; line-height: 100px;">
+    <div class="col-lg-3 footer-text">
+      <% if user_signed_in? %>
+        <%= link_to new_contact_path do  %>
+          <div>
+            <p class="footer-color mb-0">お問い合わせ</p>
+          </div>
+        <% end %>
+      <% else %>
+        <%= link_to root_path do  %>
+          <div>
+            <p class="footer-color mb-0">ヘルプ</p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-lg-3 footer-text">
+      <%= link_to root_path do  %>
+        <div>
+          <p class="footer-color mb-0">サイトポリシー</p>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-lg-3 footer-text">
+      <%= link_to root_path do  %>
+        <div>
+          <p class="footer-color mb-0">このサイトについて</p>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-lg-3 footer-text">
+      <%= link_to root_path do  %>
+        <div>
+          <p class="footer-color mb-0">開発者情報</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
