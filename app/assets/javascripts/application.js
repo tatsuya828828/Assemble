@@ -63,3 +63,16 @@ $(document).on('turbolinks:load', function(){
         return false;
     });
 });
+
+
+$(document).on('turbolinks:load', function(){
+    $('.tab .tab-content[id != "waiting_other"]').hide();
+
+    $('.tab-menu a').on('click', function() {
+        $(".tab .tab-content").hide();
+        $(".tab-menu .active").removeClass("active");
+        $(this).addClass("active");
+        $($(this).attr("href")).slideDown(2000);
+        return false;
+    });
+});

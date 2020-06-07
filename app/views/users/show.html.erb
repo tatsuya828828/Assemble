@@ -136,18 +136,19 @@
       <% if @user == current_user %>
         <div>
           <h4 class="mt-5"><i class="fas fa-running"></i>　友達申請　<i class="fas fa-running"></i></h4>
-          <div class="text-center mt-3 mb-3">
-            <h6>
-              <%= link_to "保留中", user_path, class: "link theme-color" %>
-              |
-              <%= link_to "申請中", user_path(request: "send"), class: "link theme-color" %>
-            </h6>
+          <div class="row no-gutters text-center tab-menu" style="width: 100%;">
+            <div class="col-lg-6" style="width: 50%;">
+              <a href="#waiting_other">保留中</a>
+            </div>
+            <div class="col-lg-6" style="width: 50%;">
+              <a href="#waiting_self">申請中</a>
+            </div>
           </div>
-          <% if @friend_requests.present? %>
-            <div style="overflow: auto; height: 300px;">
-              <% @friend_requests.each do |request| %>
-                <!-- 受け取った申請 -->
-                <% if request.receiver_id == current_user.id %>
+          <div class="tab">
+            <% if @other_requests.present? %>
+              <!-- 受け取った申請 -->
+              <div class="tab-content" id="waiting_other" style="overflow: auto; height: 300px;">
+                <% @other_requests.each do |request| %>
                   <div>
                     <%= link_to user_path(request.sender.id) do %>
                       <% if request.sender.image? %>
@@ -160,10 +161,10 @@
                   <br>
                   <%= request.sender.name %>
                   <br>
-                  <div class="row no-gutters" style="width: 100%;">
+                  <div class="row no-gutters mb-3" style="width: 100%;">
                     <div class="col-lg-2" style="width: 20%;">
                     </div>
-                    <%= link_to user_friend_path(user_id: current_user.id, id: request.id),method: :put, class: "btn btn-outline-success form-control col-lg-4", style:"width: 30%;" do %>
+                    <%= link_to user_friend_path(user_id: current_user.id, id: request.id),method: :put, remote: true, class: "btn btn-outline-success form-control col-lg-4", style:"width: 30%;" do %>
                       <i class="fas fa-handshake"></i>承認
                     <% end %>
                     <%= link_to user_friend_path(user_id: current_user.id, id: request.id), method: :delete, class: "btn btn-outline-danger form-control col-lg-4", style:"width: 30%;" do %>
@@ -172,9 +173,14 @@
                     <div class="col-lg-2" style="width: 20%;">
                     </div>
                   </div>
+                <% end %>
+              </div>
+            <% end %>
 
-                <!-- 送った申請 -->
-                <% else %>
+              <!-- 送った申請 -->
+            <% if @self_requests.present? %>
+              <div class="tab-content" id="waiting_self" style="overflow: auto; height: 300px;">
+                <% @self_requests.each do |request| %>
                   <div>
                     <%= link_to user_path(request.receiver.id) do %>
                       <% if request.receiver.image? %>
@@ -186,7 +192,7 @@
                   </div>
                   <%= request.receiver.name %>
                   <br>
-                  <div class="row no-gutters" style="width: 100%; margin: 0 auto;">
+                  <div class="row no-gutters mb-3" style="width: 100%; margin: 0 auto;">
                     <div class="col-lg-4" style="width: 30%;">
                     </div>
                     <%= link_to user_friend_path(user_id: current_user.id, id: request.id), method: :delete, class: "btn btn-outline-danger form-control col-lg-4" , style: "width: 40%;" do%>
@@ -194,9 +200,9 @@
                     <% end %>
                   </div>
                 <% end %>
-              <% end %>
-            </div>
-          <% end %>
+              </div>
+            <% end %>
+          </div>
         </div>
       <% end %>
     <% end %>

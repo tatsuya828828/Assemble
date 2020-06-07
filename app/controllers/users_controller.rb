@@ -35,13 +35,6 @@ class UsersController < ApplicationController
         @user_info = nil
       end
 
-
-      if params[:request].present?
-        @friend_requests = Friend.where(sender_id: current_user.id, request_status: "waiting_for_allow")
-      else
-        @friend_requests = Friend.where(receiver_id: current_user.id, request_status: "waiting_for_allow")
-      end
-
       if @user == current_user
         @diaries = Diary.where(user_id: current_user.id)
       elsif @user.friend?(current_user)
@@ -49,6 +42,9 @@ class UsersController < ApplicationController
       else
         @diaries = Diary.where(user_id: @user.id, private_status: "open").or(Diary.where(user_id: @user.id, private_status: "full_open"))
       end
+
+      @self_requests = Friend.where(sender_id: current_user.id, request_status: "waiting_for_allow")
+      @other_requests = Friend.where(receiver_id: current_user.id, request_status: "waiting_for_allow")
     else
       @diaries = Diary.where(user_id: @user.id, private_status: "open").or(Diary.where(user_id: @user.id, private_status: "full_open"))
     end
