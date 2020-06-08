@@ -1,6 +1,6 @@
 <div class="table-responsive">
   <% if user_signed_in? %>
-  <div class="row no-gutters media-bar text-center" style="font-size: 30px;">
+  <div class="row no-gutters media-bar text-center">
     <div class="media-button">
       <%= link_to user_path(current_user) do %>
       <i class="fas fa-user-alt link-footer-font"></i>
@@ -52,7 +52,10 @@
     <div class="media-button">
       <%= link_to notifications_path do %>
       <% if current_user.new_notifications.present? %>
-      <i class="fas fa-bell link-footer-font" style="color: #FFCC00;"></i>
+      <div style="position: relative;">
+        <i class="fas fa-bell link-footer-font" style="color: #FFCC00;"></i>
+        <p class="notification-count"><%= current_user.new_notifications.count %></p>
+      </div>
       <% else %>
       <i class="fas fa-bell link-footer-font"></i>
       <% end %>
@@ -75,7 +78,7 @@
     </div>
   </div>
   <% elsif admin_signed_in? %>
-  <div class="row no-gutters media-bar text-center" style="font-size: 30px;">
+  <div class="row no-gutters media-bar text-center">
     <div class="media-button">
       <%= link_to admin_contacts_path do %>
       <i class="fas fa-clipboard-list link-footer-font"></i>
