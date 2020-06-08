@@ -90,4 +90,25 @@ $(document).on('turbolinks:load', function(){
     });
 });
 
+// グループ新規登録時のIDチェック
+$(document).on('turbolinks:load', function(){
+    $(document).on('keyup', '#group-self-id', function(e){
+        e.preventDefault();
+        var input = $.trim($(this).val());
+        $.ajax({
+            url: '/groups',
+            type: 'GET',
+            data: ('keyword=' + input),
+            processData: false,
+            contentType: false,
+            dataType: 'json'
+        })
+        .done(function(data){
+            $('#result').find('p').remove();
+            $(data).show(function(){
+                $('#result').append('<p style="color: red;">' + '既に使われています' + '</p>')
+            });
+        })
+    });
+});
 

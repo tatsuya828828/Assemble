@@ -5,6 +5,10 @@ class GroupsController < ApplicationController
   def index
   	@new_group = Group.new
     @waiting_for_allows = GroupUser.where(user_id: current_user.id, join_status: "waiting_for_allow")
+    @self_id = Group.find_by(self_id: params[:keyword])
+    if params[:keyword].present?
+      render json: @self_id.as_json(only: [:self_id])
+    end
   end
 
   def create
@@ -21,7 +25,7 @@ class GroupsController < ApplicationController
     else
       @new_group = Group.new
       @request = params[:request]
-      flash.now[:alert] = "既に使われています"
+      flash.now[:alert] = "別のIDで登録して下さい"
       render action: :index
     end
   end
