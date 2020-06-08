@@ -5,8 +5,8 @@ class GroupsController < ApplicationController
   def index
   	@new_group = Group.new
     @waiting_for_allows = GroupUser.where(user_id: current_user.id, join_status: "waiting_for_allow")
-    @self_id = Group.find_by(self_id: params[:keyword])
-    if params[:keyword].present?
+    @self_id = Group.find_by(self_id: params[:group_self_id])
+    if params[:group_self_id].present?
       render json: @self_id.as_json(only: [:self_id])
     end
   end
