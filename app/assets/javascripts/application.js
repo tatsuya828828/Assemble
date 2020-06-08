@@ -104,9 +104,9 @@ $(document).on('turbolinks:load', function(){
             dataType: 'json'
         })
         .done(function(data){
-            $('#result').find('p').remove();
+            $('#group-result').find('p').remove();
             $(data).show(function(){
-                $('#result').append('<p style="color: red;">' + '既に使われています' + '</p>')
+                $('#group-result').append('<p style="color: red;">' + '既に使われています' + '</p>')
             });
         })
     });
