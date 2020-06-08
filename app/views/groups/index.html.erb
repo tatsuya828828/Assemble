@@ -34,6 +34,7 @@
 	<div class="col-lg-3 pr-1 pl-1">
 		<div>
 			<h4 class="text-center border-bottom"><i class="fas fa-child"></i><i class="fas fa-child"></i>グループ追加<i class="fas fa-child"></i><i class="fas fa-child"></i></h4>
+			<p style="color: red;"><%= alert %></p>
 			<%= form_for @new_group do |f| %>
 
 				<%= f.label :image, "グループのサムネイル" %><i class="fas fa-camera"></i>
@@ -44,8 +45,9 @@
 				<%= f.text_field :name, class: "form form-control", placeholder: "グループ名", required: true %>
 
 				<%= f.label :self_id, :グループID %>
-				<%= f.text_field :self_id, class: "form form-control", placeholder: "グループID(任意)" %>
-				<p style="color: red;"><%= alert %></p>
+				<%= f.text_field :self_id, class: "form form-control", placeholder: "グループID(任意)", id: "group-self-id" %>
+				<div id="result">
+				</div>
 				<%= f.radio_button :private_status, "closed", checked: "checked" %>
 				<%= f.label :private_status, "検索不可にする" %>
 				<br>
