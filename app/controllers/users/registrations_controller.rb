@@ -5,9 +5,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    @self_id = User.find_by(self_id: params[:user_self_id])
+    if params[:user_self_id].present?
+      render json: @self_id.as_json(only: [:self_id]) and return #そのままrenderするとDubbleRenderErrorが出るのでand returnをつける
+    end
+
+    @email = User.find_by(email: params[:user_email])
+    if params[:user_email].present?
+      render json: @email.as_json(only: [:email]) and return
+    end
+
+    super
+  end
 
   # POST /resource
   # def create
