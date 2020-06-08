@@ -432,6 +432,7 @@ video{
   .media-bar{
     width: 100%;
     height: 60px;
+    font-size: 30px;
   }
 
   .media-button{
@@ -497,6 +498,18 @@ video{
   .destroy-comment-btn{
   padding-top: 4px;
   }
+
+  .notification-count{
+    background-color: red;
+    color: #fff;
+    height: 15px;
+    width: 15px;
+    float: right;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5%;
+    right: 35%;
+  }
 }
 
 
@@ -506,6 +519,18 @@ video{
   .diary img{
     min-width: auto;
     min-height: 100%;
+  }
+
+  .notification-count{
+    background-color: red;
+    color: #fff;
+    height: 15px;
+    width: 15px;
+    float: right;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5%;
+    right: 25%;
   }
 
 }
