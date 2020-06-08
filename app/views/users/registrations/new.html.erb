@@ -24,7 +24,8 @@
 
         <div class="field">
           <%= f.label :email, "メールアドレス" %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, placeholder: "taro1@gmail.com" ,class: "form-control form" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, placeholder: "taro1@gmail.com" ,class: "form-control form", id: "user-email" %>
+          <div id="email-result"></div>
         </div>
 
         <div class="field">
@@ -34,7 +35,8 @@
 
         <div class="field">
           <%= f.label :self_id, "ログインID" %><br />
-          <%= f.text_field :self_id, autofocus: true, autocomplete: "self_id", required: true, placeholder: "taro1",class: "form-control form" %>
+          <%= f.text_field :self_id, autofocus: true, autocomplete: "self_id", required: true, placeholder: "taro1",class: "form-control form", id: "user-self-id" %>
+          <div id="user-result"></div>
         </div>
 
         <div class="field">

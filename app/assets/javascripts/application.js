@@ -98,7 +98,7 @@ $(document).on('turbolinks:load', function(){
         $.ajax({
             url: '/groups',
             type: 'GET',
-            data: ('keyword=' + input),
+            data: ('group_self_id=' + input),
             processData: false,
             contentType: false,
             dataType: 'json'
@@ -107,6 +107,50 @@ $(document).on('turbolinks:load', function(){
             $('#group-result').find('p').remove();
             $(data).show(function(){
                 $('#group-result').append('<p style="color: red;">' + '既に使われています' + '</p>')
+            });
+        })
+    });
+});
+
+// 新規登録時のself_idチェック
+$(document).on('turbolinks:load', function(){
+    $(document).on('keyup', '#user-self-id', function(e){
+        e.preventDefault();
+        var input = $.trim($(this).val());
+        $.ajax({
+            url: '/users/sign_up',
+            type: 'GET',
+            data: ('user_self_id=' + input),
+            processData: false,
+            contentType: false,
+            dataType: 'json'
+        })
+        .done(function(data){
+            $('#user-result').find('p').remove();
+            $(data).show(function(){
+                $('#user-result').append('<p style="color: red;">' + '既に使われています' + '</p>')
+            });
+        })
+    });
+});
+
+// 新規登録時のemailチェック
+$(document).on('turbolinks:load', function(){
+    $(document).on('keyup', '#user-email', function(e){
+        e.preventDefault();
+        var input = $.trim($(this).val());
+        $.ajax({
+            url: '/users/sign_up',
+            type: 'GET',
+            data: ('user_email=' + input),
+            processData: false,
+            contentType: false,
+            dataType: 'json'
+        })
+        .done(function(data){
+            $('#email-result').find('p').remove();
+            $(data).show(function(){
+                $('#email-result').append('<p style="color: red;">' + '既に使われています' + '</p>')
             });
         })
     });
