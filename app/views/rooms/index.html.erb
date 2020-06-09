@@ -68,36 +68,32 @@
 
 			<div class="scroll" id="group-chat-tab">
 				<table class="table-borderless" style="width: 100%;">
-					<% current_user.rooms.each do |room| %>
+					<% current_user.groups.each do |group| %>
 						<tr>
-							<% room_user = room.users.where.not(id: current_user.id) %>
-							<% user = room_user[0] %>
-							<% if user.present? %>
-								<th class="pb-3" style="width: 50%;">
-									<%= link_to room_path(room),  class: "theme-color", style: "background-color: black;" do %>
-										<% if user.image? %>
-											<%= image_tag user.image.url, width: 200, height: 200, class: "square" %>
-										<% else %>
-											<%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
-										<% end %>
+							<th class="pb-3" style="width: 50%;">
+								<%= link_to group_chats_path(group),  class: "theme-color", style: "background-color: black;" do %>
+									<% if group.image? %>
+										<%= image_tag group.image.url, width: 200, height: 200, class: "square" %>
+									<% else %>
+										<%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
 									<% end %>
-								</th>
+								<% end %>
+							</th>
 
-									<td style="width: 50%; text-align: left;">
-									<%= link_to room_path(room),  class: "theme-color", style: "background-color: black;" do %>
-										<h4>
-											<%= user.name %>
-											<% if current_user.new_direct_message.find_by(room_id: room.id) %>
-												<i class="fas fa-bullseye" style="color: #FFCC00;"></i>
-											<% end %>
-										</h4>
-										<% if room.direct_messages.present? %>
-											<p><%= room.direct_messages.last.content %></p>
-											<p><%= room.direct_messages.last.created_at.strftime("%-m月%-d日 %-H時%-M分") %></p>
+								<td style="width: 50%; text-align: left;">
+								<%= link_to group_chats_path(group),  class: "theme-color", style: "background-color: black;" do %>
+									<h4>
+										<%= group.name %>
+										<% if current_user.new_message.find_by(group_id: group.id) %>
+											<i class="fas fa-bullseye" style="color: #FFCC00;"></i>
 										<% end %>
+									</h4>
+									<% if group.messages.present? %>
+										<p><%= group.messages.last.content %></p>
+										<p><%= group.messages.last.created_at.strftime("%-m月%-d日 %-H時%-M分") %></p>
 									<% end %>
-								</td>
-							<% end %>
+								<% end %>
+							</td>
 						</tr>
 					<% end %>
 				</table>
