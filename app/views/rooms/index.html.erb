@@ -2,42 +2,88 @@
 	<div class="col-lg-3">
 	</div>
 	<div class="col-lg-6 font-white text-center">
-		<h4>ダイレクトメッセージ一覧</h4>
-		<div class="scroll">
-			<table class="table-borderless" style="width: 100%;">
-				<% current_user.rooms.each do |room| %>
-					<tr>
-						<% room_user = room.users.where.not(id: current_user.id) %>
-						<% user = room_user[0] %>
-						<% if user.present? %>
-							<th class="pb-3" style="width: 50%;">
-								<%= link_to room_path(room),  class: "theme-color", style: "background-color: black;" do %>
-									<% if user.image? %>
-										<%= image_tag user.image.url, width: 200, height: 200, class: "square" %>
-									<% else %>
-										<%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
-									<% end %>
-								<% end %>
-							</th>
-
-								<td style="width: 50%; text-align: left;">
-								<%= link_to room_path(room),  class: "theme-color", style: "background-color: black;" do %>
-									<h4>
-										<%= user.name %>
-										<% if current_user.new_direct_message.find_by(room_id: room.id) %>
-											<i class="fas fa-bullseye" style="color: #FFCC00;"></i>
+		<div class="message-tab-menu row no-gutters mb-3">
+			<div class="col-lg-6" style="width: 50%;">
+				<a href="#dm-tab" class="active"><h4>DM一覧</h4></a>
+			</div>
+			<div class="col-lg-6" style="width: 50%;">
+				<a href="#group-chat-tab"><h4>グループチャット</h4></a>
+			</div>
+		</div>
+		<div class="message-tab">
+			<div class="scroll" id="dm-tab">
+				<table class="table-borderless" style="width: 100%;">
+					<% current_user.rooms.each do |room| %>
+						<tr>
+							<% room_user = room.users.where.not(id: current_user.id) %>
+							<% user = room_user[0] %>
+							<% if user.present? %>
+								<th class="pb-3" style="width: 50%;">
+									<%= link_to room_path(room),  class: "theme-color", style: "background-color: black;" do %>
+										<% if user.image? %>
+											<%= image_tag user.image.url, width: 200, height: 200, class: "square" %>
+										<% else %>
+											<%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
 										<% end %>
-									</h4>
-									<% if room.direct_messages.present? %>
-										<p><%= room.direct_messages.last.content %></p>
-										<p><%= room.direct_messages.last.created_at.strftime("%-m月%-d日 %-H時%-M分") %></p>
 									<% end %>
-								<% end %>
-							</td>
-						<% end %>
-					</tr>
-				<% end %>
-			</table>
+								</th>
+
+									<td style="width: 50%; text-align: left;">
+									<%= link_to room_path(room),  class: "theme-color", style: "background-color: black;" do %>
+										<h4>
+											<%= user.name %>
+											<% if current_user.new_direct_message.find_by(room_id: room.id) %>
+												<i class="fas fa-bullseye" style="color: #FFCC00;"></i>
+											<% end %>
+										</h4>
+										<% if room.direct_messages.present? %>
+											<p><%= room.direct_messages.last.content %></p>
+											<p><%= room.direct_messages.last.created_at.strftime("%-m月%-d日 %-H時%-M分") %></p>
+										<% end %>
+									<% end %>
+								</td>
+							<% end %>
+						</tr>
+					<% end %>
+				</table>
+			</div>
+
+			<div class="scroll" id="group-chat-tab">
+				<table class="table-borderless" style="width: 100%;">
+					<% current_user.rooms.each do |room| %>
+						<tr>
+							<% room_user = room.users.where.not(id: current_user.id) %>
+							<% user = room_user[0] %>
+							<% if user.present? %>
+								<th class="pb-3" style="width: 50%;">
+									<%= link_to room_path(room),  class: "theme-color", style: "background-color: black;" do %>
+										<% if user.image? %>
+											<%= image_tag user.image.url, width: 200, height: 200, class: "square" %>
+										<% else %>
+											<%= image_tag 'NO_IMAGE.png', width: 200, height: 200, class: "square" %>
+										<% end %>
+									<% end %>
+								</th>
+
+									<td style="width: 50%; text-align: left;">
+									<%= link_to room_path(room),  class: "theme-color", style: "background-color: black;" do %>
+										<h4>
+											<%= user.name %>
+											<% if current_user.new_direct_message.find_by(room_id: room.id) %>
+												<i class="fas fa-bullseye" style="color: #FFCC00;"></i>
+											<% end %>
+										</h4>
+										<% if room.direct_messages.present? %>
+											<p><%= room.direct_messages.last.content %></p>
+											<p><%= room.direct_messages.last.created_at.strftime("%-m月%-d日 %-H時%-M分") %></p>
+										<% end %>
+									<% end %>
+								</td>
+							<% end %>
+						</tr>
+					<% end %>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>

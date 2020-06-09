@@ -32,20 +32,26 @@
       <% if @group.present? %>
       <%= link_to group_chats_path(@group) do %>
       <% if current_user.new_message.present? %>
-      <i class="fas fa-comments link-footer-font" style="color: #FFCC00;"></i>
+      <div style="position: relative;">
+        <i class="fas fa-comments link-footer-font" style="color: #FFCC00;"></i>
+        <p class="notification-count"><%= current_user.new_message.count %></p>
+      </div>
       <% else %>
       <i class="fas fa-comments link-footer-font"></i>
       <% end %>
-      <p class="link-footer-font"><small>チャット</small></p>
+      <p class="link-footer-font"><small>グループチャット</small></p>
       <% end %>
       <% else %>
       <%= link_to rooms_path do %>
-      <% if current_user.new_direct_message.present? %>
-      <i class="fas fa-comment-dots link-footer-font" style="color: #FFCC00;"></i>
+      <% if current_user.new_direct_message.present? || current_user.new_message.present? %>
+        <div style="position: relative">
+        <i class="fas fa-comment-dots link-footer-font" style="color: #FFCC00;"></i>
+        <p class="notification-count"><%= current_user.new_direct_message.count + current_user.new_message.count %></p>
+      </div>
       <% else %>
       <i class="fas fa-comment-dots link-footer-font"></i>
       <% end %>
-      <p class="link-footer-font"><small>DM一覧</small></p>
+      <p class="link-footer-font"><small>メッセージ</small></p>
       <% end %>
       <% end %>
     </div>

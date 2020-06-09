@@ -90,6 +90,18 @@ $(document).on('turbolinks:load', function(){
     });
 });
 
+// メッセージ一覧のtab-menu
+$(document).on('turbolinks:load', function(){
+    $('.message-tab .scroll[id != "dm-tab"]').hide();
+
+    $('.message-tab-menu a').on('click', function(){
+        $(".message-tab .scroll").hide();
+        $(this).addClass("active").removeClass("active");
+        $($(this).attr("href")).slideDown(1000);
+        return false;
+    });
+});
+
 // グループ新規登録時のIDチェック
 $(document).on('turbolinks:load', function(){
     $(document).on('keyup', '#group-self-id', function(e){
