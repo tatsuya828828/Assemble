@@ -59,16 +59,17 @@
 						<p class="mb-0"><%= diary_comment.comment %></p>
 					</div>
 					<div class="row no-gutters font-white mb-3">
-						<% if diary_comment.user.image? %>
-							<%= image_tag diary_comment.user.image.url, width: 25, height: 25, class: "circle" %>
-						<% else %>
-							<%= image_tag 'NO_IMAGE.png', width: 25, height: 25, class: "circle" %>
-						<% end %>
-
-						<!-- 登録していないユーザーのコメントは匿名表示にする -->
 						<% if diary_comment.user_id.present? %>
+							<% if diary_comment.user.image? %>
+								<%= image_tag diary_comment.user.image.url, width: 25, height: 25, class: "circle" %>
+							<% else %>
+								<%= image_tag 'NO_IMAGE.png', width: 25, height: 25, class: "circle" %>
+							<% end %>
+
 							<%= diary_comment.user.name %>
 						<% else %>
+							<!-- 登録していないユーザーのコメントは匿名表示にする -->
+							<%= image_tag 'NO_IMAGE.png', width: 25, height: 25, class: "circle" %>
 							<p>匿名さん</p>
 						<% end %>
 
