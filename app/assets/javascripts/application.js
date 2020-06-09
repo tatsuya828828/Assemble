@@ -72,7 +72,7 @@ $(document).on('turbolinks:load', function(){
         $(".tab .tab-content").hide();
         $(".tab-menu .active").removeClass("active");
         $(this).addClass("active");
-        $($(this).attr("href")).slideDown(2000);
+        $($(this).attr("href")).slideDown(1000);
         return false;
     });
 });
