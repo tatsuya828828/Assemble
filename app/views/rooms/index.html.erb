@@ -19,11 +19,11 @@
 				<a href="#group-chat-tab">
 					<h4>
 						グループチャット
-							<% if current_user.new_message.present? %>
-								<span class="message-count">
-									<%= current_user.new_message.count %>
-								</span>
-							<% end %>
+						<% if current_user.new_message.present? %>
+							<span class="message-count">
+								<%= current_user.new_message.count %>
+							</span>
+						<% end %>
 					</h4>
 				</a>
 			</div>
@@ -51,7 +51,9 @@
 										<h4>
 											<%= user.name %>
 											<% if current_user.new_direct_message.find_by(room_id: room.id) %>
-												<i class="fas fa-bullseye" style="color: #FFCC00;"></i>
+												<span class="message-count">
+													<%= (current_user.new_direct_message.where(room_id: room.id)).count %>
+												</span>
 											<% end %>
 										</h4>
 										<% if room.direct_messages.present? %>
@@ -85,7 +87,9 @@
 									<h4>
 										<%= group.name %>
 										<% if current_user.new_message.find_by(group_id: group.id) %>
-											<i class="fas fa-bullseye" style="color: #FFCC00;"></i>
+											<span class="message-count">
+												<%= (current_user.new_message.where(group_id: group.id)).count %>
+											</span>
 										<% end %>
 									</h4>
 									<% if group.messages.present? %>
