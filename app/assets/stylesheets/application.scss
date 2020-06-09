@@ -85,6 +85,14 @@
   border-left: 1px solid #dee2e6;;
   border-right: 1px solid #dee2e6;;
 }
+
+.message-count{
+  background-color: red;
+  color: #fff;
+  padding: 1px 4px;
+  border-radius: 50%;
+  font-size: 15px;
+}
 // ===== チャットのスクロール ===============
 .chat-scroll {
     height: 70vh;
