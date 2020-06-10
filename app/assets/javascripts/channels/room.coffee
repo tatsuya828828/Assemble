@@ -10,33 +10,19 @@ App.room = App.cable.subscriptions.create "RoomChannel",
     senderRoom = $("input[id='direct-chat']").data("room")
     if senderId == data.user_id && senderRoom == data.room_id # 上で定義したsenderIdとチャンネルで定義したdata.user_idを評価
       $('#direct_messages').append("<div class='
-      offset-lg-6
-      col-lg-6'
+      offset-lg-4
+      col-lg-8'
       style='
       text-align: right;
-      margin-bottom: 3px;'>"+"<div
-      style='border-radius:5px;
-      border: 1px solid black;
-      color: black;
-      background-color: #fff;
-      word-break:break-all;
-      padding: 3px 10px;
-      display: inline-block;
-      margin-bottom: 3px;'>"+data["content"]+"</div>"+"<br>");
+      margin-bottom: 3px;'>"+"<p style='display: inline-block; margin-right: 5px;'>"+data["time"]+"</p>"+"<div
+      class='self-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<br>");
     else if senderId != data.user_id && senderRoom == data.room_id
-          $('#direct_messages').append("<div class='
-          col-lg-6'
-          style='
-          text-align: left;
-          margin-bottom: 3px;'>"+data["user_name"]+"<br>"+"<div
-          style='border-radius:5px;
-          border: 1px solid black;
-          color: black;
-          background-color: #fff;
-          word-break:break-all;
-          padding: 3px 10px;
-          display: inline-block;
-          margin-bottom: 3px;'>"+data["content"]+"</div>"+"<br>");
+      $('#direct_messages').append("<div class='
+      col-lg-8'
+      style='
+      text-align: left;
+      margin-bottom: 3px;'>"+"<p class='mb-0' style='color: #fff;'>"+data["user_name"]+"</p>"+"<div
+      class='other-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<p style='display: inline-block; margin-left: 5px;'>"+data["time"]+"</p>"+"<br>");
 
   speak: (content) ->
     @perform 'speak', content: content

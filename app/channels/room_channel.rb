@@ -19,6 +19,6 @@ class RoomChannel < ApplicationCable::Channel
         notification.save
       end
     end
-  	ActionCable.server.broadcast 'room_channel', content: content['content'][0], user_name: @new_direct_message.user.name, user_id: @new_direct_message.user.id, room_id: @new_direct_message.room.id
+  	ActionCable.server.broadcast 'room_channel', content: content['content'][0], user_name: @new_direct_message.user.name, user_id: @new_direct_message.user.id, room_id: @new_direct_message.room.id, time: @new_direct_message.created_at.strftime("%-H:%M")
   end
 end
