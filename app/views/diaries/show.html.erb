@@ -60,13 +60,15 @@
 					</div>
 					<div class="row no-gutters font-white mb-3">
 						<% if diary_comment.user_id.present? %>
-							<% if diary_comment.user.image? %>
-								<%= image_tag diary_comment.user.image.url, width: 25, height: 25, class: "circle" %>
-							<% else %>
-								<%= image_tag 'NO_IMAGE.png', width: 25, height: 25, class: "circle" %>
+							<%= link_to user_path(diary_comment.user) do %>
+								<% if diary_comment.user.image? %>
+									<%= image_tag diary_comment.user.image.url, width: 25, height: 25, class: "circle" %>
+								<% else %>
+									<%= image_tag 'NO_IMAGE.png', width: 25, height: 25, class: "circle" %>
+								<% end %>
 							<% end %>
 
-							<%= diary_comment.user.name %>
+							<%= link_to diary_comment.user.name, user_path(diary_comment.user), class: "theme-color" %>
 						<% else %>
 							<!-- 登録していないユーザーのコメントは匿名表示にする -->
 							<%= image_tag 'NO_IMAGE.png', width: 25, height: 25, class: "circle" %>
