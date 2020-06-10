@@ -7,10 +7,13 @@
   <% if @group.present? %>
     <%= link_to group_path(@group) do %>
       <% if @group.image? %>
-        <%= image_tag @group.image.url, width: 55, height:55, class: "circle navbar-brand mr-5" %>
+        <%= image_tag @group.image.url, width: 55, height:55, class: "circle navbar-brand" %>
       <% else %>
-        <%= image_tag "NO_IMAGE.png", width: 55, height:55, class: "circle navbar-brand mr-5" %>
+        <%= image_tag "NO_IMAGE.png", width: 55, height:55, class: "circle navbar-brand" %>
       <% end %>
+      <%= link_to group_path(@group), class: "theme-color" do %>
+      <div class="navbar-brand" style="color: #fff;"><i class="fas fa-door-open"></i><%= @group.name %></div>
+    <% end %>
     <% end %>
   <% else %>
     <%= link_to 'OurSpace', root_path,
