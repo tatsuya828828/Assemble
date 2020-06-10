@@ -1,32 +1,17 @@
 <% @messages.last(100).each do |message| %>
 	<div class="row pr-3 pl-3">
 		<% if message.user.id == current_user.id %>
-			<div class="offset-lg-6 col-lg-6" style="text-align: right; margin-bottom: 3px;">
-				<div  class="font-white" style="
-					color: black;
-					background-color: #fff;
-					border-radius: 5px;
-					border: black 1px solid;
-					word-break:break-all;
-					padding: 3px 10px;
-					display: inline-block;
-					text-align: left;">
-					<%= message.content %>
+			<div class="offset-lg-6 col-lg-6" style="text-align: right; margin-bottom: 3px; width: 100%;">
+				<div  class="font-white self-message">
+					<p class="mb-0"><%= message.content %></p>
 				</div>
 			</div>
 		<% else %>
 			<div class="col-lg-6" style="text-align: left; margin-bottom: 3px;">
-				<%= message.user.name %>
+				<p class="mb-0" style="color: #fff;"><%= message.user.name %>
 				<br>
-				<div  class="font-white" style="
-					color: black;
-					background-color: #fff;
-					border-radius: 5px;
-					border: black 1px solid;
-					word-break:break-all;
-					padding: 3px 10px;
-					display: inline-block;">
-					<%= message.content %>
+				<div  class="font-white other-message" style="background-color: #FF4F02; color: #fff;">
+					<p class="mb-0"><%= message.content %></p>
 				</div>
 			</div>
 			<div class="col-lg-6">

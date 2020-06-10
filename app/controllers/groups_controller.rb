@@ -86,6 +86,7 @@ class GroupsController < ApplicationController
 
   def chats
     @group = Group.find(params[:group_id])
+    @back = "chat-room"
     if @group.users.find_by(id: current_user.id).nil?
       redirect_back(fallback_location: root_path)
     end
