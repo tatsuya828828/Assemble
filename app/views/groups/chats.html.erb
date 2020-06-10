@@ -2,9 +2,6 @@
 	<div class="col-lg-3">
 	</div>
 	<div class="col-lg-6">
-		<%= link_to group_path(@group), class: "theme-color" do %>
-			<h4 style="color: #fff;"><i class="fas fa-door-open"></i><%= @group.name %></h4>
-		<% end %>
 		<div class="chat-scroll">
 
 				<%= render "message", collection: @messages %>
@@ -13,14 +10,14 @@
 		</div>
 	</div>
 </div>
-<div class="row no-gutters">
+<div class="row no-gutters message-form">
 	<div class="offset-lg-3 col-lg-6">
 		<div class="row no-gutters" style="width: 100%;">
 			<div class="col-lg-9" style="padding: 1px; width: 80%;">
-				<input class="form form-control" id="chat" type="text" data-behavior="group_speaker" data-user="<%= current_user.id %>" data-group="<%= @group.id %>" required="required">
+				<input class="form-control" id="chat" type="text" data-behavior="group_speaker" data-user="<%= current_user.id %>" data-group="<%= @group.id %>" required="required">
 			</div>
 			<div class="col-lg-3" style="padding: 1px; width: 20%;">
-				<button id="submit" class="btn btn-outline-success form-control" type="button">投稿</button>
+				<button id="submit" class="btn btn-success form-control" type="button">投稿</button>
 			</div>
 		</div>
 	</div>

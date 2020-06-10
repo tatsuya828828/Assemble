@@ -15,28 +15,14 @@ App.group = App.cable.subscriptions.create "GroupChannel",
           style='
           text-align: right;
           margin-bottom: 3px;'>"+"<div
-          style='border-radius:5px;
-          border: 1px solid black;
-          color: black;
-          background-color: #fff;
-          word-break:break-all;
-          padding: 3px 10px;
-          display: inline-block;
-          margin-bottom: 3px;'>"+data["content"]+"</div>"+"<br>");
+          class='self-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<br>");
         else if senderId != data.user_id && senderGroup == data.group_id
           $('#messages').append("<div class='
           col-lg-6'
           style='
           text-align: left;
-          margin-bottom: 3px;'>"+data["user_name"]+"<br>"+"<div
-          style='border-radius:5px;
-          border: 1px solid black;
-          color: black;
-          background-color: #fff;
-          word-break:break-all;
-          padding: 3px 10px;
-          display: inline-block;
-          margin-bottom: 3px;'>"+data["content"]+"</div>"+"<br>");
+          margin-bottom: 3px;'>"+"<p class='mb-0' style='color: #fff;'>"+data["user_name"]+"</p>"+"<div
+          class='other-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<br>");
 
   speak: (content) ->
     @perform 'speak', content: content
