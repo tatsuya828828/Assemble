@@ -2,13 +2,14 @@ class RoomsController < ApplicationController
 
   def show
   	@room = Room.find(params[:id])
+    @back = "chat-room"
 
     unconfirmeds = Notification.where(room_id: @room.id, confirmer_id: current_user.id, confirm_status: "unconfirmed")
     if unconfirmeds.present?
       unconfirmeds.update_all(confirm_status: "confirmed")
     end
   	user = @room.users.where.not(id: current_user.id)
-  	@user = user[0]
+  	@dm_user = user[0]
   	@direct_messages = @room.direct_messages
   end
 

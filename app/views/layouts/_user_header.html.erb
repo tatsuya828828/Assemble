@@ -7,13 +7,22 @@
   <% if @group.present? %>
     <%= link_to group_path(@group) do %>
       <% if @group.image? %>
-        <%= image_tag @group.image.url, width: 55, height:55, class: "circle navbar-brand" %>
+        <%= image_tag @group.image.url, width: 55, height:55, class: "circle navbar-brand header-color" %>
       <% else %>
-        <%= image_tag "NO_IMAGE.png", width: 55, height:55, class: "circle navbar-brand" %>
+        <%= image_tag "NO_IMAGE.png", width: 55, height:55, class: "circle navbar-brand header-color" %>
       <% end %>
-      <%= link_to group_path(@group), class: "theme-color" do %>
-      <div class="navbar-brand" style="color: #fff; font-size: 15px;"><i class="fas fa-door-open"></i><%= @group.name %></div>
+      <%= link_to group_path(@group), class: "header-color" do %>
+        <div class="navbar-brand" style="font-size: 15px;"><i class="fas fa-door-open"></i><%= @group.name %></div>
+      <% end %>
     <% end %>
+  <% elsif @dm_user.present? %>
+    <%= link_to user_path(@dm_user) do %>
+      <% if @dm_user.image? %>
+        <%= image_tag @dm_user.image.url, width: 55, height:55, class: "circle navbar-brand header-color" %>
+      <% else %>
+        <%= image_tag "NO_IMAGE.png", width: 55, height:55, class: "circle navbar-brand header-color" %>
+      <% end %>
+      <div class="navbar-brand header-color"><%= link_to @dm_user.name, user_path(@dm_user),class: "header-color", style: "font-size: 15px;" %></div>
     <% end %>
   <% else %>
     <%= link_to 'OurSpace', root_path,
