@@ -1,33 +1,19 @@
 <% @messages.last(100).each do |message| %>
 	<div class="row pr-3 pl-3">
 		<% if message.user.id == current_user.id %>
-			<div class="offset-lg-6 col-lg-6" style="text-align: right; margin-bottom: 3px;">
-				<div  class="font-white" style="
-					color: black;
-					background-color: #fff;
-					border-radius: 5px;
-					border: black 1px solid;
-					word-break:break-all;
-					padding: 3px 10px;
-					display: inline-block;
-					text-align: left;">
-					<%= message.content %>
+			<div class="offset-lg-4 col-lg-8" style="text-align: right; margin-bottom: 3px;">
+				<p style="display: inline-block;"><%= message.created_at.strftime("%-H:%M") %></p>
+				<div class="self-message">
+					<p class="mb-0"><%= message.content %></p>
 				</div>
 			</div>
 		<% else %>
-			<div class="col-lg-6" style="text-align: left; margin-bottom: 3px;">
-				<%= message.user.name %>
-				<br>
-				<div  class="font-white" style="
-					color: black;
-					background-color: #fff;
-					border-radius: 5px;
-					border: black 1px solid;
-					word-break:break-all;
-					padding: 3px 10px;
-					display: inline-block;">
-					<%= message.content %>
+			<div class="col-lg-8" style="text-align: left; margin-bottom: 3px;">
+				<p class="mb-0" style="color: #fff;"><%= message.user.name %></p>
+				<div class="other-message">
+					<p class="mb-0"><%= message.content %></p>
 				</div>
+				<p style="display: inline-block;"><%= message.created_at.strftime("%-H:%M") %></p>
 			</div>
 			<div class="col-lg-6">
 			</div>
