@@ -10,19 +10,19 @@ App.group = App.cable.subscriptions.create "GroupChannel",
         senderGroup = $("input[id='chat']").data("group")
         if senderId == data.user_id && senderGroup == data.group_id # 上で定義したsenderIdとチャンネルで定義したdata.user_idを評価
           $('#messages').append("<div class='
-          offset-lg-6
-          col-lg-6'
+          offset-lg-4
+          col-lg-8'
           style='
           text-align: right;
-          margin-bottom: 3px;'>"+"<div
+          margin-bottom: 3px;'>"+"<p style='display: inline-block; margin-right: 5px'>"+data["time"]+"</p>"+"<div
           class='self-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<br>");
         else if senderId != data.user_id && senderGroup == data.group_id
           $('#messages').append("<div class='
-          col-lg-6'
+          col-lg-8'
           style='
           text-align: left;
           margin-bottom: 3px;'>"+"<p class='mb-0' style='color: #fff;'>"+data["user_name"]+"</p>"+"<div
-          class='other-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<br>");
+          class='other-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<p style='display: inline-block; margin-left: 5px;'> "+data["time"]+"</p>"+"<br>");
 
   speak: (content) ->
     @perform 'speak', content: content

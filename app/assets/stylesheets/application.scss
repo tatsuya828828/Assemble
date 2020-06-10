@@ -103,6 +103,7 @@
   padding: 3px 10px;
   display: inline-block;
   text-align: left;
+  max-width: 90%;
 }
 
 .other-message{
@@ -112,6 +113,7 @@
   word-break:break-all;
   padding: 3px 10px;
   display: inline-block;
+  max-width: 90%;
 }
 
 .chat-room{
@@ -396,11 +398,11 @@ video{
 @media (max-width: 991px) {
   // ===== チャットのメッセージ ===============
   .self-message{
-    max-width: 50%;
+    max-width: 80%;
   }
 
   .other-message{
-    max-width: 50%;
+    max-width: 80%;
   }
   // =======================================
 }
@@ -492,6 +494,7 @@ video{
      width: 100%;
      margin-bottom: 60px;
   }
+  // ====================================================
 
   .main-image{
     background-position: 50% 100vh;

@@ -19,6 +19,6 @@ class GroupChannel < ApplicationCable::Channel
         notification.save
       end
     end
-  	ActionCable.server.broadcast 'group_channel', content: content['content'][0], user_name: @new_message.user.name, user_id: @new_message.user.id, group_id: @new_message.group.id
+  	ActionCable.server.broadcast 'group_channel', content: content['content'][0], user_name: @new_message.user.name, user_id: @new_message.user.id, group_id: @new_message.group.id, time: @new_message.created_at.strftime("%-H:%M")
   end
 end
