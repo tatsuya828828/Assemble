@@ -239,7 +239,7 @@
       <!-- 全表示 -->
       <div class="diary-tab-content scroll" id="all">
         <table class="table-borderless" style="width: 100%;">
-          <% @diaries.each do |diary| %>
+          <% @diaries.reverse_each do |diary| %>
             <tr>
               <th class="pb-5" style="width: 50%;">
                 <%= link_to diary_path(diary) do %>
