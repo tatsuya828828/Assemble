@@ -4,5 +4,7 @@ class DirectMessage < ApplicationRecord
 
   #===== DMの通知 ===================================
   has_many :notifications, dependent: :destroy
-  #===================================================
+  #=================================================
+
+  validates :content, presence: true
 end
