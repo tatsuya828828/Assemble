@@ -9,20 +9,22 @@ App.group = App.cable.subscriptions.create "GroupChannel",
         senderId = $("input[id='chat']").data("user") # idがchatのinputタグのdata属性がユーザーの情報をsenderIdとして定義
         senderGroup = $("input[id='chat']").data("group")
         if senderId == data.user_id && senderGroup == data.group_id # 上で定義したsenderIdとチャンネルで定義したdata.user_idを評価
-          $('#messages').append("<div class='
+          $('#messages').append("<div class='row no-gutters pl-1 pr-1 pb-2'>
+          <div class='
           offset-lg-4
           col-lg-8'
           style='
           text-align: right;
           margin-bottom: 3px;'>"+"<p style='display: inline-block; margin-right: 5px'>"+data["time"]+"</p>"+"<div
-          class='self-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<br>");
+          class='self-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<br></div>");
         else if senderId != data.user_id && senderGroup == data.group_id
-          $('#messages').append("<div class='
+          $('#messages').append("<div class='row no-gutters pl-1 pr-1 pb-2'>
+          <div class='
           col-lg-8'
           style='
           text-align: left;
           margin-bottom: 3px;'>"+"<p class='mb-0' style='color: #fff;'>"+data["user_name"]+"</p>"+"<div
-          class='other-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<p style='display: inline-block; margin-left: 5px;'> "+data["time"]+"</p>"+"<br>");
+          class='other-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<p style='display: inline-block; margin-left: 5px;'> "+data["time"]+"</p>"+"<br></div>");
 
   speak: (content) ->
     @perform 'speak', content: content

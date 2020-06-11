@@ -1,5 +1,5 @@
 <% @direct_messages.last(100).each do |direct_message| %>
-	<div class="row pr-3 pl-3">
+	<div class="row no-gutters pl-1 pr-1 pb-2">
 		<% if direct_message.user.id == current_user.id %>
 			<div class="offset-lg-4 col-lg-8" style="text-align: right; margin-bottom: 3px;">
 				<p style="display: inline-block;"><%= direct_message.created_at.strftime("%-H:%M") %></p>
@@ -13,7 +13,7 @@
 				<div class="other-message">
 					<p class="mb-0"><%= direct_message.content %></p>
 				</div>
-				<p style="display: inline-block;"><%= direct_message.created_at.strftime("%-H:%M") %></p>
+				<p class="mb-0" style="display: inline-block;"><%= direct_message.created_at.strftime("%-H:%M") %></p>
 			</div>
 			<div class="col-lg-4">
 			</div>

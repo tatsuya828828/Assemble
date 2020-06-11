@@ -9,20 +9,22 @@ App.room = App.cable.subscriptions.create "RoomChannel",
     senderId = $("input[id='direct-chat']").data("user") # idがchatのinputタグのdata属性がユーザーの情報をsenderIdとして定義
     senderRoom = $("input[id='direct-chat']").data("room")
     if senderId == data.user_id && senderRoom == data.room_id # 上で定義したsenderIdとチャンネルで定義したdata.user_idを評価
-      $('#direct_messages').append("<div class='
+      $('#direct_messages').append("<div class='row no-gutters pl-1 pr-1 pb-2'>
+      <div class='
       offset-lg-4
       col-lg-8'
       style='
       text-align: right;
       margin-bottom: 3px;'>"+"<p style='display: inline-block; margin-right: 5px;'>"+data["time"]+"</p>"+"<div
-      class='self-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<br>");
+      class='self-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<br></div>");
     else if senderId != data.user_id && senderRoom == data.room_id
-      $('#direct_messages').append("<div class='
+      $('#direct_messages').append("<div class='row no-gutters pl-1 pr-1 pb-2'>
+      <div class='
       col-lg-8'
       style='
       text-align: left;
       margin-bottom: 3px;'>"+"<p class='mb-0' style='color: #fff;'>"+data["user_name"]+"</p>"+"<div
-      class='other-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<p style='display: inline-block; margin-left: 5px;'>"+data["time"]+"</p>"+"<br>");
+      class='other-message'>"+"<p class='mb-0'>"+data["content"]+"</p>"+"</div>"+"<p style='display: inline-block; margin-left: 5px;'>"+data["time"]+"</p>"+"<br></div>");
 
   speak: (content) ->
     @perform 'speak', content: content
