@@ -51,6 +51,11 @@ $(document).on('turbolinks:load', function () {
     $('.title').slideDown(2000);
 });
 
+// 一部のページで横のスペースを削除
+$(document).on('turbolinks:load', function() {
+    $("#side-delete").parent().removeClass("side-space")
+});
+
 // admin側の問い合わせ一覧のtab-menu
 $(document).on('turbolinks:load', function(){
     $('.table-tabs tbody[id != "already_replyed"]').hide();
