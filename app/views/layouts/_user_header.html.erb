@@ -12,7 +12,7 @@
         <%= image_tag "NO_IMAGE.png", width: 55, height:55, class: "circle navbar-brand header-color" %>
       <% end %>
       <%= link_to group_path(@group), class: "header-color" do %>
-        <div class="navbar-brand" style="font-size: 15px;"><i class="fas fa-door-open"></i><%= @group.name %></div>
+        <div class="navbar-brand" style="font-size: 10px;"><i class="fas fa-door-open"></i><%= @group.name %></div>
       <% end %>
     <% end %>
   <% elsif @dm_user.present? %>
