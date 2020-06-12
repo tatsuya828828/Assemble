@@ -139,12 +139,12 @@ body {
 }
 
 .message-form{
-     position: absolute;
-     margin-bottom: 120px;
-     bottom: 0;
-     right: 0;
-     width: 100%;
-  }
+  position: absolute;
+  margin-bottom: 120px;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+}
 // =======================================
 
 
@@ -391,7 +391,7 @@ video{
   }
   .main-content{
     background-color: rgba(255,255,255,0.5);
-    height: 800px;
+    min-height: 80vh;
   }
 
   // ===== チャットのスクロール ===============
