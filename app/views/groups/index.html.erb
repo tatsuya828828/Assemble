@@ -2,33 +2,34 @@
 	<div class="col-lg-9 pr-1 pl-1">
 		<h4 class="text-center border-bottom"><i class="fas fa-door-closed"></i>参加グループ</h4>
 		<div class="row no-gutters scroll">
-			<% current_user.group_users.each do |group_user| %>
-				<% if group_user.join_status == "joined" %>
-					<div class="col-lg-4 mb-1" style="text-align: center;">
-						<%= link_to group_path(group_user.group_id) do %>
-							<% if group_user.group.image? %>
-								<%= image_tag group_user.group.image.url, width: 200, height: 200, class: "circle" %>
-							<% else %>
-								<%= image_tag "NO_IMAGE.png", width: 200, height: 200, class: "circle" %>
+			<table class="table-borderless group-table">
+				<% current_user.group_users.each do |group_user| %>
+					<% if group_user.join_status == "joined" %>
+						<tr>
+							<th class="pb-2 group-table-head">
+								<%= link_to group_path(group_user.group_id) do %>
+								<% if group_user.group.image? %>
+									<%= image_tag group_user.group.image.url, width: 200, height: 200, class: "circle" %>
+								<% else %>
+									<%= image_tag "NO_IMAGE.png", width: 200, height: 200, class: "circle" %>
+								<% end %>
 							<% end %>
-						<% end %>
-						<br>
-						<%= link_to group_user.group.name, group_path(group_user.group_id), class: "theme-color" %>
-						<% if (group_user.group.group_notification.where(confirmer_id: current_user.id)).present? %>
-							<i class="fas fa-bullseye" style="color: #FFCC00;"></i>
-						<% end %>
-						<br>
-						<!-- リーダーのidと一致するグループ内ユーザーを探してnameを表示 -->
-						<% leader = group_user.group.users.find_by(id: group_user.group.leader) %>
-						<%= link_to leader.name, user_path(leader.id), class: "link theme-color" %>
-
-						<!-- グループ内にメモが存在すれば最新のものを表示 -->
-						<% if group_user.group.memos.present? %>
-							最新のメモ:<%= group_user.group.memos.last.body %>
-						<% end %>
-					</div>
+							</th>
+							<td class="pb-5 group-table-data" style="text-align: left;">
+								<h4><%= link_to group_user.group.name, group_path(group_user.group_id), class: "theme-color" %>
+									<% if (group_user.group.group_notification.where(confirmer_id: current_user.id)).present? %>
+										<i class="fas fa-bullseye" style="color: #FFCC00;"></i>
+									<% end %>
+								</h4>
+								<!-- グループ内にメモが存在すれば最新のものを表示 -->
+								<% if group_user.group.memos.present? %>
+									<p>最新のメモ:<%= group_user.group.memos.last.body %></p>
+								<% end %>
+							</td>
+						</tr>
+					<% end %>
 				<% end %>
-			<% end %>
+			</table>
 		</div>
 	</div>
 	<div class="col-lg-3 pr-1 pl-1">

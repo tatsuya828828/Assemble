@@ -94,6 +94,20 @@
   font-size: 15px;
 }
 
+// ===== グループのテーブル =================
+.group-table{
+  width: 100%;
+}
+.group-table-head{
+  width: 30%;
+}
+.group-table-data{
+  width: 70%;
+  padding-top: 5%;
+}
+// =======================================
+
+
 // ===== チャットのメッセージ ===============
 .self-message{
   color: black;

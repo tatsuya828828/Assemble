@@ -13,7 +13,7 @@
 				<% @diaries.reverse_each do |diary| %>
 					<tr>
 						<th class="pb-5" style="width: 50%;">
-							<%= link_to diary_path(group_id: @group, id: diary) do %>
+							<%= link_to diary_path(diary) do %>
 								<% if diary.image? %>
 									<%= image_tag diary.image.url, width: 200, height: 200, class: "square" %>
 								<% else %>
@@ -23,7 +23,7 @@
 						</th>
 						<td class="pb-5" style="width: 50%; text-align: left;">
 							<h4 class="theme-color">
-								<%= link_to diary.title, diary_path(group_id: diary.group_id, id: diary.id), class: "theme-color" %>
+								<%= link_to diary.title, diary_path(diary), class: "theme-color" %>
 							</h4>
 							<p>投稿者:<%= link_to diary.user.name, user_path(id: diary.user.id), class: "theme-color" %></p>
 							<p><%= diary.created_at.strftime("%Y年%m月%d日 %H時%M分") %></p>

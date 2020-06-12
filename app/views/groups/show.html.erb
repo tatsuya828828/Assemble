@@ -124,21 +124,28 @@
 		<h4 class="font-white mb-3"><i class="fas fa-hand-point-down"></i>　新着日記　<i class="fas fa-hand-point-down"></i></h4>
 		<% if @diaries.present? %>
 			<div  class="scroll">
-				<% @diaries.last(10).reverse_each do |diary| %>
-					<div class="mb-3">
-						<%= link_to diary_path(diary), class: "theme-color" do %>
-							<% if diary.image? %>
-								<%= image_tag diary.image.url, width: 150, height: 150, class: "square" %>
-							<% else %>
-								<%= image_tag "NO_IMAGE.png", width: 150, height: 150, class: "square" %>
-							<% end %>
-							<br>
-							<h4 class="mb-0 pb-0"><%= diary.title %></h4>
-						<% end %>
-						<%= link_to diary.user.name, user_path(diary.user), class: "theme-color" %>
-						<br>
-					</div>
-				<% end %>
+				<table class="table-borderless" style="width: 100%;">
+					<% @diaries.last(10).reverse_each do |diary| %>
+						<tr>
+							<th class="pb-5" style="width: 50%;">
+								<%= link_to diary_path(diary) do %>
+									<% if diary.image? %>
+										<%= image_tag diary.image.url, width: 150, height: 150, class: "square" %>
+									<% else %>
+										<%= image_tag 'NO_IMAGE.png', width: 150, height: 150, class: "square" %>
+									<% end %>
+								<% end %>
+							</th>
+							<td class="pb-5" style="width: 50%; text-align: left;">
+								<h4 class="theme-color">
+									<%= link_to diary.title, diary_path(diary), class: "theme-color" %>
+								</h4>
+								<p>投稿者:<%= link_to diary.user.name, user_path(id: diary.user.id), class: "theme-color" %></p>
+								<p><%= diary.created_at.strftime("%Y年%-m月%d日 %-H時%M分") %></p>
+							</td>
+						</tr>
+					<% end %>
+				</table>
 			</div>
 		<% else %>
 			<p class="font-white">まだ投稿はありません</p>
