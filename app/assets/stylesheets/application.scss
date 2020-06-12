@@ -38,6 +38,11 @@
   font-family: "Yu Gothic", "游ゴシック", YuGothic, "游ゴシック体";
 }
 
+body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
 
 .title{
   display: none;
@@ -132,6 +137,14 @@
 .chat-room{
   background-color: #666666!important;
 }
+
+.message-form{
+     position: absolute;
+     margin-bottom: 120px;
+     bottom: 0;
+     right: 0;
+     width: 100%;
+  }
 // =======================================
 
 
