@@ -127,7 +127,7 @@
 				<table class="table-borderless" style="width: 100%;">
 					<% @diaries.last(10).reverse_each do |diary| %>
 						<tr>
-							<th class="pb-5" style="width: 50%;">
+							<th class="pb-2" style="width: 50%;">
 								<%= link_to diary_path(diary) do %>
 									<% if diary.image? %>
 										<%= image_tag diary.image.url, width: 150, height: 150, class: "square" %>
@@ -136,7 +136,7 @@
 									<% end %>
 								<% end %>
 							</th>
-							<td class="pb-5" style="width: 50%; text-align: left;">
+							<td class="pb-2" style="width: 50%; text-align: left;">
 								<h4 class="theme-color">
 									<%= link_to diary.title, diary_path(diary), class: "theme-color" %>
 								</h4>

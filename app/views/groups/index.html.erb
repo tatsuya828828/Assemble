@@ -8,14 +8,14 @@
 						<tr>
 							<th class="pb-2 group-table-head">
 								<%= link_to group_path(group_user.group_id) do %>
-								<% if group_user.group.image? %>
-									<%= image_tag group_user.group.image.url, width: 200, height: 200, class: "circle" %>
-								<% else %>
-									<%= image_tag "NO_IMAGE.png", width: 200, height: 200, class: "circle" %>
+									<% if group_user.group.image? %>
+										<%= image_tag group_user.group.image.url, width: 200, height: 200, class: "circle" %>
+									<% else %>
+										<%= image_tag "NO_IMAGE.png", width: 200, height: 200, class: "circle" %>
+									<% end %>
 								<% end %>
-							<% end %>
 							</th>
-							<td class="pb-5 group-table-data" style="text-align: left;">
+							<td class="pl-3 pb-2 group-table-data" style="text-align: left;">
 								<h4><%= link_to group_user.group.name, group_path(group_user.group_id), class: "theme-color" %>
 									<% if (group_user.group.group_notification.where(confirmer_id: current_user.id)).present? %>
 										<i class="fas fa-bullseye" style="color: #FFCC00;"></i>
