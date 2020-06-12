@@ -141,7 +141,7 @@
 									<%= link_to diary.title, diary_path(diary), class: "theme-color" %>
 								</h4>
 								<p>投稿者:<%= link_to diary.user.name, user_path(id: diary.user.id), class: "theme-color" %></p>
-								<p><%= diary.created_at.strftime("%Y年%-m月%d日 %-H時%M分") %></p>
+								<p><small><%= diary.created_at.strftime("%Y年%-m月%d日 %-H時%M分") %></small></p>
 							</td>
 						</tr>
 					<% end %>
