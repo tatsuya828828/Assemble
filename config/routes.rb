@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   root 'home#top'
 
   get '/about', to: 'home#about', as: 'about'
+  get '/help',  to: 'home#help',  as: 'help'
 
   #===== ユーザーとその友達 ===============================
   resources :users, only: [:show, :edit, :update, :destroy] do
