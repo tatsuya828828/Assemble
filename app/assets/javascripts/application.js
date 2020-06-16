@@ -56,15 +56,27 @@ $(document).on('turbolinks:load', function() {
     $("#side-delete").parent().removeClass("side-space")
 });
 
+
+// グループ新規作成のプルダウン
+$(document).on('turbolinks:load', function() {
+    $('#new-group-tab #tab-content').hide();
+
+    $('#new-group-tab h4').on('click', function() {
+        $('#new-group-tab #tab-content').slideDown(1000);
+        return false;
+    });
+});
+
+
 // admin側の問い合わせ一覧のtab-menu
-$(document).on('turbolinks:load', function(){
+$(document).on('turbolinks:load', function() {
     $('.table-tabs tbody[id != "already_replyed"]').hide();
 
     $('.tab-menu a').on('click', function() {
         $(".table-tabs tbody").hide();
         $(".tab-menu .active").removeClass("active");
         $(this).addClass("active");
-        $($(this).attr("href")).show();
+        $($(this).attr("href")).slideDown(1000);
         return false;
     });
 });
