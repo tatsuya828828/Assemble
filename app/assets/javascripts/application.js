@@ -56,7 +56,6 @@ $(document).on('turbolinks:load', function() {
     $("#side-delete").parent().removeClass("side-space")
 });
 
-
 // グループ新規作成のプルダウン
 $(document).on('turbolinks:load', function() {
     $('#new-group-tab #tab-content').hide();
